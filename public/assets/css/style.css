@@ -1,3 +1,8 @@
+.button2{
+ background-color: #704264 !important;
+ border-radius: 50% !important;
+}
+
 @-webkit-keyframes flash {
   0% {
     opacity: 1;
