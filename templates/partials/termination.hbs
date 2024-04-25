@@ -1,0 +1,90 @@
+<div id="terminationletter" class="handleForm">
+    <div class="handleForm-top">
+        <span class="title">Generate Termination Letter</span>
+        <i class="ri-close-fill" id="terminationletterClose"></i>
+    </div>
+    <form class="form add-card" id="formData" onsubmit="generateOfferLetter(event)">
+        <div style="display: flex; gap: 10px">
+            <div class="group">
+                <input type="text" id="user_name" name="user_name" value="{{user_name}}" {{#ifEquals
+                    userGroup 'user' }} readonly {{/ifEquals}} />
+                <label for="name">Name</label>
+            </div>
+
+        </div>
+
+        <button type="submit" class="form-button">Submit</button>
+    </form>
+</div>
+
+<script>
+    // JavaScript to handle click events
+    document.querySelectorAll('.terminationForletter').forEach(function (element) {
+        element.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default action of the anchor tag
+            document.querySelector('#terminationletter').style.display = 'block'; // Show applyLoan element
+        });
+    });
+
+    document.querySelector('#terminationletterClose').addEventListener('click', function () {
+        document.querySelector('#terminationletter').style.display = 'none'; // Hide applyLoan element
+    });
+
+</script>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function generateOfferLetter(event) {
+        event.preventDefault();
+
+        const userName = document.getElementById('user_name').value.trim();
+
+        if (!userName) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill Name!',
+            });
+            return;
+        }
+
+        // Load the Word template
+        const templatePath = 'termination.docx'; // Replace with the correct path
+        fetch(templatePath)
+            .then(response => response.blob())
+            .then(templateBlob => {
+                // Read the Word template as text
+                const reader = new FileReader();
+                reader.onload = function () {
+                    const templateText = reader.result;
+
+                    // Replace placeholders with data
+                    const replacedText = templateText.replace(/\${userName}/g, userName);
+
+                    // Convert the modified text back to a Blob
+                    const modifiedBlob = new Blob([replacedText], { type: 'application/msword' });
+
+                    // Display the generated offer letter in a new window
+                    const printWindow = window.open('', '_blank');
+                    const url = URL.createObjectURL(modifiedBlob);
+                    printWindow.location.href = url;
+                };
+                reader.readAsText(templateBlob);
+            });
+    }
+</script>
+<style>
+    @media(min-width:768px) {
+        #terminationletter {
+            display: none;
+        }
+    }
+    @media(max-width:767px) {
+        #terminationletter {
+            display: none;
+        }
+    }
+</style>

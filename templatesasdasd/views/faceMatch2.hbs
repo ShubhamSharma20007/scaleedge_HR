@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Face Recognition</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <input type="file" id="fileInput1">
+    <img id="imagePreview1" src="#" alt="Image 1 Preview" style="width: 300px; height:300px">
+    <input type="file" id="fileInput2" accept="image/*" capture="camera">
+    <img id="imagePreview2" src="#" alt="Image 2 Preview" style="width: 300px; height:300px">
+    <button id="recognizeFacesButton">Recognize Faces</button>
+    <div id="result"></div>
+
+    <script>
+        $(document).ready(function () {
+            function convertToGrayscale(imageData) {
+                var grayscaleData = [];
+                for (var i = 0; i < imageData.data.length; i += 4) {
+                    var avg = (imageData.data[i] + imageData.data[i + 1] + imageData.data[i + 2]) / 3;
+                    grayscaleData.push(avg);
+                }
+                return grayscaleData;
+            }
+
+            function calculateNormalizedCrossCorrelation(imageData1, imageData2) {
+                var sum1 = 0;
+                var sum2 = 0;
+                var sum3 = 0;
+                for (var i = 0; i < imageData1.length; i++) {
+                    sum1 += imageData1[i];
+                    sum2 += imageData2[i];
+                    sum3 += imageData1[i] * imageData2[i];
+                }
+                var mean1 = sum1 / imageData1.length;
+                var mean2 = sum2 / imageData2.length;
+                var numerator = sum3 - (imageData1.length * mean1 * mean2);
+
+                var sumSqr1 = 0;
+                var sumSqr2 = 0;
+                for (var j = 0; j < imageData1.length; j++) {
+                    sumSqr1 += Math.pow(imageData1[j] - mean1, 2);
+                    sumSqr2 += Math.pow(imageData2[j] - mean2, 2);
+                }
+                var denominator = Math.sqrt(sumSqr1 * sumSqr2);
+
+                return numerator / denominator;
+            }
+            $.get("takeImage", function (data) {
+                if (data.imagePath) {
+                    console.log(data.imagePath, 123456);
+                    $('#imagePreview1').attr('src', '/profile/' + data.imagePath);
+                    $('#fileInput1').val('/profile/' + data.imagePath);
+                }
+            });
+
+
+
+            // Image 2 preview
+            $('#fileInput2').change(function (e) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imagePreview2').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(this.files[0]);
+            });
+
+            // Recognize faces button click event
+            $('#recognizeFacesButton').click(function () {
+                var imageSrc1 = $('#imagePreview1').attr('src');
+                var imageSrc2 = $('#imagePreview2').attr('src');
+                if (imageSrc1 && imageSrc2) {
+                    var img1 = new Image();
+                    var img2 = new Image();
+                    img1.src = imageSrc1;
+                    img2.src = imageSrc2;
+
+                    var canvas1 = document.createElement('canvas');
+                    var canvas2 = document.createElement('canvas');
+                    var context1 = canvas1.getContext('2d');
+                    var context2 = canvas2.getContext('2d');
+
+                    img1.onload = function () {
+                        canvas1.width = img1.width;
+                        canvas1.height = img1.height;
+                        context1.drawImage(img1, 0, 0);
+                        var imageData1 = context1.getImageData(0, 0, img1.width, img1.height);
+                        var grayscaleData1 = convertToGrayscale(imageData1);
+
+                        img2.onload = function () {
+                            canvas2.width = img2.width;
+                            canvas2.height = img2.height;
+                            context2.drawImage(img2, 0, 0);
+                            var imageData2 = context2.getImageData(0, 0, img2.width, img2.height);
+                            var grayscaleData2 = convertToGrayscale(imageData2);
+
+                            // Calculate similarity using normalized cross-correlation
+                            var similarity = calculateNormalizedCrossCorrelation(grayscaleData1, grayscaleData2);
+                            $('#result').text('Similarity: ' + (similarity * 100).toFixed(2) + '%');
+                        };
+                    };
+                } else {
+                    alert('Please select both images.');
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

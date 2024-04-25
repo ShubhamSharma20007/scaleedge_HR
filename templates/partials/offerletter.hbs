@@ -1,0 +1,160 @@
+<div id="offerletter" class="handleForm">
+    <div class="handleForm-top">
+        <span class="title">Generate Offer Letter</span>
+        <i class="ri-close-fill" id="offerletterClose"></i>
+    </div>
+    <form class="form add-card" id="formData" onsubmit="generateOfferLetter(event)">
+        <div style="display: flex; gap: 10px">
+            <div class="group">
+                <input type="text" id="user_name" name="user_name" value="{{user_name}}" {{#ifEquals
+                    userGroup 'user' }} readonly {{/ifEquals}} />
+                <label for="name">Name</label>
+            </div>
+            <div class="group">
+                <input type="email" id="user_email" name="user_email" value="{{email}}" {{#ifEquals
+                    userGroup 'user' }} readonly {{/ifEquals}} />
+                <label for="loan_amount">E-mail</label>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px">
+            <div class="group">
+                <input id="mobile" type="number" value="{{mobile}}" {{#ifEquals userGroup 'user' }} readonly
+                    {{/ifEquals}} name="mobile" />
+                <label for="name">Mobile</label>
+            </div>
+            <div class="group">
+                <input type="text" id="position" value="{{position}}" {{#ifEquals userGroup 'user' }} readonly
+                    {{/ifEquals}} name="position" />
+                <label for="loan_amount">Position</label>
+            </div>
+        </div>
+        <button type="submit" class="form-button">Submit</button>
+    </form>
+</div>
+
+<script>
+    // JavaScript to handle click events
+    document.querySelectorAll('.offerForletter').forEach(function (element) {
+        element.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default action of the anchor tag
+            document.querySelector('#offerletter').style.display = 'block'; // Show applyLoan element
+        });
+    });
+
+    document.querySelector('#offerletterClose').addEventListener('click', function () {
+        document.querySelector('#offerletter').style.display = 'none'; // Hide applyLoan element
+    });
+
+</script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function generateOfferLetter(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        // Get form data
+        const userName = document.getElementById('user_name').value.trim();
+        const userEmail = document.getElementById('user_email').value.trim();
+        const mobile = document.getElementById('mobile').value.trim();
+        const position = document.getElementById('position').value.trim();
+
+        // Validate all fields
+        if (!userName || !userEmail || !mobile || !position) {
+            // Display a SweetAlert message if any field is empty
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill in all fields!',
+            });
+            return; // Stop further execution
+        }
+
+        // Construct offer letter with improved styling
+        const offerLetter = `
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="font-family: 'Arial', sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px;">
+        <div style="text-align: center;">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="/images/scaleedge-56f7b649.webp" alt="Company Logo" style="max-width: 198px; margin-right: 10px;">
+                <div>
+                    <h1 style="color: #3498db; margin: 0; font-family: 'Times New Roman', Times, serif;">ScaleEdge
+                        Solutions</h1>
+                    <p style="color: #555; margin: 0;">GST: 08AESFS3049D1ZR</p>
+                </div>
+            </div>
+        </div>
+        <p style="text-align: left; color: #777;">${new Date().toLocaleDateString()}</p>
+
+
+        <h2 style="text-align: center; color: #2ecc71;"> Offer of Employment as ${position}</h2>
+
+        <h3>Dear ${userName}</h3>
+        <p>Email: ${userEmail}</p>
+        <p>Contact: ${mobile}</p>
+
+        <!-- <p>Dear ${userName},</p> -->
+
+        <p>We are pleased to extend an offer of employment for the position of <strong>${position}</strong> at ScaleEdge
+            Solutions. We believe that your skills and experience make you a valuable addition to our team, and we are
+            excited about the potential contributions you can make to our organization.</p>
+
+        <p><strong>Position:</strong> ${position}</p>
+        <p><strong>Location:</strong> A-154, Hasan Kha Mewat Nagar, Alwar, Rajasthan - 301001</p>
+
+        <p><strong>Terms & Condition:</strong></p>
+        <p>
+            During your employment, you are expected to abide by the company's policies, procedures, and code of
+            conduct. If you choose to leak company work anywhere outside or use it to your personnel benefits, then you
+            admit that you give ScaleEdge Solutions right for legally compensation of an amount deemed suitable by
+            ScaleEdge team for their losses/future adjusted losses.
+        </p>
+
+        <p>We are enthusiastic about your potential contributions to our team and believe that you will have a
+            successful and fulfilling career with ScaleEdge Solutions. Please sign and return a copy of this offer
+            letter confirm your acceptance of this offer..</p>
+        <p style="line-height:1">We look forward to welcoming you to the team and embarking on a mutually rewarding professional journey.</p>
+
+        <p style="text-align: right; color: #555;line-height:0.5">Sincerely,</p>
+        <p style="text-align: right; color: #555; font-weight: bold;line-height:0.5">Anupriya Khandelwal</p>
+        <p style="text-align: right; color: #555;line-height:0.5">Business Development Head</p>
+        <p style="text-align: right; color: #555;line-height:0.5">ScaleEdge Solutions</p>
+    </div>
+</body>
+
+</html>
+    `;
+
+        // Display the offer letter in a new window
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write('<html><head><title>Offer Letter</title></head><body>');
+        printWindow.document.write(offerLetter);
+        printWindow.document.write('</body></html>');
+
+        // Print the offer letter
+        printWindow.print();
+    }
+</script>
+<style>
+    @media(min-width:768px) {
+        #offerletter{
+            display: none;
+        }
+
+    }
+    @media(max-width:767px) {
+        #offerletter{
+            display: none;
+        }
+    }
+</style>

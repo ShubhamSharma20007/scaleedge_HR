@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+ 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="admin, dashboard">
+    <meta name="author" content="DexignZone">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dompet : Payment Admin Template">
+    <meta property="og:title" content="Dompet : Payment Admin Template">
+    <meta property="og:description" content="Dompet : Payment Admin Template">
+    <meta property="og:image" content="https://dompet.dexignlab.com/xhtml/social-image.png">
+    <meta name="format-detection" content="telephone=no">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <!-- PAGE TITLE HERE -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>User</title>
+ <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- FAVICONS ICON -->
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
+    <link href="vendor/fullcalendar/css/main.min.css" rel="stylesheet">
+
+    <link href="/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/nouislider/nouislider.min.css">
+    <!-- Style css -->
+    <link href="css/style.css" rel="stylesheet">
+    {{!-- remix icon --}}
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+<!-- Draggable.js CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/draggable/1.0.0-beta.12/draggable.min.css" integrity="sha512-Wymn+MrSp+NCEwqAzZCEvIJ9zzAfOnIRcVu/7rzWOlI9yZpHO6aHzhgh+gFyXSXJY1etp6KKV7ZwBBj3P3KyTg==" crossorigin="anonymous" />
+
+
+    <style>
+         .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    
+      align-items: center;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+       border-top-left-radius: 30px;
+  
+    }
+    
+    .swiper-slide p{
+          font-family: cursive;
+    font-size: 16px;
+   
+    }
+
+    .overlay{
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        height: 50px;
+        background-color: lightblue;
+        border-bottom-left-radius:0px ;
+         border-top-left-radius: 30px;
+         border-top-right-radius: 0px;
+        border-bottom-right-radius: 30px;
+      
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    {{!-- {{>preloader}} --}}
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+
+        {{>navHeader}}
+
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Chat box start
+        ***********************************-->
+
+        {{>chatBox}}
+
+        <!--**********************************
+            Chat box End
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+                            <div class="dashboard_bar">
+                                Lead Dashboard
+                            </div>
+                        </div>
+                        {{>header}}
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+
+        {{>siderBar}}
+
+
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+
+
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="col-lg-12">
+                    <div class="card bg-transparent box-shadow-none">
+                        <div style="height: 100vh;">
+                             <!-- Swiper -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="overlay auto">
+            <p class="m-0 ">What CRM(0)</p>
+        </div>
+        <div class="container h-25 w-100 bg-primary "></div>
+       
+      </div>
+      <div class="swiper-slide">
+         <div class="overlay auto bg-danger">
+            <p class="m-0 ">New Lead(0)</p>
+        </div>
+       
+      </div>
+    
+      <div class="swiper-slide">
+          <div class="overlay auto bg-warning">
+            <p class="m-0 ">Contact Initiation(0)</p>
+        </div>
+      </div>
+      <div class="swiper-slide">
+         <div class="overlay auto bg-info">
+            <p class="m-0 ">Nuture Client(0)</p>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="overlay auto bg-success">
+            <p class="m-0 ">Schedule Follow Up(0)</p>
+        </div>
+      </div>
+      <div class="swiper-slide">
+ <div class="overlay auto bg-primary">
+            <p class="m-0 ">Deal(0)</p>
+        </div>
+
+      </div>
+
+     
+    </div>
+    <div class="swiper-pagination"></div>
+
+  <!-- If we need navigation buttons -->
+  
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+  </div>
+
+                        </div>
+                       
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+
+        {{>footer}}
+
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="vendor/global/global.min.js"></script>
+    <script src="vendor/moment/moment.min.js"></script>
+
+    <script src="vendor/fullcalendar/js/main.min.js"></script>
+    <script src="js/plugins-init/fullcalendar-init.js"></script>
+    <script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+
+    <script src="js/custom.min.js"></script>
+    <script src="js/dlabnav-init.js"></script>
+    <script src="js/demo.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+    
+<!-- Draggable.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/draggable/1.0.0-beta.12/draggable.min.js" integrity="sha512-5zqecRtd2XXNDllS5xK3esr/Am/ABenD1qWXsfc+kbVWhDxhjx83J24w3jEn69Gsb6MlkkH0eBzghs1D2kLSUQ==" crossorigin="anonymous"></script>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 10,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 50,
+        },
+      },
+      // Optional parameters
+  direction: 'horizontal',
+  loop: true,
+
+  // If we need pagination
+  pagination: {
+    el: '.swiper-pagination',
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+    });
+  </script>
+  
+
+</body>
+
+</html>

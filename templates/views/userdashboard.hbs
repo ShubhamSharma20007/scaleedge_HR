@@ -1,0 +1,2363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<link>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+  <script src="js/app.js"></script>
+  <link href="stylesheets/app.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts"></link>
+</head>
+
+<body>
+  {{!-- Dashboard View --}}
+  <div id="desktopMain">
+    {{>dashboardNav}}
+    <div class="wrapper"  style="background: #dbafa059">
+
+
+      <div class="main" style="background: none;"  >
+
+
+        <div class="navbar-collapse collapse">
+          <ul class="navbar-nav navbar-align">
+            <li class="nav-item dropdown">
+              <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
+                <div class="position-relative">
+                  <i class="align-middle" data-feather="bell"></i>
+                  <span class="indicator">4</span>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
+                <div class="dropdown-menu-header">
+                  4 New Notifications
+                </div>
+                <div class="list-group">
+                  <a href="#" class="list-group-item">
+                    <div class="row g-0 align-items-center">
+                      <div class="col-2">
+                        <i class="text-danger" data-feather="alert-circle"></i>
+                      </div>
+                      <div class="col-10">
+                        <div class="text-dark">Update completed</div>
+                        <div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
+                        <div class="text-muted small mt-1">30m ago</div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item">
+                    <div class="row g-0 align-items-center">
+                      <div class="col-2">
+                        <i class="text-warning" data-feather="bell"></i>
+                      </div>
+                      <div class="col-10">
+                        <div class="text-dark">Lorem ipsum</div>
+                        <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
+                        <div class="text-muted small mt-1">2h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item">
+                    <div class="row g-0 align-items-center">
+                      <div class="col-2">
+                        <i class="text-primary" data-feather="home"></i>
+                      </div>
+                      <div class="col-10">
+                        <div class="text-dark">Login from 192.186.1.8</div>
+                        <div class="text-muted small mt-1">5h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item">
+                    <div class="row g-0 align-items-center">
+                      <div class="col-2">
+                        <i class="text-success" data-feather="user-plus"></i>
+                      </div>
+                      <div class="col-10">
+                        <div class="text-dark">New connection</div>
+                        <div class="text-muted small mt-1">Christina accepted your request.</div>
+                        <div class="text-muted small mt-1">14h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="dropdown-menu-footer">
+                  <a href="#" class="text-muted">Show all notifications</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
+                <div class="position-relative">
+                  <i class="align-middle" data-feather="message-square"></i>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
+                <div class="dropdown-menu-header">
+                  <div class="position-relative">
+                    4 New Messages
+                  </div>
+                </div>
+                <div class="list-group">
+                  <a href="#" class="list-group-item">
+                    <div class="row g-0 align-items-center">
+                      <div class="col-2">
+                        <img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
+                          alt="Vanessa Tucker">
+                      </div>
+                      <div class="col-10 ps-2">
+                        <div class="text-dark">Vanessa Tucker</div>
+                        <div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu tortor.</div>
+                        <div class="text-muted small mt-1">15m ago</div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item">
+                    <div class="row g-0 align-items-center">
+                      <div class="col-2">
+                        <img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
+                          alt="William Harris">
+                      </div>
+                      <div class="col-10 ps-2">
+                        <div class="text-dark">William Harris</div>
+                        <div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.</div>
+                        <div class="text-muted small mt-1">2h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item">
+                    <div class="row g-0 align-items-center">
+                      <div class="col-2">
+                        <img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
+                          alt="Christina Mason">
+                      </div>
+                      <div class="col-10 ps-2">
+                        <div class="text-dark">Christina Mason</div>
+                        <div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
+                        <div class="text-muted small mt-1">4h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item">
+                    <div class="row g-0 align-items-center">
+                      <div class="col-2">
+                        <img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
+                          alt="Sharon Lessman">
+                      </div>
+                      <div class="col-10 ps-2">
+                        <div class="text-dark">Sharon Lessman</div>
+                        <div class="text-muted small mt-1">Aenean tellus metus, bibendum sed, posuere ac, mattis non.
+                        </div>
+                        <div class="text-muted small mt-1">5h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="dropdown-menu-footer">
+                  <a href="#" class="text-muted">Show all messages</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                <i class="align-middle" data-feather="settings"></i>
+              </a>
+
+              <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span
+                  class="text-dark">Charles Hall</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i>
+                  Profile</a>
+                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
+                  Analytics</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i>
+                  Settings & Privacy</a>
+                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help
+                  Center</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Log out</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        </nav>
+
+        <main class="content">
+          <div class="container-fluid p-0">
+
+
+
+            <div class="row">
+              <div class="col-xl-6 col-xxl-6 d-flex">
+                <div class="w-100">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col mt-0">
+                              <h5 class="card-title">Attendance Record</h5>
+                            </div>
+
+                            <div class="col-auto">
+                              <div class="stat text-primary">
+                              <i class="align-middle" data-feather="map-pin"></i>
+
+                              </div>
+                            </div>
+                          </div>
+                          <h1 class="mt-1 mb-3" id="counterTimeDashboard">2.382</h1>
+                          <div class="mb-0 d-flex justify-content-between align-items-center">
+                           <div>
+                             <small class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> Punch In : </small>
+                            <small class="text-muted" id="firstInRecordDashboard"></small>
+                           </div>
+                             <div>
+                             <small class="text-danger"> <i class="mdi mdi-arrow-bottom-right "></i> Punch Out : </small>
+                            <small class="text-muted" id="firstOutRecordDashboard"></small>
+                           </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col mt-0">
+                              <h5 class="card-title">Upcoming Holidays</h5>
+                            </div>
+
+                            <div class="col-auto">
+                              <div class="stat text-primary">
+                                <i class="align-middle" data-feather="calendar"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <h1 class="mt-1 mb-3">14.212</h1>
+                          <div class="mb-0">
+                            <br>
+                          
+                            <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> </span>
+                            <span class="text-muted"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col mt-0">
+                              <h5 class="card-title">Earnings</h5>
+                            </div>
+
+                            <div class="col-auto">
+                              <div class="stat text-primary">
+                                <i class="align-middle" data-feather="dollar-sign"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <h1 class="mt-1 mb-3">$21.300</h1>
+                          <div class="mb-0">
+                            {{!-- <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span> --}}
+                            <span class="text-muted">Since Today</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col mt-0">
+                              <h5 class="card-title">Alerts</h5>
+                            </div>
+
+                            <div class="col-auto">
+                              <div class="stat text-primary">
+<i class="align-middle" data-feather="alert-circle"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <h1 class="mt-1 mb-3">64</h1>
+                          <div class="mb-0">
+                            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
+                            <span class="text-muted">Since last week</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-6 col-xxl-6">
+                <div class="calender-body col-xl-11" style="width: 100%;">
+                  <div id="calenter">
+                    <div id="calendre-container">
+                      <h5 class="p-3 card-title">Work Log</h5>
+                      <div class="calendar" style="float: none; scale: 0.9;margin-top:-31px "
+                        style="border-radius: 11px !important;">
+                        <!-- CALENDAR HEADER START -->
+                        <div class="calendar-header">
+                          <span class="month-picker" id="month-picker" style="color: #000;">
+                            February
+                          </span>
+                          <div class="year-picker">
+                            <span class="year-change mt-2" id="prev-year">
+                              <pre> < </pre>
+                            </span>
+                            <span id="year" style="color: #000;">2023</span>
+                            <span class="year-change mt-2" id="next-year">
+                              <pre> > </pre>
+                            </span>
+                          </div>
+
+
+                        </div>
+
+                        <!-- CALENDAR BODY START -->
+                        <div class="calendar-body">
+                          <div class="calendar-week-day">
+                            <div>S</div>
+                            <div>M</div>
+                            <div>T</div>
+                            <div>W</div>
+                            <div>T</div>
+                            <div>F</div>
+                            <div>S</div>
+                          </div>
+                          <div class="calendar-day">
+                            <div>
+                              1
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                            </div>
+                            <div>2</div>
+                            <div>3</div>
+                            <div>4</div>
+                            <div>5</div>
+                            <div>6</div>
+                            <div>7</div>
+                            <div>1</div>
+                            <div>2</div>
+                            <div>3</div>
+                            <div>4</div>
+                            <div>5</div>
+                            <div>6</div>
+                            <div>7</div>
+                          </div>
+                        </div>
+
+                        <!-- CALENDAR FOOTER START -->
+                        <div class="calendar-footer d-none " style="display: none;">
+                          <div class="toggle ">
+                            <span>Dark Mode</span>
+                            <div class="dark-mode-switch">
+                              <div class="dark-mode-switch-ident"></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="month-list"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="form-container">
+                    <div id="top-container">
+                      <h1 style="font-size: 14px;padding: 7px;">Attendance</h1>
+                      <i class="ri-close-fill" onclick="cancelAttendance2()" id="cancelBtn" class="btn-close"
+                        data-bs-dismiss="modal"></i>
+                    </div>
+                    <div id="center">
+                      <p id="dialogDate" class="fw-bold">Selected Date : </p>
+                      <button id="openAttendanceBtn" class="form-center-button"> +
+                        Attendance</button>
+                      <button id="openLeaveBtn" class="form-center-button"> + Apply Leave</button>
+                    </div>
+                  </div>
+
+                  <div id="attManualForm" class="attManualForm" style="display: none;">
+                    <div class="attLeaveForm-top">
+                      <span class="title">Enter Attendance Date</span>
+                      <i class="ri-close-fill" id="closeA"></i>
+                    </div>
+                    <form class="form add-card" id="formData" method="post" action="/manualAttendanceDashboard">
+                      <div style="display: flex; gap: 10px">
+                        <div class="group" hidden>
+                          <input type="text" id="user_name" name="user_name" value="{{user_name}}" readonly />
+                          <label for="name">Name</label>
+                        </div>
+                        <div class="group">
+                          <input type="date" id="date" name="date" required />
+                          <label for="date">Date</label>
+                        </div>
+                        <div class="group">
+                          <input type="time" id="time" name="time" step="1" required />
+                          <label for="time">Time</label>
+                        </div>
+                      </div>
+                      <div style="display: flex; gap: 10px">
+
+                        <div class="group">
+                          <select id="A_type" name="A_type" required>
+                            <option value="">Select Type</option>
+                            <option value="in" {{#ifEquals A_type "in" }}selected{{/ifEquals}}>Punch In</option>
+                            <option value="out" {{#ifEquals A_type "out" }}selected{{/ifEquals}}>Punch Out</option>
+                          </select>
+                          <label for="email">Type</label>
+                        </div>
+                        <div class="group" hidden>
+                          <select id="attendanceMark" name="attendanceMark" required>
+                            <option value="">Select Attendance Mark</option>
+                            <option selected value="Present" {{#ifEquals attendanceMark "Present"
+                              }}selected{{/ifEquals}}>
+                              Present
+                            </option>
+                            <option value="Halfday" {{#ifEquals attendanceMark "Halfday" }}selected{{/ifEquals}}>Halfday
+                            </option>
+                            <option value="Absent" {{#ifEquals attendanceMark "Absent" }}selected{{/ifEquals}}>Absent
+                            </option>
+                          </select>
+                          <label for="name">Mark</label>
+                        </div>
+                      </div>
+                      <div style="display: flex; gap: 10px">
+
+                        <div class="group" hidden>
+                          <select id="rangeStatus" name="rangeStatus" required>
+                            <option value="">Select Field</option>
+                            <option selected value="ok" {{#ifEquals rangeStatus "ok" }}selected{{/ifEquals}}>Ok</option>
+                            <option value="onfield" {{#ifEquals rangeStatus "onfield" }}selected{{/ifEquals}}>On Field
+                            </option>
+                          </select>
+                          <label for="email">Status</label>
+                        </div>
+                      </div>
+
+
+                      <button type="submit" class="form-button">Submit</button>
+                    </form>
+                  </div>
+
+
+                  <div id="leaveManual" class="leaveManual" style="display: none;">
+                    <div class="attLeaveForm-top">
+                      <span class="title">Enter Leave</span>
+                      <i class="ri-close-fill" id="closeL"></i>
+                    </div>
+                    <form class="form add-card" id="leaveForm" action="/submitLeave" method="post">
+                      <input type="text" name="user_id" id="user_id" value="{{id}}" hidden>
+
+                      <div style="display: flex; gap: 10px">
+                        <div class="group" hidden>
+                          <input type="text" id="user_name" name="user_name" value="{{user_name}}" readonly />
+                          <label for="name">Name</label>
+                        </div>
+                        <div class="group">
+                          <input type="date" id="from_date" name="from_date" required />
+                          <label for="email">From Date</label>
+                        </div>
+                        <div class="group">
+                          <input type="number" type="number" id="days" name="days" required />
+                          <label for="">How Many Days</label>
+                        </div>
+                      </div>
+                      <div style="display: flex; gap: 10px">
+
+                        <div class="group">
+                          <select class="form-select" id="leaveType" name="leaveType">
+                            <option value="Casual Leave">Casual Leave</option>
+                            <option value="Medical Leave">Medical Leave</option>
+                            <option value="Paid Leave">Paid Leave</option>
+                          </select>
+                          <label for="name">Mark</label>
+                        </div>
+                        <div class="group">
+                          <textarea id="remarks" name="remarks" cols="1" rows="1"></textarea>
+                          <label for="email">Remarks</label>
+                        </div>
+                      </div>
+
+                      <button type="submit" class="form-button">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-12">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="card-container">
+                            <div class="card-text">
+                              <h5 class="card-title">Quotes</h5>
+                              <div class="card-bx-1{{#if isBirthday}}{{else}}{{/if}}"
+                                style="border-radius: 11px !important;{{#if isBirthday}} {{/if}}">
+                                {{#if isBirthday}}
+                                {{!-- No image displayed on birthday --}}
+                                {{else}}
+                                {{/if}} <div class="card-info text-black">
+                                  {{#if isBirthday}}
+                                  <h3 class="text-black card-balance" id="greetingDashboard">
+                                    🎉 Happy Birthday, {{user_name}}! 🎂
+                                  </h3>
+                                  <p class="fs-16 text-black" id="quote-text2" style="font-size: 12px;  ">
+                                    May your day be filled with joy, laughter, and wonderful surprises. 🌈 Wishing you a
+                                    year
+                                    ahead
+                                    filled with
+                                    love, success, and all your heart desires. 🚀 Enjoy your special day to the fullest!
+                                    🥳
+                                  </p>
+                                  <span id="quote-author2" class="text-black" style="font-size: 12px;">
+                                    Best Wishes from the ScaleEdge Team
+                                  </span>
+                                  {{else}}
+                                  <h3 class="text-black card-balance" id="greetingDashboard">
+                                    Welcome {{user_name}}! Have a Nice Day!
+                                  </h3>
+                                  <p class="fs-16 text-black" id="quote-text3"
+                                    style="font-size: 14px; margin: 10px 0px;"></p>
+                                  <span id="quote-author3" style="position: relative;top: 18px;"></span>
+                                  {{/if}}
+                                </div>
+                                {{!-- <a class="change-btn" href="javascript:void(0);"><i
+                                    class="fa fa-caret-up up-ico"></i>Change<span class="reload-icon"><i
+                                      class="fas fa-sync-alt reload active"></i></span></a> --}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="card m-0">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="nc-container">
+                            <div class="notification-container">
+                              <div style="display: flex;align-items: center;gap:10px;">
+                                <h5 class="card-title">Notifications</h5>
+                                {{!-- <img src="/images/bell.png" alt="" width="20" height="20"> --}}
+                              </div>
+                              <div id="notification">
+                                <div class="slider1">
+
+                                </div>
+                                <div class="dots-container1"></div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row mt-4 p-0 m-0">
+                <div class="col-12 col-md-12 col-xxl-12 d-flex order-2 order-xxl-3">
+                  <div class="card flex-fill w-100">
+                    <div class="card-header">
+
+                      <h5 class="card-title mb-0">Work Status</h5>
+                    </div>
+                    <div class="card-body d-flex">
+                      <div class="align-self-center w-100">
+                        <div class="py-3">
+                          <div class="chart chart-xs">
+                        <div id="chart"></div>
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {{!-- <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+                  <div class="card flex-fill w-100">
+                    <div class="card-header">
+
+                      <h5 class="card-title mb-0">Real-Time</h5>
+                    </div>
+                    <div class="card-body px-4">
+                      <div id="world_map" style="height:350px;"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
+                  <div class="card flex-fill">
+                    <div class="card-header">
+
+                      <h5 class="card-title mb-0">Calendar</h5>
+                    </div>
+                    <div class="card-body d-flex">
+                      <div class="align-self-center w-100">
+                        <div class="chart">
+                          <div id="datetimepicker-dashboard"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> --}}
+              </div>
+
+              {{!-- <div class="row">
+                <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+                  <div class="card flex-fill">
+                    <div class="card-header">
+
+                      <h5 class="card-title mb-0">Latest Projects</h5>
+                    </div>
+                    <table class="table table-hover my-0">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th class="d-none d-xl-table-cell">Start Date</th>
+                          <th class="d-none d-xl-table-cell">End Date</th>
+                          <th>Status</th>
+                          <th class="d-none d-md-table-cell">Assignee</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Project Apollo</td>
+                          <td class="d-none d-xl-table-cell">01/01/2021</td>
+                          <td class="d-none d-xl-table-cell">31/06/2021</td>
+                          <td><span class="badge bg-success">Done</span></td>
+                          <td class="d-none d-md-table-cell">Vanessa Tucker</td>
+                        </tr>
+                        <tr>
+                          <td>Project Fireball</td>
+                          <td class="d-none d-xl-table-cell">01/01/2021</td>
+                          <td class="d-none d-xl-table-cell">31/06/2021</td>
+                          <td><span class="badge bg-danger">Cancelled</span></td>
+                          <td class="d-none d-md-table-cell">William Harris</td>
+                        </tr>
+                        <tr>
+                          <td>Project Hades</td>
+                          <td class="d-none d-xl-table-cell">01/01/2021</td>
+                          <td class="d-none d-xl-table-cell">31/06/2021</td>
+                          <td><span class="badge bg-success">Done</span></td>
+                          <td class="d-none d-md-table-cell">Sharon Lessman</td>
+                        </tr>
+                        <tr>
+                          <td>Project Nitro</td>
+                          <td class="d-none d-xl-table-cell">01/01/2021</td>
+                          <td class="d-none d-xl-table-cell">31/06/2021</td>
+                          <td><span class="badge bg-warning">In progress</span></td>
+                          <td class="d-none d-md-table-cell">Vanessa Tucker</td>
+                        </tr>
+                        <tr>
+                          <td>Project Phoenix</td>
+                          <td class="d-none d-xl-table-cell">01/01/2021</td>
+                          <td class="d-none d-xl-table-cell">31/06/2021</td>
+                          <td><span class="badge bg-success">Done</span></td>
+                          <td class="d-none d-md-table-cell">William Harris</td>
+                        </tr>
+                        <tr>
+                          <td>Project X</td>
+                          <td class="d-none d-xl-table-cell">01/01/2021</td>
+                          <td class="d-none d-xl-table-cell">31/06/2021</td>
+                          <td><span class="badge bg-success">Done</span></td>
+                          <td class="d-none d-md-table-cell">Sharon Lessman</td>
+                        </tr>
+                        <tr>
+                          <td>Project Romeo</td>
+                          <td class="d-none d-xl-table-cell">01/01/2021</td>
+                          <td class="d-none d-xl-table-cell">31/06/2021</td>
+                          <td><span class="badge bg-success">Done</span></td>
+                          <td class="d-none d-md-table-cell">Christina Mason</td>
+                        </tr>
+                        <tr>
+                          <td>Project Wombat</td>
+                          <td class="d-none d-xl-table-cell">01/01/2021</td>
+                          <td class="d-none d-xl-table-cell">31/06/2021</td>
+                          <td><span class="badge bg-warning">In progress</span></td>
+                          <td class="d-none d-md-table-cell">William Harris</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-4 col-xxl-3 d-flex">
+                  <div class="card flex-fill w-100">
+                    <div class="card-header">
+
+                      <h5 class="card-title mb-0">Monthly Sales</h5>
+                    </div>
+                    <div class="card-body d-flex w-100">
+                      <div class="align-self-center chart chart-lg">
+                        <canvas id="chartjs-dashboard-bar"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> --}}
+
+            </div>
+        </main>
+
+      </div>
+    </div>
+
+  </div>
+  {{!-- phone dashboard View --}}
+  {{>phoneNav}}
+
+  {{>loanApply}}
+  {{>applyArrears}}
+  {{>reimburshment}}
+  {{>attendanceMeeting}}
+  {{>attendanceMeetingOut}}
+  {{>offerletter}}
+  {{>appointment}}
+  {{>confirmationLetter}}
+  {{>termination}}
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>  
+
+</body>
+
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.querySelector(".slider-phone");
+    const cards = document.querySelectorAll(".card-container-phone");
+    const dotsContainer = document.querySelector(".dots-container-phone");
+
+    let currentIndex = 0;
+    const intervalTime = 5000;
+    let slideInterval;
+    let isDragging = false;
+    let startPosition = 0;
+    let currentTranslate = 0;
+    let previousTranslate = 0;
+
+    // Create navigation dots
+    cards.forEach((_, index) => {
+      const dot = document.createElement("div");
+      dot.classList.add("scroller-dots");
+      dotsContainer.appendChild(dot);
+      dot.addEventListener("click", () => {
+        goToSlide(index);
+      });
+    });
+
+    const dots = document.querySelectorAll(".scroller-dots");
+
+    function goToSlide(index) {
+      slider.style.transform = `translateX(-${index * 100}%)`;
+      cards[currentIndex].classList.remove("active");
+      dots[currentIndex].classList.remove("active");
+      currentIndex = index;
+      cards[currentIndex].classList.add("active");
+      dots[currentIndex].classList.add("active");
+      resetInterval();
+    }
+
+    function nextSlide() {
+      if (currentIndex === cards.length - 1) {
+        goToSlide(0);
+      } else {
+        goToSlide(currentIndex + 1);
+      }
+    }
+
+    function resetInterval() {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, intervalTime);
+    }
+
+    function startDrag(e) {
+      isDragging = true;
+      startPosition = getPositionX(e);
+      currentTranslate = previousTranslate;
+      clearInterval(slideInterval);
+    }
+
+    function endDrag() {
+      isDragging = false;
+      const movedBy = currentTranslate - previousTranslate;
+      if (movedBy < -100 && currentIndex < cards.length - 1) {
+        currentIndex += 1;
+      }
+      if (movedBy > 100 && currentIndex > 0) {
+        currentIndex -= 1;
+      }
+      setPositionByIndex();
+      resetInterval();
+    }
+
+    function drag(e) {
+      if (isDragging) {
+        const currentPosition = getPositionX(e);
+        currentTranslate = previousTranslate + currentPosition - startPosition;
+        setPositionByIndex();
+      }
+    }
+
+    function getPositionX(e) {
+      return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
+    }
+
+    function setPositionByIndex() {
+      slider.style.transform = `translateX(${currentIndex * -100}%)`;
+      cards[currentIndex].classList.add("active");
+      dots[currentIndex].classList.add("active");
+      cards.forEach((card, index) => {
+        if (index !== currentIndex) {
+          card.classList.remove("active");
+          dots[index].classList.remove("active");
+        }
+      });
+    }
+
+    slider.addEventListener("mousedown", startDrag);
+    slider.addEventListener("touchstart", startDrag);
+
+    slider.addEventListener("mouseup", endDrag);
+    slider.addEventListener("touchend", endDrag);
+
+    slider.addEventListener("mousemove", drag);
+    slider.addEventListener("touchmove", drag);
+
+    resetInterval();
+  });
+</script>
+
+{{!-- quotes.json for phone --}}
+<script>
+  function fetchAndDisplayQuote() {
+    fetch('quotes.json')
+      .then((response) => response.json())
+      .then((data) => {
+        const quotes = data.quotes;
+        const quoteText = document.getElementById('quote-text');
+        const quoteAuthor = document.getElementById('quote-author');
+
+        const currentDate = new Date();
+        const dayOfYear = Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(currentDate.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+        const index = dayOfYear % quotes.length;
+
+        const quote = quotes[index];
+        quoteText.textContent = quote.quote;
+        quoteAuthor.textContent = quote.author;
+      })
+      .catch((error) => {
+        console.error('Error fetching quotes:', error);
+      });
+  }
+
+  fetchAndDisplayQuote();
+</script>
+
+{{!-- quotes.json for dashboard --}}
+<script>
+  function fetchAndDisplayQuoteForDashboard() {
+    fetch('quotes.json')
+      .then((response) => response.json())
+      .then((data) => {
+        const quotes = data.quotes;
+        const quoteText = document.getElementById('quote-text3');
+        const quoteAuthor = document.getElementById('quote-author3');
+
+        const currentDate = new Date();
+        const dayOfYear = Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(currentDate.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+        const index = dayOfYear % quotes.length;
+
+        const quote = quotes[index];
+        quoteText.textContent = quote.quote;
+        quoteAuthor.textContent = quote.author;
+      })
+      .catch((error) => {
+        console.error('Error fetching quotes:', error);
+      });
+  }
+
+  fetchAndDisplayQuoteForDashboard();
+</script>
+
+
+{{!-- greetings for phone --}}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var greetingElement = document.getElementById('greeting');
+    var currentTime = new Date().getHours();
+
+    var isBirthday = {{ isBirthday }};
+    if (isBirthday) {
+      greetingElement.textContent = '🎉 Happy Birthday, {{user_name}}! 🎂';
+    } else {
+      if (currentTime >= 9 && currentTime < 11) {
+        greetingElement.textContent = 'Good Morning, {{user_name}} Have a Nice Day!';
+      } else if (currentTime >= 11 && currentTime < 16) {
+        greetingElement.textContent = 'Good Afternoon, {{user_name}} Have a Nice Day!';
+      } else {
+        greetingElement.textContent = 'Good Evening, {{user_name}} Have a Nice Day!';
+      }
+    }
+  });
+</script>
+
+
+{{!-- greeting for dashboard --}}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var greetingElement = document.getElementById('greetingDashboard');
+    var currentTime = new Date().getHours();
+
+    var isBirthday = {{ isBirthday }};
+    if (isBirthday) {
+      greetingElement.textContent = '🎉 Happy Birthday, {{user_name}}! 🎂';
+    } else {
+      if (currentTime >= 9 && currentTime < 11) {
+        greetingElement.textContent = 'Good Morning, {{user_name}} Have a Nice Day!';
+      } else if (currentTime >= 11 && currentTime < 16) {
+        greetingElement.textContent = 'Good Afternoon, {{user_name}} Have a Nice Day!';
+      } else {
+        greetingElement.textContent = 'Good Evening, {{user_name}} Have a Nice Day!';
+      }
+    }
+  });
+</script>
+<script>
+  // Fetch birthdays from your API
+  fetch('/birthday-users')
+    .then(response => response.json())
+    .then(birthdayUsers => {
+      const birthdayNotificationsContainer = document.getElementById('birthdayNotifications');
+      const noNotificationsText = document.getElementById('noNotificationsText');
+
+      if (birthdayUsers.length > 0) {
+        birthdayUsers.forEach(user => {
+          const notificationItem = document.createElement('a');
+          notificationItem.classList.add('dropdown-item', 'preview-item');
+
+          notificationItem.innerHTML = `
+            <div class="preview-thumbnail">
+              <div class="preview-icon bg-success">
+                <img src="/profile/${user.image_path}" alt="">
+              </div>
+            </div>
+            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+              <h6 class="preview-subject font-weight-normal mb-1">${user.user_name}</h6>
+              <p class="text-gray ellipsis mb-0"> 🎉 Happy Birthday! 🎂 </p>
+            </div>
+          `;
+
+          birthdayNotificationsContainer.appendChild(notificationItem);
+        });
+
+        noNotificationsText.style.display = 'none';
+      } else {
+        noNotificationsText.style.display = 'block';
+      }
+    })
+    .catch(error => console.error('Error fetching birthday notifications:', error));
+</script>
+
+<script>
+  // Get the elements
+  var firstInRecordElement = document.getElementById('firstInRecord');
+  var firstOutRecordElement = document.getElementById('firstOutRecord');
+  var workingHoursElement = document.getElementById('workingHours');
+
+  // Get the values
+  var firstInRecord = firstInRecordElement.textContent;
+  var firstOutRecord = firstOutRecordElement.textContent;
+
+  // Calculate working hours
+  var workingHours = calculateWorkingHours(firstInRecord, firstOutRecord);
+
+  // Display the result
+  workingHoursElement.textContent = workingHours;
+
+  function calculateWorkingHours(firstInRecord, firstOutRecord) {
+    if (firstInRecord === "00:00:00" || firstOutRecord === "00:00:00") {
+      return "00:00:00";
+    }
+
+    var inTime = new Date('1970-01-01T' + firstInRecord + 'Z');
+    var outTime = new Date('1970-01-01T' + firstOutRecord + 'Z');
+
+    var milliseconds = outTime - inTime;
+    var seconds = milliseconds / 1000;
+    var hours = Math.floor(seconds / 3600);
+    seconds %= 3600;
+    var minutes = Math.floor(seconds / 60);
+    seconds %= 60;
+
+    return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
+  }
+
+  function pad(number) {
+    if (number < 10) {
+      return '0' + number;
+    }
+    return number;
+  }
+</script>
+<script>
+  var counterInterval; // Global variable to store the interval
+
+  // Function to fetch attendance data from the API
+  $(document).ready(function () {
+    $.ajax({
+      url: '/attendance',
+      method: 'GET',
+      data: {
+        date: new Date().toISOString().split('T')[0] // Get current date in YYYY-MM-DD format
+      },
+      success: function (response) {
+        // Check if inAttendance data exists and update the HTML content
+        if (response.inAttendance) {
+          $('#firstInRecord').text(response.inAttendance.time_column);
+          updateCounter(response.inAttendance.time_column, response.outAttendance);
+        } else {
+          $('#firstInRecord').text('00:00:00');
+          $('#counterTime').text('00:00:00');
+        }
+
+        // Check if outAttendance data exists and update the HTML content
+        if (response.outAttendance) {
+          $('#firstOutRecord').text(response.outAttendance.time_column);
+        } else {
+          $('#firstOutRecord').text('00:00:00');
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error('Error fetching attendance data:', error);
+      }
+    });
+  });
+
+  // Function to update the counter time
+  function updateCounter(punchInTime, outAttendance) {
+    if (outAttendance) {
+      var punchOutTimeSplit = outAttendance.time_column.split(':');
+      var punchOutDateTime = new Date();
+      punchOutDateTime.setHours(punchOutTimeSplit[0]);
+      punchOutDateTime.setMinutes(punchOutTimeSplit[1]);
+      punchOutDateTime.setSeconds(punchOutTimeSplit[2]);
+
+      var punchInTimeSplit = punchInTime.split(':');
+      var punchInDateTime = new Date();
+      punchInDateTime.setHours(punchInTimeSplit[0]);
+      punchInDateTime.setMinutes(punchInTimeSplit[1]);
+      punchInDateTime.setSeconds(punchInTimeSplit[2]);
+
+      var diffInMillis = punchOutDateTime.getTime() - punchInDateTime.getTime();
+
+      var hours = Math.floor(diffInMillis / (1000 * 60 * 60));
+      var minutes = Math.floor((diffInMillis % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((diffInMillis % (1000 * 60)) / 1000);
+
+      var formattedTime =
+        ('0' + hours).slice(-2) + ':' +
+        ('0' + minutes).slice(-2) + ':' +
+        ('0' + seconds).slice(-2);
+
+      $('#counterTime').text(formattedTime);
+      return;
+    }
+
+    counterInterval = setInterval(function () {
+      $.ajax({
+        url: '/attendance',
+        method: 'GET',
+        data: {
+          date: new Date().toISOString().split('T')[0] // Get current date in YYYY-MM-DD format
+        },
+        success: function (response) {
+          if (response.outAttendance) {
+            $('#firstOutRecord').text(response.outAttendance.time_column);
+            clearInterval(counterInterval);
+            updateCounter(punchInTime, response.outAttendance);
+            return;
+          }
+          if (response.inAttendance) {
+            var currentDate = new Date();
+            var punchInTimeSplit = response.inAttendance.time_column.split(':');
+            var punchInDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), parseInt(punchInTimeSplit[0]), parseInt(punchInTimeSplit[1]), parseInt(punchInTimeSplit[2]));
+          }
+          var currentTime = new Date();
+          var diffInMillis = currentTime.getTime() - punchInDateTime.getTime();
+
+          var hours = Math.floor(diffInMillis / (1000 * 60 * 60));
+          var minutes = Math.floor((diffInMillis % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((diffInMillis % (1000 * 60)) / 1000);
+
+          var formattedTime =
+            ('0' + hours).slice(-2) + ':' +
+            ('0' + minutes).slice(-2) + ':' +
+            ('0' + seconds).slice(-2);
+
+          $('#counterTime').text(formattedTime);
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching attendance data:', error);
+        }
+      });
+    }, 1000);
+  }
+</script>
+
+{{!--
+<script>
+  //Dark Mode Toggle
+  document.querySelector('.dark-mode-switch').onclick = () => {
+    document.querySelector('#dark').classList.toggle('light');
+    document.querySelector('#dark').classList.toggle('dark');
+  };
+
+  //Check Year
+  isCheckYear = (year) => {
+    return (year % 4 === 0 && year % 100 !== 0 && year % 400 !== 0)
+      || (year % 100 === 0 && year % 400 === 0)
+  };
+
+  getFebDays = (year) => {
+    return isCheckYear(year) ? 29 : 28
+  };
+
+  let calendar = document.querySelector('.calendar');
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  let monthPicker = document.querySelector('#month-picker');
+
+  monthPicker.onclick = () => {
+    monthList.classList.add('show')
+  };
+
+  //Generate Calendar
+  generateCalendar = (month, year) => {
+    let calendarDay = document.querySelector('.calendar-day');
+    calendarDay.innerHTML = '';
+
+    let calendarHeaderYear = document.querySelector('#year');
+    let daysOfMonth = [31, getFebDays(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    let currDate = new Date();
+
+    monthPicker.innerHTML = monthNames[month];
+    calendarHeaderYear.innerHTML = year;
+
+    let firstDay = new Date(year, month, 1);
+
+    for (let i = 0; i <= daysOfMonth[month] + firstDay.getDay() - 1; i++) {
+      let day = document.createElement('div');
+      if (i >= firstDay.getDay()) {
+        day.classList.add('calendarDayHover');
+        day.innerHTML = i - firstDay.getDay() + 1;
+        day.innerHTML += `<span></span>
+                                 <span></span>
+                                 <span></span>
+                                 <span></span>`;
+        if (i - firstDay.getDay() + 1 === currDate.getDate() && year === currDate.getFullYear() && month === currDate.getMonth()) {
+          day.classList.add('currDate');
+        }
+
+        // Check if the day is Sunday
+        let generatedDate = new Date(year, month, i - firstDay.getDay() + 1);
+        if (generatedDate.getDay() === 0) {
+          day.classList.add('sunday');
+        }
+      }
+      calendarDay.appendChild(day);
+    }
+  };
+
+  let monthList = calendar.querySelector('.month-list');
+  monthNames.forEach((e, index) => {
+    let month = document.createElement('div')
+    month.innerHTML = `<div>${e}</div>`
+    month.onclick = () => {
+      monthList.classList.remove('show')
+      currMonth.value = index
+      generateCalendar(currMonth.value, currYear.value)
+    }
+    monthList.appendChild(month)
+  });
+
+  document.querySelector('#prev-year').onclick = () => {
+    --currYear.value
+    generateCalendar(currMonth.value, currYear.value)
+  };
+
+  document.querySelector('#next-year').onclick = () => {
+    ++currYear.value
+    generateCalendar(currMonth.value, currYear.value)
+  };
+
+  let currDate = new Date();
+  let currMonth = { value: currDate.getMonth() };
+  let currYear = { value: currDate.getFullYear() };
+
+  generateCalendar(currMonth.value, currYear.value);
+
+  // Add click event listener to each calendar day
+  document.querySelectorAll('.calendar-day div').forEach((day) => {
+    day.addEventListener('click', (event) => {
+      const selectedDate = event.target.textContent.trim();
+      if (selectedDate !== '') {
+        openAttendanceDialog2(selectedDate);
+      }
+    });
+  });
+
+
+  const openAttendanceDialog2 = (date) => {
+    const dialogDate = document.querySelector('#dialogDate');
+    dialogDate.textContent = `Selected Date: ${monthNames[currMonth.value]} ${date}, ${currYear.value}`;
+
+    const formContainer = document.querySelector('#form-container');
+    formContainer.style.display = 'block'; // Show the form container
+  };
+
+  // Function to cancel attendance and hide the form container
+  const cancelAttendance2 = () => {
+    const formContainer = document.querySelector('#form-container');
+    formContainer.style.display = 'none'; // Hide the form container
+  };
+
+  // Add click event listener to the cancel button
+  const cancelBtn = document.querySelector('#cancelBtn');
+  cancelBtn.addEventListener('click', cancelAttendance2);
+
+
+
+</script> --}}
+
+{{!-- notification for phone --}}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    let currentIndex = 0;
+    let touchstartX = 0;
+    let touchendX = 0;
+
+    function autoScroll() {
+      const notifications = document.querySelectorAll('.slider1 .notification-scroller');
+      const dots = document.querySelectorAll('.dots-container1 .scroller-dots1');
+
+      notifications[currentIndex].classList.remove('active');
+      dots[currentIndex].classList.remove('active');
+
+      currentIndex = (currentIndex + 1) % notifications.length;
+
+      notifications[currentIndex].classList.add('active');
+      dots[currentIndex].classList.add('active');
+
+      document.querySelector('.slider1').style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    const intervalId = setInterval(autoScroll, 5000);
+
+    document.querySelector('.slider1').addEventListener('mouseenter', function () {
+      clearInterval(intervalId);
+    });
+
+    document.querySelector('.slider1').addEventListener('mouseleave', function () {
+      intervalId = setInterval(autoScroll, 3000);
+    });
+
+    document.querySelector('.slider1').addEventListener('touchstart', function (event) {
+      touchstartX = event.changedTouches[0].screenX;
+    });
+
+    document.querySelector('.slider1').addEventListener('touchend', function (event) {
+      touchendX = event.changedTouches[0].screenX;
+      handleGesture();
+    });
+
+    function handleGesture() {
+      if (touchendX < touchstartX) {
+        // Swiped left
+        showNextNotification();
+      }
+
+      if (touchendX > touchstartX) {
+        // Swiped right
+        showPreviousNotification();
+      }
+    }
+
+    function showNextNotification() {
+      const notifications = document.querySelectorAll('.slider1 .notification-scroller');
+      const dots = document.querySelectorAll('.dots-container1 .scroller-dots1');
+
+      notifications[currentIndex].classList.remove('active');
+      dots[currentIndex].classList.remove('active');
+
+      currentIndex = (currentIndex + 1) % notifications.length;
+
+      notifications[currentIndex].classList.add('active');
+      dots[currentIndex].classList.add('active');
+
+      document.querySelector('.slider1').style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    function showPreviousNotification() {
+      const notifications = document.querySelectorAll('.slider1 .notification-scroller');
+      const dots = document.querySelectorAll('.dots-container1 .scroller-dots1');
+
+      notifications[currentIndex].classList.remove('active');
+      dots[currentIndex].classList.remove('active');
+
+      currentIndex = (currentIndex - 1 + notifications.length) % notifications.length;
+
+      notifications[currentIndex].classList.add('active');
+      dots[currentIndex].classList.add('active');
+
+      document.querySelector('.slider1').style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function fetchData() {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/leave-notifications', true);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          console.log('Leave notifications, manual attendance data, and upcoming holidays:', response);
+
+          response.leaveNotifications.forEach(function (notification, index) {
+            const fromDate = formatDate(notification.from_date);
+
+            var leaveHTML = `
+            <div class="notification-box leave-notification">
+              <div class="notification-content">
+                <h2>Your Leave Application</h2>
+                <p class="text-danger">Your leave application for ${fromDate} was ${notification.status}.</p>
+              </div>
+            </div>
+          `;
+            document.querySelector('.slider1').innerHTML += '<div class="notification-scroller active">' + leaveHTML + '</div>';
+          });
+
+          response.manualAttendance.forEach(function (attendance, index) {
+            const dateColumn = formatDate(attendance.date_column);
+
+            var attendanceHTML = `
+            <div class="notification-box manual-attendance-notification">
+              <div class="notification-content">
+                <h2>Your Attendance Update</h2>
+                <p class="text-danger">Your attendance was ${attendance.status} for ${dateColumn}.</p>
+              </div>
+            </div>
+          `;
+            document.querySelector('.slider1').innerHTML += '<div class="notification-scroller active">' + attendanceHTML + '</div>';
+          });
+
+          response.upcomingHolidays.forEach(function (holiday, index) {
+            const holidayDate = formatDate(holiday.Date);
+
+            var holidayHTML = `
+            <div class="notification-box upcoming-holiday-notification">
+              <div class="notification-content">
+                <h2>Upcoming Holiday</h2>
+                <p class="text-danger">${holiday.Remarks} on ${holidayDate}.</p>
+              </div>
+            </div>
+          `;
+            document.querySelector('.slider1').innerHTML += '<div class="notification-scroller active">' + holidayHTML + '</div>';
+          });
+
+          if (response.currentDayHoliday) {
+            const currentDayHolidayDate = formatDate(response.currentDayHoliday.Date);
+
+            var currentDayHolidayHTML = `
+            <div class="notification-box current-day-holiday-notification">
+              <div class="notification-content">
+                <h2>Today's Holiday</h2>
+                <p class="text-danger">${response.currentDayHoliday.Remarks} today, ${currentDayHolidayDate}.</p>
+              </div>
+            </div>
+          `;
+            document.querySelector('.slider1').innerHTML += '<div class="notification-scroller active">' + currentDayHolidayHTML + '</div>';
+          }
+
+          createAndSetDots();
+        } else {
+          console.error('Error fetching data:', xhr.statusText);
+        }
+      };
+      xhr.onerror = function () {
+        console.error('Error fetching data:', xhr.statusText);
+      };
+      xhr.send();
+    }
+
+    fetchData();
+
+    function createAndSetDots() {
+      const notifications = document.querySelectorAll('.slider1 .notification-scroller');
+      const dotsContainer = document.querySelector('.dots-container1');
+
+      dotsContainer.innerHTML = '';
+
+      notifications.forEach(function (notification, index) {
+        const dot = document.createElement('div');
+        dot.classList.add('scroller-dots1');
+        dot.addEventListener('click', function () {
+          goToNotification(index);
+        });
+        dotsContainer.appendChild(dot);
+      });
+
+      goToNotification(0);
+    }
+
+    function goToNotification(index) {
+      const notifications = document.querySelectorAll('.slider1 .notification-scroller');
+      const dots = document.querySelectorAll('.dots-container1 .scroller-dots1');
+
+      notifications.forEach(function (notification) {
+        notification.classList.remove('active');
+      });
+      dots.forEach(function (dot) {
+        dot.classList.remove('active');
+      });
+
+      notifications[index].classList.add('active');
+      dots[index].classList.add('active');
+
+      // Scroll to the selected notification
+      currentIndex = index;
+      document.querySelector('.slider1').style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+  });
+
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    let currentIndex2 = 0;
+    let touchstartX2 = 0;
+    let touchendX2 = 0;
+
+    function autoScroll2() {
+      const notifications = document.querySelectorAll('.slider2 .notification-scroller');
+      const dots = document.querySelectorAll('.dots-container2 .scroller-dots1');
+
+      notifications[currentIndex2].classList.remove('active');
+      dots[currentIndex2].classList.remove('active');
+
+      currentIndex2 = (currentIndex2 + 1) % notifications.length;
+
+      notifications[currentIndex2].classList.add('active');
+      dots[currentIndex2].classList.add('active');
+
+      document.querySelector('.slider2').style.transform = `translateX(-${currentIndex2 * 100}%)`;
+    }
+
+    const intervalId2 = setInterval(autoScroll2, 3000);
+
+    document.querySelector('.slider2').addEventListener('mouseenter', function () {
+      clearInterval(intervalId2);
+    });
+
+    document.querySelector('.slider2').addEventListener('mouseleave', function () {
+      intervalId2 = setInterval(autoScroll2, 3000);
+    });
+
+    document.querySelector('.slider2').addEventListener('touchstart', function (event) {
+      touchstartX2 = event.changedTouches[0].screenX;
+    });
+
+    document.querySelector('.slider2').addEventListener('touchend', function (event) {
+      touchendX2 = event.changedTouches[0].screenX;
+      handleGesture2();
+    });
+
+    function handleGesture2() {
+      if (touchendX2 < touchstartX2) {
+        // Swiped left
+        showNextNotification2();
+      }
+
+      if (touchendX2 > touchstartX2) {
+        // Swiped right
+        showPreviousNotification2();
+      }
+    }
+
+    function showNextNotification2() {
+      const notifications = document.querySelectorAll('.slider2 .notification-scroller');
+      const dots = document.querySelectorAll('.dots-container2 .scroller-dots1');
+
+      notifications[currentIndex2].classList.remove('active');
+      dots[currentIndex2].classList.remove('active');
+
+      currentIndex2 = (currentIndex2 + 1) % notifications.length;
+
+      notifications[currentIndex2].classList.add('active');
+      dots[currentIndex2].classList.add('active');
+
+      document.querySelector('.slider2').style.transform = `translateX(-${currentIndex2 * 100}%)`;
+    }
+
+    function showPreviousNotification2() {
+      const notifications = document.querySelectorAll('.slider2 .notification-scroller');
+      const dots = document.querySelectorAll('.dots-container2 .scroller-dots1');
+
+      notifications[currentIndex2].classList.remove('active');
+      dots[currentIndex2].classList.remove('active');
+
+      currentIndex2 = (currentIndex2 - 1 + notifications.length) % notifications.length;
+
+      notifications[currentIndex2].classList.add('active');
+      dots[currentIndex2].classList.add('active');
+
+      document.querySelector('.slider2').style.transform = `translateX(-${currentIndex2 * 100}%)`;
+    }
+
+    function fetchData2() {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/leave-notifications', true);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          console.log('Leave notifications, manual attendance data, and upcoming holidays:', response);
+
+          response.leaveNotifications.forEach(function (notification, index) {
+            const fromDate = formatDate(notification.from_date);
+
+            var leaveHTML = `
+            <div class="notification-box leave-notification">
+              <div class="notification-content">
+                <h2>Your Leave Application</h2>
+                <p>Your leave application for ${fromDate} was ${notification.status}.</p>
+              </div>
+            </div>
+          `;
+            document.querySelector('.slider2').innerHTML += '<div class="notification-scroller active">' + leaveHTML + '</div>';
+          });
+
+          response.manualAttendance.forEach(function (attendance, index) {
+            const dateColumn = formatDate(attendance.date_column);
+
+            var attendanceHTML = `
+            <div class="notification-box manual-attendance-notification">
+              <div class="notification-content">
+                <h2>Your Attendance Update</h2>
+                <p>Your attendance was ${attendance.status} for ${dateColumn}.</p>
+              </div>
+            </div>
+          `;
+            document.querySelector('.slider2').innerHTML += '<div class="notification-scroller active">' + attendanceHTML + '</div>';
+          });
+
+          response.upcomingHolidays.forEach(function (holiday, index) {
+            const holidayDate = formatDate(holiday.Date);
+
+            var holidayHTML = `
+            <div class="notification-box upcoming-holiday-notification">
+              <div class="notification-content">
+                <h2>Upcoming Holiday</h2>
+                <p>${holiday.Remarks} on ${holidayDate}.</p>
+              </div>
+            </div>
+          `;
+            document.querySelector('.slider2').innerHTML += '<div class="notification-scroller active">' + holidayHTML + '</div>';
+          });
+
+          if (response.currentDayHoliday) {
+            const currentDayHolidayDate = formatDate(response.currentDayHoliday.Date);
+
+            var currentDayHolidayHTML = `
+            <div class="notification-box current-day-holiday-notification">
+              <div class="notification-content">
+                <h2>Today's Holiday</h2>
+                <p>${response.currentDayHoliday.Remarks} today, ${currentDayHolidayDate}.</p>
+              </div>
+            </div>
+          `;
+            document.querySelector('.slider2').innerHTML += '<div class="notification-scroller active">' + currentDayHolidayHTML + '</div>';
+          }
+
+          createAndSetDots2();
+        } else {
+          console.error('Error fetching data:', xhr.statusText);
+        }
+      };
+      xhr.onerror = function () {
+        console.error('Error fetching data:', xhr.statusText);
+      };
+      xhr.send();
+    }
+
+    fetchData2();
+
+    function createAndSetDots2() {
+      const notifications = document.querySelectorAll('.slider2 .notification-scroller');
+      const dotsContainer = document.querySelector('.dots-container2');
+
+      dotsContainer.innerHTML = '';
+
+      notifications.forEach(function (notification, index) {
+        const dot = document.createElement('div');
+        dot.classList.add('scroller-dots1');
+        dot.addEventListener('click', function () {
+          goToNotification2(index);
+        });
+        dotsContainer.appendChild(dot);
+      });
+
+      goToNotification2(0);
+    }
+
+    function goToNotification2(index) {
+      const notifications = document.querySelectorAll('.slider2 .notification-scroller');
+      const dots = document.querySelectorAll('.dots-container2 .scroller-dots1');
+
+      notifications.forEach(function (notification) {
+        notification.classList.remove('active');
+      });
+      dots.forEach(function (dot) {
+        dot.classList.remove('active');
+      });
+
+      notifications[index].classList.add('active');
+      dots[index].classList.add('active');
+
+      // Scroll to the selected notification
+      currentIndex2 = index;
+      document.querySelector('.slider2').style.transform = `translateX(-${currentIndex2 * 100}%)`;
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+  });
+
+</script>
+
+
+<script>
+  //Dark Mode Toggle
+  document.querySelector('.dark-mode-switch').onclick = () => {
+    document.querySelectorAll('.dark').forEach(element => {
+      element.classList.toggle('light');
+      element.classList.toggle('dark');
+    });
+  };
+
+  //Check Year
+  isCheckYear = (year) => {
+    return (year % 4 === 0 && year % 100 !== 0 && year % 400 !== 0)
+      || (year % 100 === 0 && year % 400 === 0)
+  };
+
+  getFebDays = (year) => {
+    return isCheckYear(year) ? 29 : 28
+  };
+
+  document.querySelectorAll('.calendar').forEach(calendar => {
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let monthPicker = calendar.querySelector('.month-picker');
+
+    monthPicker.onclick = () => {
+      calendar.querySelector('.month-list').classList.add('show')
+    };
+
+    //Generate Calendar
+    generateCalendar = (month, year) => {
+      let calendarDay = calendar.querySelector('.calendar-day');
+      calendarDay.innerHTML = '';
+
+      let calendarHeaderYear = calendar.querySelector('#year');
+      let daysOfMonth = [31, getFebDays(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+      let currDate = new Date();
+
+      monthPicker.innerHTML = monthNames[month];
+      calendarHeaderYear.innerHTML = year;
+
+      let firstDay = new Date(year, month, 1);
+
+      for (let i = 0; i <= daysOfMonth[month] + firstDay.getDay() - 1; i++) {
+        let day = document.createElement('div');
+        if (i >= firstDay.getDay()) {
+          day.classList.add('calendarDayHover');
+          day.innerHTML = i - firstDay.getDay() + 1;
+          day.innerHTML += `<span></span>
+                                 <span></span>
+                                 <span></span>
+                                 <span></span>`;
+          if (i - firstDay.getDay() + 1 === currDate.getDate() && year === currDate.getFullYear() && month === currDate.getMonth()) {
+            day.classList.add('currDate');
+          }
+
+          // Check if the day is Sunday
+          let generatedDate = new Date(year, month, i - firstDay.getDay() + 1);
+          if (generatedDate.getDay() === 0) {
+            day.classList.add('sunday');
+          }
+        }
+        calendarDay.appendChild(day);
+      }
+    };
+
+    let monthList = calendar.querySelector('.month-list');
+    monthNames.forEach((e, index) => {
+      let month = document.createElement('div')
+      month.innerHTML = `<div>${e}</div>`
+      month.onclick = () => {
+        monthList.classList.remove('show')
+        currMonth.value = index
+        generateCalendar(currMonth.value, currYear.value)
+      }
+      monthList.appendChild(month)
+    });
+
+    document.querySelectorAll('#prev-year').forEach(prevYearBtn => {
+      prevYearBtn.onclick = () => {
+        --currYear.value
+        generateCalendar(currMonth.value, currYear.value)
+      };
+    });
+
+    document.querySelectorAll('#next-year').forEach(nextYearBtn => {
+      nextYearBtn.onclick = () => {
+        ++currYear.value
+        generateCalendar(currMonth.value, currYear.value)
+      };
+    });
+
+    let currDate = new Date();
+    let currMonth = { value: currDate.getMonth() };
+    let currYear = { value: currDate.getFullYear() };
+
+    generateCalendar(currMonth.value, currYear.value);
+
+    // Add click event listener to each calendar day
+    calendar.querySelectorAll('.calendar-day div').forEach((day) => {
+      day.addEventListener('click', (event) => {
+        const selectedDate = event.target.textContent.trim();
+        if (selectedDate !== '') {
+          openAttendanceDialog2(selectedDate, currMonth.value, currYear.value, monthNames);
+        }
+      });
+    });
+  });
+
+  const openAttendanceDialog2 = (date, month, year, monthNames) => {
+    const dialogDate = document.querySelectorAll('#dialogDate');
+    dialogDate.forEach(element => {
+      element.textContent = `Selected Date: ${monthNames[month]} ${date}, ${year}`;
+    });
+
+    const formContainer = document.querySelectorAll('#form-container');
+    formContainer.forEach(element => {
+      element.style.display = 'block'; // Show the form container
+    });
+  };
+
+  // Function to cancel attendance and hide the form container
+  const cancelAttendance2 = () => {
+    const formContainer = document.querySelectorAll('#form-container');
+    formContainer.forEach(element => {
+      element.style.display = 'none'; // Hide the form container
+    });
+  };
+
+  // Add click event listener to the cancel button
+  const cancelBtn = document.querySelectorAll('#cancelBtn');
+  cancelBtn.forEach(btn => {
+    btn.addEventListener('click', cancelAttendance2);
+  });
+
+</script>
+
+
+
+<script>
+  function openAttendanceDialog2() {
+    var attendanceInputDialog = document.getElementById('attLeaveFprm');
+    attendanceInputDialog.showModal();
+
+    // Set the value of the date input field in "yyyy-MM-dd" format
+    var dialogDateValue = document.getElementById('dialogDate').textContent;
+
+    // Convert the dialogDateValue to a Date object
+    var formattedDate = new Date(dialogDateValue);
+
+    // Add one day to the date
+    formattedDate.setDate(formattedDate.getDate() + 1);
+
+    // Format the date as "yyyy-MM-dd"
+    formattedDate = formattedDate.toISOString().split('T')[0];
+
+    document.getElementById('date').value = formattedDate;
+  }
+
+  function cancelAttendance() {
+    var attendanceInputDialog = document.getElementById('attendanceInputDialog');
+    attendanceInputDialog.close();
+  }
+
+  function cancelAttendance2() {
+    var attendanceDialog = document.getElementById('attendanceDialog');
+    attendanceDialog.close();
+  }
+</script>
+<script>
+  const openAttendanceBtns = document.querySelectorAll('#openAttendanceBtn');
+  const attManualForms = document.querySelectorAll('.attManualForm');
+  const closeAs = document.querySelectorAll('#closeA');
+  const leaveManuals = document.querySelectorAll('.leaveManual');
+  const openLeaveBtns = document.querySelectorAll('#openLeaveBtn');
+  const closeLs = document.querySelectorAll('#closeL');
+
+  openAttendanceBtns.forEach((btn, index) => {
+    btn.addEventListener('click', function () {
+      attManualForms[index].style.display = 'block';
+      var dialogDateValue = document.getElementById('dialogDate').textContent;
+
+      var formattedDate = new Date(dialogDateValue);
+
+      formattedDate.setDate(formattedDate.getDate() + 1);
+
+      formattedDate = formattedDate.toISOString().split('T')[0];
+
+      document.getElementById('date').value = formattedDate;
+    });
+  });
+
+  openLeaveBtns.forEach((btn, index) => {
+    btn.addEventListener('click', function () {
+      leaveManuals[index].style.display = 'block';
+    });
+  });
+
+  closeAs.forEach((closeBtn, index) => {
+    closeBtn.addEventListener('click', function () {
+      attManualForms[index].style.display = 'none';
+    });
+  });
+
+  closeLs.forEach((closeBtn, index) => {
+    closeBtn.addEventListener('click', function () {
+      leaveManuals[index].style.display = 'none';
+    });
+  });
+
+  function cancelNewAttendance(index) {
+    attManualForms[index].style.display = 'none';
+  }
+
+  function leaveClose(index) {
+    leaveManuals[index].style.display = 'none';
+  }
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('#leaveForm').submit(function (event) {
+      event.preventDefault(); // Prevent the form from submitting normally
+
+      // Get form data
+      var formData = $(this).serialize();
+
+      // Make AJAX request
+      $.ajax({
+        type: 'POST',
+        url: '/submitLeave',
+        data: formData,
+        success: function (response) {
+          // If leave submitted successfully, show success message using Toastr
+          toastr.success(response.message, 'Success');
+          cancelAttendance2();
+          leaveClose();
+        },
+        error: function (xhr, status, error) {
+          // If there was an error, show error message using Toastr
+          if (xhr.responseJSON && xhr.responseJSON.message === 'Insufficient leave balance. Deduction will be from salary.') {
+            toastr.success('Insufficient leave balance. Deduction will be from salary.', 'Success');
+            leaveClose();
+            cancelAttendance2();
+          } else {
+            toastr.error('Error: ' + xhr.responseJSON.message, 'Error');
+          }
+        }
+      });
+    });
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("formData").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      var formData = new FormData(this); // Create a FormData object containing the form data
+
+      var xhr = new XMLHttpRequest(); // Create a new XMLHttpRequest object
+
+      // Configure the request
+      xhr.open("POST", "/manualAttendanceDashboard", true);
+
+      // Set up the onload handler to handle the response
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText); // Parse the JSON response
+          toastr.success(response.message); // Display success message using Toastr
+          cancelAttendance();
+          cancelAttendance2(); // Call the cancelAttendance function
+
+        } else {
+          toastr.error("Error: " + xhr.statusText); // Display error message using Toastr
+        }
+      };
+
+      // Set up the onerror handler to handle errors
+      xhr.onerror = function () {
+        toastr.error("Request failed."); // Display error message using Toastr
+      };
+
+      // Send the request
+      xhr.send(formData);
+    });
+  });
+</script>
+
+
+{{!-- get counter time for phone --}}
+<script>
+  var counterInterval; // Global variable to store the interval
+
+  // Function to fetch attendance data from the API
+  $(document).ready(function () {
+    $.ajax({
+      url: '/attendance',
+      method: 'GET',
+      data: {
+        date: new Date().toISOString().split('T')[0] // Get current date in YYYY-MM-DD format
+      },
+      success: function (response) {
+        // Check if inAttendance data exists and update the HTML content
+        if (response.inAttendance) {
+          $('#firstInRecord').text(response.inAttendance.time_column);
+          updateCounter(response.inAttendance.time_column, response.outAttendance);
+        } else {
+          $('#firstInRecord').text('00:00:00');
+          $('#counterTime').text('00:00:00');
+        }
+
+        // Check if outAttendance data exists and update the HTML content
+        if (response.outAttendance) {
+          $('#firstOutRecord').text(response.outAttendance.time_column);
+        } else {
+          $('#firstOutRecord').text('00:00:00');
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error('Error fetching attendance data:', error);
+      }
+    });
+  });
+
+  // Function to update the counter time
+  function updateCounter(punchInTime, outAttendance) {
+    if (outAttendance) {
+      var punchOutTimeSplit = outAttendance.time_column.split(':');
+      var punchOutDateTime = new Date();
+      punchOutDateTime.setHours(punchOutTimeSplit[0]);
+      punchOutDateTime.setMinutes(punchOutTimeSplit[1]);
+      punchOutDateTime.setSeconds(punchOutTimeSplit[2]);
+
+      var punchInTimeSplit = punchInTime.split(':');
+      var punchInDateTime = new Date();
+      punchInDateTime.setHours(punchInTimeSplit[0]);
+      punchInDateTime.setMinutes(punchInTimeSplit[1]);
+      punchInDateTime.setSeconds(punchInTimeSplit[2]);
+
+      var diffInMillis = punchOutDateTime.getTime() - punchInDateTime.getTime();
+
+      var hours = Math.floor(diffInMillis / (1000 * 60 * 60));
+      var minutes = Math.floor((diffInMillis % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((diffInMillis % (1000 * 60)) / 1000);
+
+      var formattedTime =
+        ('0' + hours).slice(-2) + ':' +
+        ('0' + minutes).slice(-2) + ':' +
+        ('0' + seconds).slice(-2);
+
+      $('#counterTime').text(formattedTime);
+      return;
+    }
+
+    counterInterval = setInterval(function () {
+      $.ajax({
+        url: '/attendance',
+        method: 'GET',
+        data: {
+          date: new Date().toISOString().split('T')[0] // Get current date in YYYY-MM-DD format
+        },
+        success: function (response) {
+          if (response.outAttendance) {
+            $('#firstOutRecord').text(response.outAttendance.time_column);
+            clearInterval(counterInterval);
+            updateCounter(punchInTime, response.outAttendance);
+            return;
+          }
+          if (response.inAttendance) {
+            var currentDate = new Date();
+            var punchInTimeSplit = response.inAttendance.time_column.split(':');
+            var punchInDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), parseInt(punchInTimeSplit[0]), parseInt(punchInTimeSplit[1]), parseInt(punchInTimeSplit[2]));
+          }
+          var currentTime = new Date();
+          var diffInMillis = currentTime.getTime() - punchInDateTime.getTime();
+
+          var hours = Math.floor(diffInMillis / (1000 * 60 * 60));
+          var minutes = Math.floor((diffInMillis % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((diffInMillis % (1000 * 60)) / 1000);
+
+          var formattedTime =
+            ('0' + hours).slice(-2) + ':' +
+            ('0' + minutes).slice(-2) + ':' +
+            ('0' + seconds).slice(-2);
+
+          $('#counterTime').text(formattedTime);
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching attendance data:', error);
+        }
+      });
+    }, 1000);
+  }
+</script>
+
+
+{{!-- get counter time for dashboard --}}
+<script>
+  var counterIntervalDashboard; // Global variable to store the interval
+
+  // Function to fetch attendance data from the API
+  $(document).ready(function () {
+    $.ajax({
+      url: '/attendance',
+      method: 'GET',
+      data: {
+        date: new Date().toISOString().split('T')[0] // Get current date in YYYY-MM-DD format
+      },
+      success: function (response) {
+        // Check if inAttendance data exists and update the HTML content
+        if (response.inAttendance) {
+          $('#firstInRecordDashboard').text(response.inAttendance.time_column);
+          updateCounterForDashboard(response.inAttendance.time_column, response.outAttendance);
+        } else {
+          $('#firstInRecordDashboard').text('00:00:00');
+          $('#counterTimeDashboard').text('00:00:00');
+        }
+
+        // Check if outAttendance data exists and update the HTML content
+        if (response.outAttendance) {
+          $('#firstOutRecordDashboard').text(response.outAttendance.time_column);
+        } else {
+          $('#firstOutRecordDashboard').text('00:00:00');
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error('Error fetching attendance data:', error);
+      }
+    });
+  });
+
+  // Function to update the counter time
+  function updateCounterForDashboard(punchInTime, outAttendance) {
+    if (outAttendance) {
+      var punchOutTimeSplit = outAttendance.time_column.split(':');
+      var punchOutDateTime = new Date();
+      punchOutDateTime.setHours(punchOutTimeSplit[0]);
+      punchOutDateTime.setMinutes(punchOutTimeSplit[1]);
+      punchOutDateTime.setSeconds(punchOutTimeSplit[2]);
+
+      var punchInTimeSplit = punchInTime.split(':');
+      var punchInDateTime = new Date();
+      punchInDateTime.setHours(punchInTimeSplit[0]);
+      punchInDateTime.setMinutes(punchInTimeSplit[1]);
+      punchInDateTime.setSeconds(punchInTimeSplit[2]);
+
+      var diffInMillis = punchOutDateTime.getTime() - punchInDateTime.getTime();
+
+      var hours = Math.floor(diffInMillis / (1000 * 60 * 60));
+      var minutes = Math.floor((diffInMillis % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((diffInMillis % (1000 * 60)) / 1000);
+
+      var formattedTime =
+        ('0' + hours).slice(-2) + ':' +
+        ('0' + minutes).slice(-2) + ':' +
+        ('0' + seconds).slice(-2);
+
+      $('#counterTimeDashboard').text(formattedTime);
+      clearInterval(counterIntervalDashboard); // Clear the interval
+      return;
+    }
+
+    counterIntervalDashboard = setInterval(function () {
+      $.ajax({
+        url: '/attendance',
+        method: 'GET',
+        data: {
+          date: new Date().toISOString().split('T')[0] // Get current date in YYYY-MM-DD format
+        },
+        success: function (response) {
+          if (response.outAttendance) {
+            $('#firstOutRecordDashboard').text(response.outAttendance.time_column);
+            clearInterval(counterIntervalDashboard); // Clear the interval
+            updateCounterForDashboard(punchInTime, response.outAttendance);
+            return;
+          }
+          if (response.inAttendance) {
+            var currentDate = new Date();
+            var punchInTimeSplit = response.inAttendance.time_column.split(':');
+            var punchInDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), parseInt(punchInTimeSplit[0]), parseInt(punchInTimeSplit[1]), parseInt(punchInTimeSplit[2]));
+          }
+          var currentTime = new Date();
+          var diffInMillis = currentTime.getTime() - punchInDateTime.getTime();
+
+          var hours = Math.floor(diffInMillis / (1000 * 60 * 60));
+          var minutes = Math.floor((diffInMillis % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((diffInMillis % (1000 * 60)) / 1000);
+
+          var formattedTime =
+            ('0' + hours).slice(-2) + ':' +
+            ('0' + minutes).slice(-2) + ':' +
+            ('0' + seconds).slice(-2);
+
+          $('#counterTimeDashboard').text(formattedTime);
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching attendance data:', error);
+        }
+      });
+    }, 1000);
+  }
+</script>
+
+
+
+<script>
+  window.onload = function () {
+    // JavaScript code to fetch data
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/leave-notifications', true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          // Process fetched data
+          var data = JSON.parse(xhr.responseText);
+          console.log('Data fetched successfully:', data);
+          // Update your UI with the fetched data
+        } else {
+          // Handle errors
+          console.error('Error fetching data:', xhr.statusText);
+        }
+      }
+    };
+    xhr.send();
+  };
+</script>
+
+
+<script>
+  $(document).ready(function () {
+    $(window).on('load', function () {
+      $.ajax({
+        url: '/calendarData',
+        type: 'GET',
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (err) {
+          console.error('Error:', err);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Frontend AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/totalHoursWorked', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          console.log(JSON.parse(xhr.responseText));
+        } else {
+          console.error('Error:', JSON.parse(xhr.responseText).message);
+        }
+      }
+    };
+    xhr.send();
+  });
+</script>
+<script>
+    fetch('/dailyHoursWorked')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.warn(data)
+        var newDate = []
+        var newHoursWorked = []
+
+        data[0].forEach(item => {
+          newDate.push(item.work_date)
+          newHoursWorked.push(parseFloat(item.total_hours_worked).toFixed(2))
+        })
+
+        var options = {
+          series: [{
+            name: "Hours Worked",
+            data: newHoursWorked
+          }],
+          chart: {
+            height: 350,
+            type: 'line',
+            zoom: {
+              enabled: false
+            }
+          },
+          dataLabels: {
+            enabled: true,
+            style: {
+              colors: ['#333']
+            },
+            background: {
+              enabled: true,
+              foreColor: '#333',
+              padding: 2,
+              borderRadius: 2,
+              borderWidth: 1,
+              borderColor: '#fff',
+              opacity: 0.9,
+            },
+          },
+          stroke: {
+            curve: 'smooth',
+            width: 2
+          },
+          title: {
+            text: 'Work Status',
+            align: 'left',
+            style: {
+              fontSize: '22px',
+              color: '#444',
+              fontFamily: 'Quicksand, sans-serif',
+            },
+          },
+          grid: {
+            row: {
+              colors: ['#f3f3f3', 'transparent'],
+              opacity: 0.5
+            },
+          },
+          xaxis: {
+            categories: newDate.sort((a, b) => new Date(a) - new Date(b)),
+            labels: {
+              style: {
+                colors: '#333',
+              },
+            },
+          },
+          yaxis: {
+            title: {
+              text: 'Hours',
+              style: {
+                color: '#333',
+                fontSize: '16px',
+                fontFamily: 'Quicksand, sans-serif',
+              }
+            },
+            labels: {
+              style: {
+                colors: '#333',
+              }
+            },
+          },
+          colors: ['#3e82f7'],
+          markers: {
+            size: 5,
+            colors: ['#3e82f7'],
+            strokeColors: '#fff',
+            strokeWidth: 2,
+            hover: {
+              size: 7,
+            }
+          },
+          tooltip: {
+            enabled: true,
+            shared: true,
+            intersect: false,
+            style: {
+              fontSize: '14px',
+              fontFamily: 'Quicksand, sans-serif',
+            },
+            y: {
+              formatter: function (val) {
+                return val + " hrs";
+              }
+            }
+          },
+          fill: {
+            type: 'gradient',
+            gradient: {
+              shade: 'dark',
+              type: "vertical",
+              shadeIntensity: 0.5,
+              gradientToColors: ['#3e82f7'],
+              inverseColors: true,
+              opacityFrom: 1,
+              opacityTo: 0.7,
+              stops: [0, 100]
+            }
+          },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+      })
+      .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
+
+  </script>
+
+

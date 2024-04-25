@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ScaleEdge</title>
+    <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+</head>
+
+<body>
+    <div class="container-scroller">
+        {{>topbar}}
+        <div class="container-fluid page-body-wrapper">
+            {{#if (eq userGroup "admin")}}
+            {{> sidebar}}
+            {{else}}
+            {{> attendanceSidebar}}
+            {{/if}}
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="page-header">
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                <i class="mdi mdi-arrow-left" onclick="goBack()" title="Back"></i>
+                                <script>
+                                    function goBack() {
+                                        window.history.back();
+                                    }
+                                </script>
+                            </span> Generate Appointment Letter
+                        </h3>
+                        {{!-- <nav aria-label="breadcrumb" class="d-flex">
+                            <ol class="breadcrumb">
+                                <li class="">
+                                    <button>Download Format</button>
+                                </li>
+                            </ol>
+                        </nav> --}}
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form class="form-sample" id="formData" onsubmit="generateOfferLetter(event)">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" id="user_name"
+                                                            value="{{user.user_name}}" name="user_name" {{#ifEquals
+                                                            userGroup 'user' }} readonly {{/ifEquals}} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">E-mail</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="email" id="user_email" name="user_email"
+                                                            value="{{user.email}}" class="form-control" {{#ifEquals
+                                                            userGroup 'user' }} readonly {{/ifEquals}} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Mobile</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" id="mobile" type="number"
+                                                            value="{{user.mobile}}" name="mobile" {{#ifEquals
+                                                            userGroup 'user' }} readonly {{/ifEquals}} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Position</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="text" id="position"
+                                                            value="{{user.position}}" name="position" {{#ifEquals
+                                                            userGroup 'user' }} readonly {{/ifEquals}} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Department</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" id="department" type="text"
+                                                            name="department" {{#ifEquals userGroup 'user' }} readonly
+                                                            {{/ifEquals}} value="{{user.department}}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Reporting To</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="text" id="reporting_to"
+                                                            value="{{user.reportingTo}}" name="reporting_to" {{#ifEquals
+                                                            userGroup 'user' }} readonly {{/ifEquals}} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Start Date</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="date" id="start_date"
+                                                            value="{{ formattedJoiningDate }}" name="start_date"
+                                                            {{#ifEquals userGroup 'user' }} readonly {{/ifEquals}} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Compensation</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="text" id="compensation"
+                                                            value="{{user.annual_salary}}" name="compensation"
+                                                            {{#ifEquals userGroup 'user' }} readonly {{/ifEquals}} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Branch</label>
+                                                    <div class="col-sm-9">
+                                                        {{#ifEquals userGroup 'admin'}}
+                                                        <select class="form-select" id="branch" name="branch"
+                                                            style="border: 1px solid #ebedf2;font-family: 'ubuntu-regular', sans-serif;font-size: 0.8125rem;">
+                                                            <option value="" disabled selected>Select Branch</option>
+                                                            {{#each branches}}
+                                                            <option value="{{this.branch_name}}">{{this.branch_name}}
+                                                            </option>
+                                                            {{/each}}
+                                                        </select>
+                                                        {{else}}
+                                                        <input type="text" readonly id="branch" class="form-control"
+                                                            value="{{user.branch}}">
+                                                        {{/ifEquals}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" id="submit-btn"
+                                            class="btn btn-gradient-primary me-2">Submit</button>
+                                        <button class="btn btn-light" onclick="goBack()">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="/assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/assets/js/off-canvas.js"></script>
+    <script src="/assets/js/hoverable-collapse.js"></script>
+    <script src="/assets/js/misc.js"></script>
+    <script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/todolist.js"></script>
+</body>
+
+</html>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function generateOfferLetter(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        // Get form data
+        const userName = document.getElementById('user_name').value.trim();
+        const userEmail = document.getElementById('user_email').value.trim();
+        const mobile = document.getElementById('mobile').value.trim();
+        const position = document.getElementById('position').value.trim();
+        const department = document.getElementById('department').value.trim();
+        const reportingTo = document.getElementById('reporting_to').value.trim();
+        const startDate = document.getElementById('start_date').value.trim();
+        const compensation = document.getElementById('compensation').value.trim();
+        const branch = document.getElementById('branch').value.trim();
+
+        // Validate all fields
+        if (!userName || !userEmail || !mobile || !position) {
+            // Display a SweetAlert message if any field is empty
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill in all fields!',
+            });
+            return; // Stop further execution
+        }
+
+        // Construct offer letter with improved styling
+        const offerLetter = `
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <div>
+        <div style="clear:both;">
+        ${branch === 'OneKlick Techno Renewable' ?
+                `<div style="clear:both; margin-bottom:-114px">
+      <p style="margin-top:0pt; margin-bottom:0pt; line-height:6%; font-size:10pt;"><span style="height: 0pt; display: block; position: absolute; justify-content: center; z-index: -65541; left: 13rem; font-family: Calibri, sans-serif;">
+ <center>  <img style="width: 164px;" src="data:image/webp;base64,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"> </center> 
+        </span></p>
+    </div>` : ''}
+        ${branch === 'ScaleEdge Solutions' ? `
+        <div style="clear:both;">
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:6%; font-size:10pt;"><span
+                    style="height: 0pt; display: block; position: absolute; justify-content: center; z-index: -65541; left: 10rem; font-family: Calibri, sans-serif;">
+                    <img
+                        src="data:image/png;base64,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"
+                        width="164" height="103" alt="" style="margin: 0 auto 0 0; display: block; "></span><span
+                    style="height: 0pt; display: block; position: absolute; justify-content: center; z-index: -65541; left: 20rem; font-family: Calibri, sans-serif;"><img
+                        src="data:image/png;base64,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"
+                        width="385" height="97" alt="" style="margin: 0 auto 0 0; display: block; "></span><span
+                    style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+        </div>
+        ` : ''}
+        </div>
+    
+        <p style="margin-top:2.8pt; margin-left:7.7pt; margin-bottom:0pt;"><span
+                style="font-family: Calibri, sans-serif;"><br></span></p>
+        <p style="margin-top:0.1pt; margin-bottom:0pt; font-size:5pt;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp; &nbsp;&nbsp;</span></p>
+        <p style="margin:2.8pt 121.7pt 0pt 126.1pt; text-align:center;"><span
+                style="font-family: Calibri, sans-serif;"><br></span></p>
+        <p style="margin:2.8pt 121.7pt 0pt 126.1pt; text-align:center;"><span
+                style="font-family: Calibri, sans-serif;"><br></span></p>
+        <p style="margin:2.8pt 121.7pt 0pt 126.1pt; text-align:center;"><span
+                style="font-family: Calibri, sans-serif;"><br></span></p>
+        <p style="margin:2.8pt 121.7pt 0pt 126.1pt; text-align:center;"><span
+                style="font-family: Calibri, sans-serif;"><br></span></p>
+        <p style="margin:2.8pt 121.7pt 0pt 126.1pt; text-align:center;"><span
+                style="font-family: Calibri, sans-serif;"><br></span></p>
+        <p style="margin:2.8pt 121.7pt 0pt 126.1pt; text-align:center;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;Appointment Letter of Employment</span></p>
+        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+        <p style="margin-top:0.1pt; margin-bottom:0pt; font-size:13.5pt;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;"><span
+                    style="letter-spacing:-0.05pt;">Dear&nbsp;</span>${userName}</p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">Email &ndash;&nbsp;<a
+                    href="mailto:${userEmail}" style="text-decoration:none;"><u><span
+                            style="color:#0563c1;">${userEmail}</span></u></a></span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">Contact &ndash; ${mobile}&nbsp;</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span style="font-family: Calibri, sans-serif;">We
+                are delighted to officially appoint you to the position of ${position} at ${branch} . We were highly
+                impressed with your qualifications, experience, and interview performance, and we believe you will excel
+                in this role.</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">Appointment Details:</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span style="font-family: Calibri, sans-serif;">
+                Job Title :- ${position}</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span style="font-family: Calibri, sans-serif;">
+                Department :- ${department} </span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span style="font-family: Calibri, sans-serif;">
+                Reporting to :- ${reportingTo} </span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span style="font-family: Calibri, sans-serif;">
+                Start Date :- ${startDate} </span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span style="font-family: Calibri, sans-serif;">
+                Compensation :-Rs. ${compensation} Per Year </span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">Please report to the A 154 Hasan Khan Mewat Nagar,Alwar, Rajasthan (301001) on ${startDate} at
+                09:30 AM. This appointment is subject to the terms and conditions outlined in the company’s
+                policies, a copy of which will be provided to you for your reference..</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span style="font-family: Calibri, sans-serif;">We
+                eagerly anticipate your contributions and growth within our organization.
+
+            </span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">Terms and Conditions:</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">During your employment, you are expected to abide by the
+                company&apos;s policies, procedures, and code of conduct. If you choose to leak company work anywhere
+                outside or use it to your personnel benefits, then you admit that you give ${branch} right for
+                legally compensation of an amount deemed suitable by ${branch} team for their losses/future adjusted
+                losses.&nbsp;</span></p>
+
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">Sincerely,</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+                ${branch === 'OneKlick Techno Renewable' ?
+                `<p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">Saurabh Sethi</span></p>`
+                : ''}
+        ${branch === 'ScaleEdge Solutions' ? `
+<p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">Anupriya Sethi</span></p>
+        ` : ''}
+        
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">Business Development Head</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">${branch}</span></p>
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+
+        <p style="margin:2.8pt 14.7pt 0pt 7.7pt; line-height:108%;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+        <p style="margin-top:0pt; margin-bottom:0pt; font-size:5pt;"><span
+                style="font-family: Calibri, sans-serif;"><img
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAmwAAAACCAYAAADl9IAmAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAlSURBVFhH7cixDQAACMOw/v904QAOYHAkL8lWAABeOycAAC+kA/ph02VkClUUAAAAAElFTkSuQmCC"
+                    width="820" height="2" alt=""><br></span></p>
+    </div>
+    <div>
+        <p style="margin-top:0.2pt; margin-bottom:0pt; font-size:10.5pt; width: 100%;"><span
+                style="font-family: Calibri, sans-serif;">&nbsp;</span></p>
+        <div style="clear:both;">
+            <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; widows:2; orphans:2;"><span
+                    style="font-family: Calibri, sans-serif;">A 154 Hasan Khan Mewat Nagar, Alwar, Rajasthan,
+                    301001</span></p>
+            <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; widows:2; orphans:2;"><span
+                    style="font-family: Calibri, sans-serif;"><a href="mailto:info@scaleedge.in"
+                        style="text-decoration:none;"><u><span
+                                style="color:#0563c1;">info@scaleedge.in</span></u></a>&nbsp; | &nbsp; &nbsp; 9251697397
+                    &nbsp; | www.scaleedge.in</span></p>
+        </div>
+    </div>
+
+</body>
+
+</html>
+    `;
+
+
+        // Display the offer letter in a new window
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write('<html><body>');
+        printWindow.document.write(offerLetter);
+        printWindow.document.write('</body></html>');
+
+        // Print the offer letter
+        setTimeout(function () {
+            printWindow.print();
+        }, 1);
+    }
+</script>
+
+{{!--
+<script>
+    // Get today's date and format it as "YYYY-MM-DD"
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+
+    // Set the input field value to the current date
+    document.getElementById('start_date').value = today;
+</script> --}}

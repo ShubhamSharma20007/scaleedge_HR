@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ScaleEdge</title>
+    <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/javascripts/usermanagment.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <meta name="viewport" content=" width=" 1024", initial-scale=1, user-scalable=yes">
+
+</head>
+
+<body>
+    <div class="container-scroller">
+        {{>topbar}}
+        <div class="container-fluid page-body-wrapper">
+            {{>sidebar}}
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="page-header">
+
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                <i class="mdi mdi-arrow-left" onclick="goBack()" title="Back"></i>
+                <script>
+                  function goBack() {
+                    window.history.back();
+                  }
+                </script>
+                            </span> Registeration Requests
+                        </h3>
+                        <nav aria-label="breadcrumb" style="display: flex;">
+                            <button class="btn badge badge-success btn-fw" id="bulkApproveBtn"> Bulk Approve </button>
+                            
+                        </nav>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="card">
+
+                                <div class="card-body">
+
+                                    <div class="table-wrapper">
+                                        <table id="userDataTable" class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="text-center">Id</th>
+                                                    <th scope="col" class="text-center">Name</th>
+                                                    <th scope="col" class="text-center">E-mail</th>
+                                                    <th scope="col" class="text-center">Mobile</th>
+                                                    <th scope="col" class="text-center">Role</th>
+                                                    <th scope="col" class="text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#each manualData}}
+                                                <tr>
+                                                    <td class="text-center">{{id}}</td>
+                                                    <td class="text-center">{{capitalizeFirst user_name}}</td>
+                                                    <td class="text-center">{{email}}</td>
+                                                    <td class="text-center">{{capitalizeFirst mobile}}</td>
+                                                    <td class="text-center">{{capitalizeFirst user_group}}</td>
+                                                    <td class="text-center" style="padding: inherit;">
+
+                                                        <button type="submit" name="action" value="approve"
+                                                            id="approve-btn" class="btn  approve-btn"
+                                                            style="padding: initial;" data-action="approve"
+                                                            data-id="{{id}}"><i class="fa-solid fa-square-check"
+                                                                style="font-size: 29px;"></i></button>
+
+                                                        <button type="submit" name="action" value="reject" class="btn"
+                                                            data-action="reject" data-id="{{id}}"><i
+                                                                class="fa-solid fa-circle-xmark"
+                                                                style="font-size: 29px;"></i></button>
+
+                                                        <a href="/registerationShow/{{id}}" class=" btn"
+                                                            style="padding: initial;"><i class="fa-solid fa-eye"
+                                                                style="font-size: 29px;"></i></a>
+                                                    </td>
+                                                </tr>
+                                                {{/each}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {{!-- <button id="bulkApproveBtn">Bulk Approve</button> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+        <script src="assets/vendors/chart.js/Chart.min.js"></script>
+        <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
+        <script src="assets/js/off-canvas.js"></script>
+        <script src="assets/js/hoverable-collapse.js"></script>
+        <script src="assets/js/misc.js"></script>
+        <script src="assets/js/dashboard.js?v=1.7z"></script>
+        <script src="assets/js/todolist.js"></script>
+        <script src="/assets/js/face-api.js"></script>
+</body>
+
+</html>
+{{!-- <script>
+    let recognizedLabel = null;
+    let jsonObj = [];
+    let jsonUserObj = [];
+    async function createjsonfile() {
+
+        const MODEL_URL = '/models';
+        var matchData = 0;
+        await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+        const labels = jsonObj;
+        for (let i = 0; i < labels.length; i++) {
+            var label = labels[i];
+            const lbl = label.Imagepath;
+            const lbl1 = label.title;
+            const lblid = label.id;
+            const imgUrl = `profile/${lbl}`;
+            const img = await faceapi.fetchImage(imgUrl);
+            //console.log(imgUrl);
+            const singleResult = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+
+            console.log(singleResult);
+            if (singleResult) {
+                const item = {};
+                item['title'] = lbl1;
+                //item['singleResult']=singleResult;
+                item['descriptor'] = singleResult.descriptor;
+                //   item['detection']=singleResult.detection;
+                //   item['landmarks']=singleResult.landmarks;
+                //   item['unshiftedLandmarks']=singleResult.unshiftedLandmarks;
+                //   item['alignedRect']=singleResult.alignedRect;
+
+                jsonUserObj.push(item);
+
+            }
+
+        }
+        $.ajax({
+            url: '/generateusersjson',
+            type: 'POST',
+            data: { usersjson: JSON.stringify(jsonUserObj), userfilename: 'martonline.json' },
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (response) {
+                console.log('IIII');
+                console.log(response);
+                // alert(response);
+                location.reload()
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+
+        //alert('done');
+
+    }
+    async function createjsonfile1() {
+
+        const MODEL_URL = '/models';
+        var matchData = 0;
+        await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+        const labels = jsonObj;
+        for (let i = 0; i < labels.length; i++) {
+            var label = labels[i];
+            const lbl = label.Imagepath;
+            const lbl1 = label.title;
+            const lblid = label.id;
+            const imgUrl = `profile/${lbl}`;
+            const img = await faceapi.fetchImage(imgUrl);
+            //console.log(imgUrl);
+            const singleResult = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+
+            //console.log(singleResult);
+            if (singleResult) {
+                const item = {};
+                item['title'] = lbl1;
+                //item['singleResult']=singleResult;
+                item['descriptor'] = singleResult.descriptor;
+                //   item['detection']=singleResult.detection;
+                //   item['landmarks']=singleResult.landmarks;
+                //   item['unshiftedLandmarks']=singleResult.unshiftedLandmarks;
+                //   item['alignedRect']=singleResult.alignedRect;
+                $.ajax({
+                    url: '/generateusersjson',
+                    type: 'POST',
+                    data: { usersjson: JSON.stringify(item), userfilename: lblid + '.json' },
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    success: function (response) {
+                        console.log('IIII');
+                        console.log(response);
+                        // alert(response);
+                        location.reload()
+
+
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+                //jsonUserObj.push(item);
+
+            }
+
+        }
+        const params = {
+            usersjson: JSON.stringify(jsonUserObj)
+
+        };
+
+        alert('done');
+    }
+
+
+    function showPleaseWaitMessage() {
+        Swal.fire({
+            title: 'Approving Users',
+            html: 'Please wait while we process the approvals.<br/><i>This may take a moment...</i>',
+            allowOutsideClick: false,
+            showCancelButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
+    }
+
+    function hidePleaseWaitMessage() {
+        Swal.close();
+    }
+
+    function createusersjson() {
+        showPleaseWaitMessage(); // Show "Please wait" message
+
+        fetch('/getimg', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                jsonObj = [];
+
+                for (let i = 0; i < data.length; i++) {
+                    const item = {};
+                    item['title'] = data[i].user_id;
+                    item['Imagepath'] = data[i].Imagepath;
+                    item['id'] = data[i].id;
+                    jsonObj.push(item);
+                }
+
+                createjsonfile();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                hidePleaseWaitMessage(); // Hide "Please wait" message in case of an error
+            });
+    }
+</script> --}}
+<style>
+    .table thead th {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        z-index: 2;
+    }
+
+    .table-wrapper {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+</style>
+<script>
+    let recognizedLabel = null;
+let jsonObj = [];
+let jsonUserObj = [];
+async function createjsonfile(){
+
+    const MODEL_URL = '/models';
+    var matchData = 0;
+    await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
+    await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+    await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+    await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+    const labels=jsonObj;
+    for (let i=0; i<labels.length; i++){
+      var label=labels[i];
+      const lbl = label.Imagepath;
+      const lbl1 = label.title;
+      const lblid=label.id;
+      const imgUrl = `profile/${lbl}`;
+      const img = await faceapi.fetchImage(imgUrl);
+      //console.log(imgUrl);
+      const singleResult = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+      
+      console.log(singleResult);
+      if (singleResult) {
+        const item = {};
+        item['title'] = lbl1;
+        //item['singleResult']=singleResult;
+        item['descriptor']=singleResult.descriptor;
+      //   item['detection']=singleResult.detection;
+      //   item['landmarks']=singleResult.landmarks;
+      //   item['unshiftedLandmarks']=singleResult.unshiftedLandmarks;
+      //   item['alignedRect']=singleResult.alignedRect;
+          
+          jsonUserObj.push(item);
+    
+      }
+     
+    }
+    $.ajax({
+        url: '/generateusersjson',
+        type: 'POST',
+        data: { usersjson: JSON.stringify(jsonUserObj), userfilename: 'megapower.json'},
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (response) {
+            console.log('IIII');
+            console.log(response);
+            // alert(response);
+            location.reload()
+        
+        },
+        error: function (err) {
+            alert(err.statusText);
+        }
+    });
+    
+    Swal.close();
+  
+  }
+async function createjsonfile1(){
+
+  const MODEL_URL = '/models';
+  var matchData = 0;
+  await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
+  await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+  await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+  await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+  const labels=jsonObj;
+  for (let i=0; i<labels.length; i++){
+    var label=labels[i];
+    const lbl = label.Imagepath;
+    const lbl1 = label.title;
+    const lblid=label.id;
+    const imgUrl = `profile/${lbl}`;
+    const img = await faceapi.fetchImage(imgUrl);
+    //console.log(imgUrl);
+    const singleResult = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+    
+    //console.log(singleResult);
+    if (singleResult) {
+      const item = {};
+      item['title'] = lbl1;
+      //item['singleResult']=singleResult;
+      item['descriptor']=singleResult.descriptor;
+    //   item['detection']=singleResult.detection;
+    //   item['landmarks']=singleResult.landmarks;
+    //   item['unshiftedLandmarks']=singleResult.unshiftedLandmarks;
+    //   item['alignedRect']=singleResult.alignedRect;
+        $.ajax({
+            url: '/generateusersjson',
+            type: 'POST',
+            data: { usersjson: JSON.stringify(item), userfilename: lblid + '.json'},
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (response) {
+                console.log('IIII');
+                console.log(response);
+                // alert(response);
+                location.reload()
+            
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+        //jsonUserObj.push(item);
+  
+    }
+   
+  }
+  const params = {
+    usersjson: JSON.stringify(jsonUserObj)
+    
+  };
+  
+  Swal.close();
+}
+function createusersjson(){
+    Swal.fire({
+        title: 'Approving Users',
+        html: 'Please wait while we process the approvals.<br/><i>This may take a moment...</i>',
+        allowOutsideClick: false,
+        showCancelButton: false,
+        didOpen: () => {
+            Swal.showLoading();
+        },
+    });
+    
+    fetch('/getimg', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        jsonObj = [];
+        
+        for (let i = 0; i < data.length; i++) {
+            const item = {};
+            item['title'] = data[i].user_id;
+            item['Imagepath'] = data[i].Imagepath;
+            jsonObj.push(item);
+        }
+        
+        createjsonfile(); // Assuming this function handles the JSON creation
+        
+       // Swal.close(); // Close SweetAlert when done
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        Swal.close(); // Close SweetAlert on error as well
+    });
+}
+
+
+function getval() {
+  showPleaseWait();
+  fetch('/getimg', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      jsonObj = [];
+      
+      for (let i = 0; i < data.length; i++) {
+        const item = {};
+        item['title'] = data[i].user_id;
+        item['Imagepath'] = data[i].Imagepath;
+        jsonObj.push(item);
+      }
+      
+      //console.log(jsonObj);
+      //face();
+      facenew();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  
+}
+
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const approveBtns = document.querySelectorAll('.approve-btn');
+        const rejectBtns = document.querySelectorAll('button[data-action="reject"]');
+        const bulkApproveBtn = document.getElementById('bulkApproveBtn');
+
+        approveBtns.forEach(approveBtn => {
+            approveBtn.addEventListener('click', function (event) {
+                event.preventDefault();
+                const userId = event.currentTarget.getAttribute('data-id');
+
+                Swal.fire({
+                    text: "Are you sure you want to approve the user?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const formData = new FormData();
+                        formData.append('id', userId);
+                        formData.append('action', 'approve');
+                        const email = event.target.closest('tr').querySelector('td:nth-child(3)').textContent;
+                        formData.append('email', email);
+                        fetch('/checkEmailExists', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.emailExists) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Email Already Exists',
+                                        text: 'The email already exists. The user cannot be approved.'
+                                    });
+                                } else {
+                                    fetch('/registerationRequests', {
+                                        method: 'POST',
+                                        body: formData
+                                    })
+                                        .then(response => {
+                                            if (response.ok) {
+                                                createusersjson();
+                                            } else {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Error',
+                                                    text: 'Failed to approve the user.'
+                                                });
+                                            }
+                                        });
+                                }
+                            });
+                    }
+                });
+            });
+        });
+        rejectBtns.forEach(rejectBtn => {
+            rejectBtn.addEventListener('click', function (event) {
+                event.preventDefault();
+                const userId = event.currentTarget.getAttribute('data-id');
+
+                Swal.fire({
+                    text: "Are you sure you want to reject the user?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const formData = new FormData();
+                        formData.append('id', userId); // Append user's ID to the form data
+                        formData.append('action', 'reject');
+
+                        fetch('/registerationRequests', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    location.reload();
+
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: 'Failed to reject the user.'
+                                    });
+                                }
+                            });
+                    }
+                });
+            });
+        });
+        bulkApproveBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            Swal.fire({
+                text: "Are you sure you want to approve all users?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "No"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const userIds = Array.from(approveBtns).map(btn => btn.getAttribute('data-id'));
+
+                    fetch('/bulkApproveUsers', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ userIds }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Handle success
+                                createusersjson();
+                                //location.reload(); // or update the UI as needed
+                            } else {
+                                // Handle failure
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'Failed to approve users.',
+                                });
+                            }
+                        });
+                }
+            });
+        });
+    });
+
+
+
+</script>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScaleEdge</title>
+    <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <meta name="viewport" content=" width=" 1024", initial-scale=1, user-scalable=yes">
+
+</head>
+
+<body>
+    <div class="container-scroller">
+        {{>topbar}}
+        <div class="container-fluid page-body-wrapper">
+            {{>attendanceSidebar}}
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="page-header">
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                <i class="mdi mdi-arrow-left" onclick="goBack()" title="Back"></i>
+                <script>
+                  function goBack() {
+                    window.history.back();
+                  }
+                </script>
+                            </span> Meeting Report
+                        </h3>
+                        {{!-- <nav aria-label="breadcrumb">
+                            <ul class="breadcrumb">
+                                <a href="" onclick="goBack()"><i style="font-size: 30px;"
+                                        class="fa-solid fa-file-csv"></i></a>
+                            </ul>
+                        </nav> --}}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                {{!-- <label class="col-sm-3 col-form-label">Filter by Lead Status</label> --}}
+                                <div class="col-sm-12">
+                                    <select id="statusFilter" class="form-select">
+                                        <option value="all">All</option>
+                                        <option value="hot">Hot</option>
+                                        <option value="cold">Cold</option>
+                                        <option value="client not available">Client Not available at location</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="card" style="max-height: 600px;">
+                                <div class="card-body" style="overflow-y: hidden;">
+                                    <div class="form-sample">
+                                        <div class="row">
+                                            <div class="table-responsive" style="overflow-y: auto; max-height: 400px;">
+                                                <table id="userTable" class="table table-bordered">
+                                                    <thead style="position: sticky; top: 0; background-color: white;">
+                                                        <tr>
+                                                            <th class="text-center">User Name</th>
+                                                            <th class="text-center">Date</th>
+                                                            <th class="text-center">Client Name</th>
+                                                            <th class="text-center">Meeting Time</th>
+                                                            <th class="text-center">Distance</th>
+                                                            <th class="text-center">Lead Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="userTableBody">
+                                                        {{#each rows}}
+                                                        <tr>
+                                                            <td class="text-center">{{this.user_name}}</td>
+                                                            <td class="text-center">{{date}}</td>
+                                                            <td class="text-center"> <a href="#"
+                                                                    onclick="showMap('{{this.clientName}}', {{this.previous_meeting_lat}}, {{this.previous_meeting_lon}})">
+                                                                    {{this.clientName}}
+                                                                </a>
+                                                            </td>
+                                                            <td class="text-center">{{this.time_meeting}}</td>
+                                                            <td class="text-center">{{this.previous_distance}}</td>
+                                                            <td class="text-center">{{this.lead_status}}</td>
+                                                        </tr>
+                                                        {{/each}}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/js/jquery-2.1.1.min.js"></script>
+    <script src="/assets/js/face-api.js"></script>
+    <script src="/assets/js/faceSystem2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="/assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/assets/js/off-canvas.js"></script>
+    <script src="/assets/js/hoverable-collapse.js"></script>
+    <script src="/assets/js/misc.js"></script>
+    <script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/todolist.js"></script>
+</body>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
+<style>
+    .calendarBox1 {
+        display: inline-block;
+    }
+
+    .calendarBox1 label {
+
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .calendarBox1 input[type="date"] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    .calendarBox1 input[type="date"]:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropbtn {
+        background-color: white;
+        /* color: white; */
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.875rem;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 200px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .user-option {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-name {
+        font-weight: bold;
+    }
+
+    .user-email {
+        font-size: 0.8em;
+        color: #777;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+</style>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+<script>
+    const tableColors = ['table-primary', 'table-success', 'table-danger', 'table-warning', 'table-info'];
+
+    const tableBody = document.getElementById('userTableBody');
+    const rows = tableBody.getElementsByTagName('tr');
+
+    for (let i = 0; i < rows.length; i++) {
+        const randomColor = tableColors[Math.floor(Math.random() * tableColors.length)];
+        rows[i].classList.add(randomColor);
+    }
+</script>
+<script>
+    function showMap(clientName, lat, lon) {
+        const url = `https://www.google.com/maps?q=${lat},${lon}&query=${clientName}`;
+        window.open(url, '_blank');
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get the select element
+        var statusFilter = document.getElementById('statusFilter');
+
+        // Get the table body
+        var userTableBody = document.getElementById('userTableBody');
+
+        // Get all rows in the table
+        var rows = document.querySelectorAll('#userTable tbody tr');
+
+        // Event listener for the select element
+        statusFilter.addEventListener('change', function () {
+            // Get the selected value
+            var selectedStatus = statusFilter.value.toLowerCase();
+
+            // Iterate through each row in the table
+            rows.forEach(function (row) {
+                // Get the lead status cell in the current row
+                var leadStatusCell = row.querySelector('td:nth-child(6)');
+
+                // Get the lead status value
+                var leadStatus = leadStatusCell.textContent.toLowerCase();
+
+                // Check if the selected status is 'all' or matches the lead status in the row
+                if (selectedStatus === 'all' || leadStatus === selectedStatus) {
+                    // Show the row
+                    row.style.display = '';
+                } else {
+                    // Hide the row
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>

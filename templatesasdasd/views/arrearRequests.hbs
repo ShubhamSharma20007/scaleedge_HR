@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScaleEdge</title>
+    <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <meta name="viewport" content=" width=" 1024", initial-scale=1, user-scalable=yes">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="container-scroller">
+        {{>topbar}}
+        <div class="container-fluid page-body-wrapper">
+            {{>sidebar}}
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="page-header">
+
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                <i class="mdi mdi-arrow-left" onclick="goBack()" title="Back"></i>
+                                <script>
+                                    function goBack() {
+                                        window.history.back();
+                                    }
+                                </script>
+                            </span> Arrear Requests
+                        </h3>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive mb-4 mt-5" style="max-height: 400px; overflow: auto; ">
+                                        <a href="" class="fw-bold"
+                                            style="color: #dc4c64!important; text-decoration:underline; font-size:20px">Arrear
+                                            Request</a>
+                                        <table id="userTable" class="table  table-bordered mt-3">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col" class="text-center">Employee Code</th>
+                                                    <th scope="col" class="text-center">Name</th>
+                                                    <th scope="col" class="text-center">Date Of Apply</th>
+                                                    <th scope="col" class="text-center">Arrear Amount</th>
+                                                    <th scope="col" class="text-center">Incentive</th>
+
+                                                    <th scope="col" class="text-center">Remarks</th>
+                                                    <th scope="col" class="text-center">Document</th>
+                                                    <th scope="col" class="text-center">Action</th>
+                                                    <th scope="col" class="text-center" hidden>Incentive Month</th>
+                                                    <th scope="col" class="text-center" hidden>Incentive Year</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="userTableBody">
+                                                {{#each arrearsData}}
+                                                <tr>
+                                                    <td scope="row" class="text-center">{{ capitalizeFirst
+                                                        this.employee_id}}</td>
+                                                    <td class="text-center">{{capitalizeFirst this.employee_name}}</td>
+                                                    <td class="text-center">{{ capitalizeFirst this.date}}</td>
+                                                    <td class="text-center">{{capitalizeFirst this.arrears_amount}}</td>
+                                                    <td class="text-center">{{capitalizeFirst this.Incentives}}</td>
+
+                                                    <td class="text-center remarks-cell"
+                                                        style="word-wrap: break-word;white-space: normal;">
+                                                        {{capitalizeFirst this.remarks}}</td>
+                                                    <td class="text-center">
+    <a style="font-size: 11px;" class="btn btn-outline-warning" href="#" onclick="downloadFile('{{this.document}}')">
+        <span id="downloadLink">Download</span>
+    </a>
+
+                                                    </td>
+
+                                                    <td class="text-center">
+                                                        <button type="button" style="font-size: 13px;"
+                                                            class="btn btn-outline-success mr-2 approve-btn"
+                                                            data-employee-id="{{this.employee_id}}">
+                                                            <i class="fas fa-check"></i> Approve
+                                                        </button>
+                                                        <button type="button" style="font-size: 13px;"
+                                                            class="btn btn-outline-danger reject-btn"
+                                                            data-employee-id="{{this.employee_id}}">
+                                                            <i class="fas fa-times"></i> Reject
+                                                        </button>
+                                                        <button type="button" style="font-size: 13px;"
+                                                            class="btn btn-outline-info view-btn" data-toggle="modal"
+                                                            data-target="#viewModal"
+                                                            data-employee-id="{{this.employee_id}}"
+                                                            data-employee-name="{{this.employee_name}}"
+                                                            data-date="{{this.date}}"
+                                                            data-amount="{{this.arrears_amount}}"
+                                                            data-incentives="{{this.Incentives}}"
+                                                            data-remarks="{{this.remarks}}"
+                                                            data-incentives-month="{{this.incentivesMonth}}"
+                                                            data-incentives-year="{{this.incentivesYear}}">
+                                                            <i class="fas fa-eye"></i> View
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center" hidden>{{capitalizeFirst
+                                                        this.incentivesMonth}}</td>
+                                                    <td class="text-center" hidden>{{capitalizeFirst
+                                                        this.incentivesYear}}</td>
+                                                </tr>
+                                                {{/each}}
+                                            </tbody>
+                                        </table>
+
+
+
+                                        <!-- Modal for Viewing and Editing Details -->
+                                        <div class="modal fade" id="viewModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="viewModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-md" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-primary text-white">
+                                                        <h5 class="modal-title" id="viewModalLabel">Arrears Details
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form id="editForm">
+                                                            <div class="form-group">
+                                                                <label for="employeeId">Employee Code:</label>
+                                                                <input type="text" class="form-control" id="employeeId">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="employeeName">Name:</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="employeeName">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="date">Date Of Apply:</label>
+                                                                <input type="text" class="form-control" id="date">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="amount"> Arrear Amount:</label>
+                                                                <input type="text" class="form-control" id="amount">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="Incentives"> Incentive Amount:</label>
+                                                                <input type="text" class="form-control" id="incentives">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="Incentives"> Incentive Salary Credited
+                                                                    Month:</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="incentivesMonth">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="Incentives"> Incentive Salary Credited
+                                                                    Year:</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="incentivesYear">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="remarks">Remarks:</label>
+                                                                <input type="text" class="form-control" id="remarks">
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary"><i
+                                                                    class="fas fa-save"></i> Submit</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/js/jquery-2.1.1.min.js"></script>
+    <script src="/assets/js/face-api.js"></script>
+    <script src="/assets/js/faceSystem2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="/assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/assets/js/off-canvas.js"></script>
+    <script src="/assets/js/hoverable-collapse.js"></script>
+    <script src="/assets/js/misc.js"></script>
+    <script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/todolist.js"></script>
+</body>
+
+</html>
+<script>
+    function downloadFile(filename) {
+        // Extract file extension
+        var extension = filename.split('.').pop().toLowerCase();
+
+        // Determine content type based on file extension
+        var contentType = '';
+        switch (extension) {
+            case 'png':
+                contentType = 'image/png';
+                break;
+            case 'jpg':
+            case 'jpeg':
+                contentType = 'image/jpeg';
+                break;
+            case 'pdf':
+                contentType = 'application/pdf';
+                break;
+            case 'doc':
+            case 'docx':
+                contentType = 'application/msword';
+                break;
+            // Add cases for other file types as needed
+            default:
+                // Unsupported file format, display error message
+                alert('Error: File format not supported');
+                return; // Exit the function
+        }
+
+        // Create a temporary link element
+        var link = document.createElement('a');
+        link.href = '/document/' + filename;
+        link.download = filename;
+
+        // Set the content type header
+        link.setAttribute('type', contentType);
+
+        // Trigger the download
+        link.click();
+    }
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.view-btn').click(function () {
+            var employeeId = $(this).data('employee-id');
+            var employeeName = $(this).data('employee-name');
+            var date = $(this).data('date');
+            var amount = $(this).data('amount');
+            var incentives = $(this).data('incentives');
+            var remarks = $(this).data('remarks');
+            var incentivesMonth = $(this).data('incentives-month');
+            var incentivesYear = $(this).data('incentives-year');
+
+            $('#employeeId').val(employeeId);
+            $('#employeeName').val(employeeName);
+            $('#date').val(date);
+            $('#amount').val(amount);
+            $('#incentives').val(incentives);
+            $('#remarks').val(remarks);
+            $('#incentivesMonth').val(incentivesMonth);
+            $('#incentivesYear').val(incentivesYear);
+        });
+
+        $('#editForm').submit(function (event) {
+            event.preventDefault();
+            var employeeId = $('#employeeId').val();
+            var employeeName = $('#employeeName').val();
+            var date = $('#date').val();
+            var amount = $('#amount').val();
+            var incentives = $('#incentives').val();
+            var remarks = $('#remarks').val();
+            var incentivesMonth = $('#incentivesMonth').val();
+            var incentivesYear = $('#incentivesYear').val();
+
+
+            // Adding one month to the date
+            var nextMonthDate = new Date(date);
+            nextMonthDate.setMonth(nextMonthDate.getMonth() + 1);
+            var formattedNextMonthDate = nextMonthDate.toISOString().split('T')[0];
+
+            // Update table row with edited details
+            var row = $('#userTableBody').find('tr').filter(function () {
+                return $(this).find('td:eq(0)').text() === employeeId;
+            });
+            row.find('td:eq(1)').text(employeeName);
+            row.find('td:eq(2)').text(formattedNextMonthDate); // Updated with next month date
+            row.find('td:eq(3)').text(amount);
+            row.find('td:eq(4)').text(incentives);
+            row.find('td:eq(5)').text(remarks);
+            row.find('td:eq(8)').text(incentivesMonth);
+            row.find('td:eq(9)').text(incentivesYear);
+
+            // Close modal
+            $('#viewModal').modal('hide');
+
+            // Perform AJAX request to store form data in arrears table and update arrears_for_users table
+            $.ajax({
+                type: "POST",
+                url: "/storeArrearsData",
+                data: {
+                    employeeId: employeeId,
+                    employeeName: employeeName,
+                    arrearsAmount: amount,
+                    incentives: incentives,
+                    dateOfApply: formattedNextMonthDate,
+                    incentivesMonth: incentivesMonth,
+                    incentivesYear: incentivesYear// Send next month date
+                },
+                success: function (response) {
+                    $('#viewModal').modal('hide');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Data stored successfully in arrears table',
+                        timer: 1500, // 1.5 seconds
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    }).then((result) => {
+                        // Reload the page after showing the alert
+                        location.reload();
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error storing data in arrears table:", error);
+                    // Show error message using SweetAlert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Failed to store data in arrears table'
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(".approve-btn").on("click", function () {
+        var employeeId = $(this).data("employee-id");
+        $.post("/arrearRequests/approve", { employeeId: employeeId }, function (data) {
+            if (data.success) {
+                // Show success SweetAlert
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Approved Successfully',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    toast: true,
+                    position: 'top-end',
+                    showCloseButton: true,
+                    background: '#f0f0f0',
+                    customClass: {
+                        icon: 'swal2-icon',
+                        title: 'swal2-title',
+                        closeButton: 'swal2-close',
+                    }
+                });
+
+                // Automatically remove the alert after 5 seconds
+                setTimeout(function () {
+                    Swal.close();
+                    // Reload the page or update UI as needed
+                    location.reload(); // Reload the page for demonstration
+                }, 1500);
+            } else {
+                // Show error SweetAlert if needed
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    toast: true,
+                    position: 'top-end',
+                    showCloseButton: true,
+                    background: '#f0f0f0',
+                    customClass: {
+                        icon: 'swal2-icon',
+                        title: 'swal2-title',
+                        closeButton: 'swal2-close',
+                    }
+                });
+            }
+        });
+    });
+
+    $(".reject-btn").on("click", function () {
+        var employeeId = $(this).data("employee-id");
+        $.post("/arrearRequests/reject", { employeeId: employeeId }, function (data) {
+            if (data.success) {
+                // Show success SweetAlert
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Rejected Successfully',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    toast: true,
+                    position: 'top-end',
+                    showCloseButton: true,
+                    background: '#f0f0f0',
+                    customClass: {
+                        icon: 'swal2-icon',
+                        title: 'swal2-title',
+                        closeButton: 'swal2-close',
+                    }
+                });
+
+                // Automatically remove the alert after 5 seconds
+                setTimeout(function () {
+                    Swal.close();
+                    // Reload the page or update UI as needed
+                    location.reload(); // Reload the page for demonstration
+                }, 2000);
+            } else {
+                // Show error SweetAlert if needed
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    toast: true,
+                    position: 'top-end',
+                    showCloseButton: true,
+                    background: '#f0f0f0',
+                    customClass: {
+                        icon: 'swal2-icon',
+                        title: 'swal2-title',
+                        closeButton: 'swal2-close',
+                    }
+                });
+            }
+        });
+    });
+
+</script>

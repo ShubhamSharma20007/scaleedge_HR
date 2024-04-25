@@ -1,0 +1,124 @@
+<div id="applyArrears" class=" handleForm">
+    <div class="handleForm-top">
+        <span class="title">Apply Arrears</span>
+        <i class="ri-close-fill" id="applyArrearsClose"></i>
+    </div>
+    <form class="form add-card" action="/applyArrears" method="post" enctype="multipart/form-data" id="formData">
+        <div style="display: flex; gap: 10px">
+            <div class="group" hidden>
+                <input type="text" id="employee_name" name="employee_name" value="{{user_name}}" readonly />
+                <label for="name">Name</label>
+            </div>
+            <div class="group" hidden>
+                <input type="text" id="employee_id" name="employee_id" class="form-control"
+                    value="{{employee_id}}" readonly />
+                <label for="loan_amount">Employee Id</label>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px">
+            <div class="group">
+                <input type="date" id="date" name="date" />
+                <label for="name">Date</label>
+            </div>
+            <div class="group">
+                <input id="amount" type="number" name="amount" value="0" />
+                <label for="loan_amount">Arrear Amount</label>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px">
+            <div class="group">
+                <input id="Incentives" type="number" name="Incentives" value="0" />
+                <label for="name">Incentive</label>
+            </div>
+            <div class="group">
+                <input type="month" name="incentivesMonthYear" id="incentivesMonthYear" />
+                <label for="loan_amount">Incentives Salary Month</label>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px">
+            <div class="group">
+                <input id="document" type="file" name="document" />
+                <label for="loan_amount">Upload File</label>
+            </div>
+            <div class="group">
+                <input type="text" name="remarks" id="remarks" />
+                <label for="loan_amount">Remark</label>
+            </div>
+        </div>
+
+        <button type="submit" class="form-button">Submit</button>
+    </form>
+</div>
+
+<script>
+    // JavaScript to handle click events
+    document.querySelectorAll('.applyForArrears').forEach(function (element) {
+        element.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default action of the anchor tag
+            document.querySelector('#applyArrears').style.display = 'block'; // Show applyLoan element
+        });
+    });
+
+    document.querySelector('#applyArrearsClose').addEventListener('click', function () {
+        document.querySelector('#applyArrears').style.display = 'none'; // Hide applyLoan element
+    });
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("formData");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Serialize form data
+            const formData = new FormData(form);
+
+            // Send AJAX request
+            fetch("/applyArrears", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text(); // Resolve the promise with the response text
+                    }
+                    throw new Error("Network response was not ok.");
+                })
+                .then(data => {
+                    // Show success message using SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data // Display the response text from the server
+                    });
+
+                    // Optionally, you can reset the form after successful submission
+                    form.reset();
+                })
+                .catch(error => {
+                    // Show error message using SweetAlert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong! Please try again later.'
+                    });
+                    console.error('Error:', error);
+                });
+        });
+    });
+</script>
+<style>
+    @media(min-width:768px) {
+        #applyArrears {
+            display: none;
+        }
+
+    }
+     @media(max-width:767px) {
+        #applyArrears {
+            display: none;
+        }
+
+    }
+</style>

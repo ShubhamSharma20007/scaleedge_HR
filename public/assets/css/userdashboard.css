@@ -1,0 +1,337 @@
+
+
+/* Import Google font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+
+
+.wrapper {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.wrapper header {
+  display: flex;
+  align-items: center;
+  padding: 25px 30px 10px;
+  justify-content: space-between;
+}
+
+header .icons {
+  display: flex;
+}
+
+header .icons span {
+  height: 38px;
+  width: 38px;
+  margin: 0 1px;
+  cursor: pointer;
+  color: #878787;
+  text-align: center;
+  line-height: 38px;
+  /* font-size: 1.9rem; */
+  font-size: 17px;
+  user-select: none;
+  border-radius: 50%;
+}
+
+.icons span:last-child {
+  margin-right: -10px;
+}
+
+header .icons span:hover {
+  background: #f2f2f2;
+}
+
+header .current-date {
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+
+.calendar {
+  padding: 20px;
+}
+
+.calendar ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  text-align: center;
+}
+
+.calendar .days {
+  margin-bottom: 20px;
+}
+
+.calendar li {
+  color: #333;
+  width: calc(100% / 7);
+  /* font-size: 1.07rem; */
+  font-size: 11px !important;
+
+}
+
+.calendar .weeks-attendance li {
+  font-weight: 500;
+  cursor: default;
+}
+
+.calendar .days li {
+  z-index: 1;
+  cursor: pointer;
+  position: relative;
+  /* margin-top: 30px; */
+}
+
+.days li.inactive {
+  color: #aaa;
+}
+
+.days li.active {
+  color: #fff;
+}
+
+.days li::before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  height: 26px;
+  width: 30px;
+  z-index: -1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.days li.active::before {
+  background: #9B59B6;
+}
+
+.days li.upcoming-holiday::before {
+  background: darkgray;
+}
+
+/* .days li:not(.active):hover::before {
+  background: #f2f2f2;
+} */
+
+/* .days li:not(.upcoming-holiday):hover::before {
+  background: #f2f2f2;
+} */
+
+.card {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-body {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  color: #3498db;
+  font-family: 'Helvetica Neue', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+
+.fa-2x {
+  color: #3498db;
+}
+
+/* #quote-text {
+  font-size: 18px;
+  color: #555;
+  margin-top: 10px;
+} */
+
+hr {
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+/* #quote-author {
+  color: #777;
+} */
+
+.badge {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #555;
+}
+
+.record-box {
+  background-color: #007bff;
+  color: #fff;
+  padding: 6px 10px;
+  margin: 8px;
+
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.record-box p {
+  margin: 0;
+}
+
+
+.green-dot {
+  background-color: green;
+}
+
+.red-dot {
+  background-color: red;
+}
+
+.yellow-dot {
+  background-color: yellow;
+}
+
+.orange-dot {
+  background-color: orange;
+}
+
+.icon-data-list {
+  list-style: none;
+}
+
+.icon-data-list li {
+  margin-bottom: 15px;
+  /* Adjust as needed */
+}
+
+.upcoming-holiday {
+  font-weight: bold;
+  gap: 10px;
+  padding: 4px;
+}
+
+
+
+
+
+
+
+.wrapper-attendance {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.wrapper-attendance header {
+  display: flex;
+  align-items: center;
+  padding: 25px 30px 10px;
+  justify-content: space-between;
+}
+
+header .icons-attendance {
+  display: flex;
+}
+
+header .icons-attendance span {
+  height: 38px;
+  width: 38px;
+  margin: 0 1px;
+  cursor: pointer;
+  color: #878787;
+  text-align: center;
+  line-height: 38px;
+  font-size: 1.9rem;
+  user-select: none;
+  border-radius: 50%;
+}
+
+.icons-attendance span:last-child {
+  margin-right: -10px;
+}
+
+header .icons-attendance span:hover {
+  background: #f2f2f2;
+}
+
+header .current-date-attendance {
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+
+.calendar-attendance {
+  padding: 20px;
+}
+
+.calendar-attendance ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  text-align: center;
+}
+
+.calendar-attendance .days-attendance {
+  margin-bottom: 20px;
+}
+
+.calendar-attendance li {
+  color: #333;
+  width: calc(100% / 7);
+  font-size: 1.07rem;
+}
+
+.calendar-attendance .weeks-attendance li {
+  font-weight: 500;
+  cursor: default;
+}
+
+.calendar-attendance .days-attendance li {
+  z-index: 1;
+  cursor: pointer;
+  position: relative;
+  /* margin-top: 30px; */
+}
+
+.days-attendance li.inactive {
+  color: #aaa;
+}
+
+.days-attendance li.active-date {
+    color: white;
+}
+
+.days-attendance li::before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  height: 40px;
+  width: 40px;
+  z-index: -1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.days-attendance li.active-date::before {
+  background: #9B59B6;
+  border-radius: 50px;
+}
+
+.days-attendance li.upcoming-holiday::before {
+  background: darkgray;
+}
+
+/* .days-attendance li:not(.active-date):hover::before {
+  background: #f2f2f2;
+} */
+
+/* .days-attendance li:not(.upcoming-holiday):hover::before {
+  background: #f2f2f2;
+} */
+
+
+  
+
+

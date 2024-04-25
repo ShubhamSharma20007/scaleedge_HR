@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HR System</title>
+  <meta property="og:image"
+    content="https://media.licdn.com/dms/image/D4E12AQG7AifzrDgkmg/article-cover_image-shrink_600_2000/0/1686159818787?e=2147483647&v=beta&t=UVH80dVDoyebfdYgqtSmigzmGCT0A3ivAqRESPSwlw8">
+  <meta property="og:url" content="https://node.scaleedge.in/">
+  <meta property="og:description"
+    content="An integrated HR system facilitating attendance tracking via facial recognition and seamless generation of salary payroll.">
+  <meta property="twitter:title" content="HR System">
+  <meta property="og:image"
+    content="https://media.licdn.com/dms/image/D4E12AQG7AifzrDgkmg/article-cover_image-shrink_600_2000/0/1686159818787?e=2147483647&v=beta&t=UVH80dVDoyebfdYgqtSmigzmGCT0A3ivAqRESPSwlw8">
+  <meta property="twitter:url" content="https://node.scaleedge.in/">
+  <meta property="twitter:description"
+    content="An integrated HR system facilitating attendance tracking via facial recognition and seamless generation of salary payroll.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+  <link rel="stylesheet" href="/assets/css/login.css">
+</head>
+<body>
+  <section class="background-radial-gradient overflow-hidden">
+    <div id="preloader">
+      <div class="waviy">
+        <span style="--i:1">L</span>
+        <span style="--i:2">o</span>
+        <span style="--i:3">a</span>
+        <span style="--i:4">d</span>
+        <span style="--i:5">i</span>
+        <span style="--i:6">n</span>
+        <span style="--i:7">g</span>
+        <span style="--i:8">.</span>
+        <span style="--i:9">.</span>
+        <span style="--i:10">.</span>
+      </div>
+    </div>
+    <div class="container  text-center text-lg-start my-5">
+      <div class="row gx-lg-5 align-items-center mb-5 reverse-order">
+        <div class="col-lg-6 mb-5 mb-lg-0 abc">
+          <h1 class="my-5 display-5 fw-bold ls-tight bbb">
+            ScaleEdge Solution <br>
+            <span class="ccc">IT Services Provider</span>
+          </h1>
+          <p class="mb-4 opacity-70 ddd">
+            We specialize in IT services and offer a state-of-the-art Face Attendance System for businesses.
+            Our solution ensures accurate and efficient attendance tracking using facial recognition
+            technology.
+            Contact us to learn more about how we can help your business streamline attendance management.
+          </p>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+          <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+          <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+          <div class="card bg-glass">
+            <div class="logo-org">
+              <img class="image-logo" src="/images/logo.png" class="mx-5" alt="">
+            </div>
+            <div class="card-body px-4 py-0 mb-0  px-md-5">
+              <form method="post" action="/auth_login" class="sign-in-form">
+                {{#if message}}
+
+                <div class="alert alert-danger" id="errorAlert">
+                  {{message}}
+                </div>
+                {{/if}}
+                <div class="form-outline mb-4">
+                  <input type="email" id="email" name="email" class="form-control kkk">
+                  <label class="form-label lll" for="form3Example3">Email address</label>
+                  <div class="form-notch">
+                    <div class="form-notch-leading"></div>
+                    <div class="form-notch-middle"></div>
+                    <div class="form-notch-trailing"></div>
+                  </div>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" id="password" name="password" class="form-control kkk">
+                  <label class="form-label lll" for="form3Example4">Password</label>
+                  <div class="form-notch">
+                    <div class="form-notch-leading"></div>
+                    <div class="form-notch-middle"></div>
+                    <div class="form-notch-trailing"></div>
+                  </div>
+                </div>
+                <div class="form-outline justify-content-left mb-4">
+                  <a class="forgot" href="/resetpassword">Forgot Your
+                    Password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mb-4">
+                  Sign in
+                </button>
+
+                <div class="text-center">
+                  <p>or sign in with:</p>
+
+                  <a href="/auth/google" type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-google"></i>
+                  </a>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-twitter"></i>
+                  </button>
+
+
+                </div>
+
+                <div class="text-center mt-3 my-4">
+                  <p>Don't have an account?</p>
+                  <a href="/auth_reg">
+                    Register Here
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="/assets/scripts/login.js"></script>
+<script src="/assets/js/face-api.js"></script>
+</html>

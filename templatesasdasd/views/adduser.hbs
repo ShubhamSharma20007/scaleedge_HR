@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ScaleEdge</title>
+    <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+</head>
+
+<body>
+    <div class="container-scroller">
+        {{>topbar}}
+        <div class="container-fluid page-body-wrapper">
+            {{>sidebar}}
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="page-header">
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                <i class="mdi mdi-arrow-left" onclick="goBack()" title="Back"></i>
+                                <script>
+                                    function goBack() {
+                                        window.history.back();
+                                    }
+                                </script>
+                            </span> Add User Form
+                        </h3>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Add User Details</h4>
+                                    <form class="form-sample" action="/add" method="post" enctype="multipart/form-data"
+                                        id="formData">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">First & Last Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" id="user_name"
+                                                            name="user_name" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Official E-mail</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="email" id="email" name="email"
+                                                            class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Personal E-mail</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="email" id="personal_email" name="personal_email"
+                                                            class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Mobile</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" id="mobile" type="number"
+                                                            name="mobile" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">House No.</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" id="house" name="house"
+                                                            class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Street Address</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" id="street" type="text"
+                                                            name="street" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">City</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" id="city" name="city" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">State</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" id="state" type="text"
+                                                            name="state" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Pincode</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" id="pincode" name="pincode"
+                                                            class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Landmark</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" id="landmark" type="text"
+                                                            name="landmark" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Annual Salary</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="number" id="annual_salary"
+                                                            name="annual_salary" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Role</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-select" name="user_group" id="user_group"
+                                                            style="border: 1px solid #ebedf2;font-family: "
+                                                            ubuntu-regular", sans-serif; font-size: 0.8125rem;">
+                                                            <option value="">Select Role</option>
+                                                            <option value="admin">Admin</option>`
+                                                            <option value="user">User</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Joining Date</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="date" id="joining_date"
+                                                            name="joining_date" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Password</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="text" id="password"
+                                                            name="password" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Latitude</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="text" id="latitude"
+                                                            name="latitude" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Longitude</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="text" id="longitude"
+                                                            name="longitude" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                        <div class="row">
+                                            {{!-- <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Role</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-select" name="user_group" id="user_group"
+                                                            style="border: 1px solid #ebedf2;font-family: "
+                                                            ubuntu-regular", sans-serif; font-size: 0.8125rem;">
+                                                            <option value="">Select Role</option>
+                                                            <option value="admin">Admin</option>`
+                                                            <option value="user">User</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">User type</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-select" id="user_type" name="user_type"
+                                                            style="border: 1px solid #ebedf2;font-family: "
+                                                            ubuntu-regular", sans-serif; font-size: 0.8125rem;">
+                                                            <option value="" disabled selected>Select User Type</option>
+                                                            <option value="office">
+                                                                Office</option>
+                                                            <option value="sales">Sales
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">TA/DA</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="number" id="km_rupees"
+                                                            name="km_rupees" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Birth Date</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="date" id="birth_date"
+                                                            name="birth_date" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Upload Selfie</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="file" name="Imagepath"
+                                                            id="Imagepath" />
+                                                        <img id="imagePreview" src="#" alt="Image Preview"
+                                                            style="display: none; max-width: 200px; max-height: 200px;" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Upload Adhar Card</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="file" name="adhar" id="adhar"
+                                                            onchange="downloadFile(this)" />
+                                                        <span id="fileName1" style="display: none;"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Upload Pan Card</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="file" name="pan" id="pan"
+                                                            onchange="downloadFile(this)" />
+                                                        <span id="fileName2" style="display: none;"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Choose Image</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="file" name="Imagepath"
+                                                            id="Imagepath" />
+                                                        <img id="imagePreview" src="#" alt="Image Preview"
+                                                            style="display: none; max-width: 200px; max-height: 200px;" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                        <button type="submit" id="submit-btn"
+                                            class="btn btn-gradient-primary me-2">Submit</button>
+                                        <button class="btn btn-light" onclick="goBack()">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="/assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/assets/js/off-canvas.js"></script>
+    <script src="/assets/js/hoverable-collapse.js"></script>
+    <script src="/assets/js/misc.js"></script>
+    <script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/todolist.js"></script>
+    <script src="/assets/js/jquery-2.1.1.min.js"></script>
+    <script src="/assets/js/face-api.js"></script>
+</body>
+
+</html>
+
+<script>
+    let recognizedLabel = null;
+    let jsonObj = [];
+    let jsonUserObj = [];
+    async function createjsonfile() {
+
+        const MODEL_URL = '/models';
+        var matchData = 0;
+        await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+        const labels = jsonObj;
+        for (let i = 0; i < labels.length; i++) {
+            var label = labels[i];
+            const lbl = label.Imagepath;
+            const lbl1 = label.title;
+            const lblid = label.id;
+            const imgUrl = `profile/${lbl}`;
+            const img = await faceapi.fetchImage(imgUrl);
+            //console.log(imgUrl);
+            const singleResult = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+
+            console.log(singleResult);
+            if (singleResult) {
+                const item = {};
+                item['title'] = lbl1;
+                //item['singleResult']=singleResult;
+                item['descriptor'] = singleResult.descriptor;
+                //   item['detection']=singleResult.detection;
+                //   item['landmarks']=singleResult.landmarks;
+                //   item['unshiftedLandmarks']=singleResult.unshiftedLandmarks;
+                //   item['alignedRect']=singleResult.alignedRect;
+
+                jsonUserObj.push(item);
+
+            }
+
+        }
+        $.ajax({
+            url: '/generateusersjson',
+            type: 'POST',
+            data: { usersjson: JSON.stringify(jsonUserObj), userfilename: 'usersdtl1.json' },
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (response) {
+                console.log('IIII');
+                console.log(response);
+                // alert(response);
+                window.location.href = "/usermangment";
+
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+
+        //alert('done');
+
+    }
+    async function createjsonfile1() {
+
+        const MODEL_URL = '/models';
+        var matchData = 0;
+        await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+        const labels = jsonObj;
+        for (let i = 0; i < labels.length; i++) {
+            var label = labels[i];
+            const lbl = label.Imagepath;
+            const lbl1 = label.title;
+            const lblid = label.id;
+            const imgUrl = `profile/${lbl}`;
+            const img = await faceapi.fetchImage(imgUrl);
+            //console.log(imgUrl);
+            const singleResult = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+
+            //console.log(singleResult);
+            if (singleResult) {
+                const item = {};
+                item['title'] = lbl1;
+                //item['singleResult']=singleResult;
+                item['descriptor'] = singleResult.descriptor;
+                //   item['detection']=singleResult.detection;
+                //   item['landmarks']=singleResult.landmarks;
+                //   item['unshiftedLandmarks']=singleResult.unshiftedLandmarks;
+                //   item['alignedRect']=singleResult.alignedRect;
+                $.ajax({
+                    url: '/generateusersjson',
+                    type: 'POST',
+                    data: { usersjson: JSON.stringify(item), userfilename: lblid + '.json' },
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    success: function (response) {
+                        console.log('IIII');
+                        console.log(response);
+                        // alert(response);
+
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+                //jsonUserObj.push(item);
+
+            }
+
+        }
+        const params = {
+            usersjson: JSON.stringify(jsonUserObj)
+
+        };
+
+        alert('done');
+    }
+
+    function showPleaseWaitMessage() {
+        Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "Registration was successful. Your email and password have been sent to your email address.",
+        });
+    }
+
+    function hidePleaseWaitMessage() {
+        Swal.close();
+    }
+
+    function createusersjson() {
+        showPleaseWaitMessage(); // Show "Please wait" message
+
+        fetch('/getimg', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                jsonObj = [];
+
+                for (let i = 0; i < data.length; i++) {
+                    const item = {};
+                    item['title'] = data[i].user_id;
+                    item['Imagepath'] = data[i].Imagepath;
+                    item['id'] = data[i].id;
+                    jsonObj.push(item);
+                }
+
+                createjsonfile();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                hidePleaseWaitMessage(); // Hide "Please wait" message in case of an error
+            });
+    }
+</script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    document.getElementById("Imagepath").addEventListener("change", function (event) {
+        var fileInput = event.target;
+        var imagePreview = document.getElementById("imagePreview");
+
+        if (fileInput.files && fileInput.files[0]) {
+            var imageFile = fileInput.files[0];
+            var fileSizeMB = imageFile.size / (1024 * 1024);
+
+            if (fileSizeMB > 1) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Please choose an image smaller than 1MB",
+                });
+
+                fileInput.value = "";
+                imagePreview.src = "#";
+                imagePreview.style.display = "none";
+                return;
+            }
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+            };
+
+            reader.readAsDataURL(imageFile);
+        } else {
+            imagePreview.src = "#";
+            imagePreview.style.display = "none";
+        }
+    });
+
+    document.getElementById("formData").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var nameInput = document.getElementById("user_name");
+        var emailInput = document.getElementById("email");
+        var mobileInput = document.getElementById("mobile");
+        var passwordInput = document.getElementById("password");
+        var profileImageInput = document.getElementById("Imagepath");
+        var userType = document.getElementById("user_type");
+        var joiningDateInput = document.getElementById("joining_date");
+        var annualSalaryInput = document.getElementById("annual_salary");
+        var latitudeInput = document.getElementById("latitude");
+        var longitudeInput = document.getElementById("longitude");
+        var km_rupeesInput = document.getElementById("km_rupees");
+        var birth_dateInput = document.getElementById("birth_date");
+
+        // Add new form fields
+        var houseInput = document.getElementById("house");
+        var streetInput = document.getElementById("street");
+        var cityInput = document.getElementById("city");
+        var stateInput = document.getElementById("state");
+        var pincodeInput = document.getElementById("pincode");
+        var landmarkInput = document.getElementById("landmark");
+        var userGroupInput = document.getElementById("user_group");
+        var adharInput = document.getElementById("adhar");
+        var panInput = document.getElementById("pan");
+        var personalEmailInput = document.getElementById("personal_email");
+
+
+        if (nameInput.value === "") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please enter a name",
+            });
+            return;
+        }
+
+        if (emailInput.value === "") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please enter an email",
+            });
+            return;
+        }
+
+        if (mobileInput.value === "" || !/^\d{10}$/.test(mobileInput.value)) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please enter a valid 10-digit mobile number",
+            });
+            return;
+        }
+
+        if (
+            passwordInput.value === "" ||
+            !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/.test(
+                passwordInput.value
+            )
+        ) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Password should contain at least one letter, one number, and one special character (!@#$%^&*) and be at least 8 characters long.",
+            });
+            return;
+        }
+
+        if (!profileImageInput.files || profileImageInput.files.length === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please choose an image",
+            });
+            return;
+        }
+
+        if (joiningDateInput.value === "") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please enter a joining date",
+            });
+            return;
+        }
+
+        if (birth_dateInput.value === "") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please enter a Birth date",
+            });
+            return;
+        }
+        if (annualSalaryInput.value === "" || isNaN(annualSalaryInput.value)) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please enter a valid annual salary",
+            });
+            return;
+        }
+        if (userType.value === "") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please enter a User Type",
+            });
+            return;
+        }
+
+        // Check other validations...
+
+        if (houseInput.value === "") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please enter a House Number",
+            });
+            return;
+        }
+
+        if (streetInput.value === "") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please enter a Street Address",
+            });
+            return;
+        }
+
+
+        var formData = new FormData();
+        formData.append("user_name", nameInput.value);
+        formData.append("email", emailInput.value);
+        formData.append("mobile", mobileInput.value);
+        formData.append("password", passwordInput.value);
+        formData.append("Imagepath", profileImageInput.files[0]);
+        formData.append("user_type", userType.value);
+        formData.append("joining_date", joiningDateInput.value);
+        formData.append("annual_salary", annualSalaryInput.value);
+        formData.append("km_rupees", km_rupeesInput.value);
+        formData.append("birth_date", birth_dateInput.value);
+
+        // Append new form fields
+        formData.append("house", houseInput.value);
+        formData.append("street", streetInput.value);
+        formData.append("city", cityInput.value);
+        formData.append("state", stateInput.value);
+        formData.append("pincode", pincodeInput.value);
+        formData.append("personal_email", personalEmailInput.value);
+        formData.append("landmark", landmarkInput.value);
+        formData.append("user_group", userGroupInput.value);
+        formData.append("adhar", adharInput.files[0]);
+        formData.append("pan", panInput.files[0]);
+
+        fetch("/check_email", {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.exists) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Email already exists. Please use a different email address.",
+                    });
+                } else {
+                    submitForm(formData);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Failed to check email existence",
+                });
+            });
+    });
+
+    function submitForm(formData) {
+        fetch("/add", {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Failed to add user");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                Swal.fire({
+                    title: 'Approving Users',
+                    html: 'Please wait while we process the approvals.<br/><i>This may take a moment...</i>',
+                    allowOutsideClick: false,
+                    showCancelButton: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    },
+                })
+                createusersjson();
+            })
+            .catch((error) => {
+                console.error(error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Failed to add user",
+                });
+            });
+    }
+
+    document
+        .getElementById("cancel-btn")
+        .addEventListener("click", function (event) {
+            event.preventDefault();
+            window.location.reload();
+        });
+
+</script>
+
+<script>
+    function uploadExcel() {
+        const fileInput = document.getElementById('excelFile');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('excelFile', file);
+
+            fetch('/importExcel', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.text())
+                .then(message => {
+                    console.log(message);
+                    alert('Data imported successfully');
+                    window.location.href = '/usermangment';
+                })
+                .catch(error => {
+                    console.error('Error importing data:', error);
+                    alert('Error importing data');
+                });
+        } else {
+            alert('Please select an Excel file');
+        }
+    }
+</script>
+<script>
+    function downloadFile(input) {
+        var fileNameSpan;
+        if (input.id === "adhar") {
+            fileNameSpan = document.getElementById("fileName1");
+        } else if (input.id === "pan") {
+            fileNameSpan = document.getElementById("fileName2");
+        }
+
+        if (input.files && input.files[0]) {
+            var fileName = input.files[0].name;
+            fileNameSpan.innerText = fileName;
+            fileNameSpan.style.display = "block";
+
+            // Create a download link with an onclick event to trigger the download
+            fileNameSpan.innerHTML = `<a href="#" onclick="triggerDownload('${fileName}', '${input.id}')">${fileName}</a>`;
+        } else {
+            fileNameSpan.style.display = "none";
+            fileNameSpan.innerHTML = "";
+        }
+    }
+
+    function triggerDownload(fileName, inputId) {
+        // Get the file input element based on its ID
+        var fileInput = document.getElementById(inputId);
+
+        // Create a Blob object representing the data in the file
+        var fileBlob = new Blob([fileInput.files[0]], { type: fileInput.files[0].type });
+
+        // Create a temporary link element
+        var downloadLink = document.createElement("a");
+
+        // Set the download link's href to a URL representing the Blob
+        downloadLink.href = URL.createObjectURL(fileBlob);
+
+        // Set the download attribute to the file name
+        downloadLink.download = fileName;
+
+        // Append the download link to the document body
+        document.body.appendChild(downloadLink);
+
+        // Simulate a click on the download link
+        downloadLink.click();
+
+        // Remove the download link from the document
+        document.body.removeChild(downloadLink);
+    }
+</script>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <script src="js/app.js"></script>
+    <link href="stylesheets/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts">
+    </link>
+</head>
+
+<body>
+    {{>dashboardNav}}
+    <div class="container-scroller">
+
+        <div class="container-fluid page-body-wrapper">
+            <div class="main-panel">
+                <div class="content-wrapper ">
+                    <div class="page-header">
+                        <h3 class="page-title d-flex align-items-center">
+                            <span
+                                class="page-title-icon bg-gradient-primary text-white me-2 position-relative rounded-circle"
+                                style="width: 50px;height:50px;scale:0.8">
+                                <button class="button2 position-absolute start-0 top-0" onclick="goBack()">
+                                    <div class="button-box">
+                                        <span class="button-elem">
+                                            <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span class="button-elem">
+                                            <svg viewBox="0 0 46 40">
+                                                <path
+                                                    d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </button>
+
+                                {{!-- <i class="mdi mdi-arrow-left" onclick="goBack()" title="Back"></i> --}}
+                                <script>
+                                    function goBack() {
+                                        window.history.back();
+                                    }
+                                </script>
+                            </span> Report
+                        </h3>
+                        <nav aria-label="breadcrumb" style="display: flex;align-items: center;">
+                            <ul class="breadcrumb breadcrumbone">
+                                <a href="/manualAttendance" style="color:white;text-decoration: none;">
+                                    <button class="button">
+                                        <div class="svg-wrapper-1">
+                                            <div class="svg-wrapper">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+                                                    height="24">
+                                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                                    <path fill="currentColor"
+                                                        d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <span>Manual
+                                            Update</span>
+                                    </button>
+                                </a>
+
+
+                            </ul>
+                            <ul class="breadcrumb">
+                                <a title="CSV" href="" id="downloadExcel"><button class="Btn">
+                                        <svg class="svgIcon" viewBox="0 0 384 512" height="1em"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
+                                            </path>
+                                        </svg>
+                                        <span class="icon2"></span>
+                                        <span class="tooltip">Download</span>
+                                    </button></a>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row justify-content-center">
+                                        {{!-- <div class="col-md-6">
+                                            <div class="form-group row " style="text-align: center;">
+                                                <div id="container">
+                                                    <input type="file" id="imgInp" accept="image/*;capture=camera"
+                                                        capture="camera" style=" font-size: 33px; color: white;" />
+                                                    <img src="/images/1.jpg" id="blah" class="image-mobile"
+                                                        width="450px" height="450px" />
+                                                    <video id="video" style="display: none;"></video>
+                                                    <div id="btn" style="display: none;">
+                                                        <button class="button-20" id="checkin-btn">Punch in</button>
+                                                        <button class="button-20" id="checkout-btn">Punch out</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                        <div class="form-sample">
+                                            <div class="row">
+                                                <div class="col-header col-md-4 col-12">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-md-12 col-form-label fw-bold">Select
+                                                            Month and
+                                                            Year</label>
+                                                        <div class="col-12 col-md-12">
+                                                            <input type="month" class="form-control" id="calendarInput"
+                                                                onchange="filterData()" name="month" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-header col-md-4 col-12">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3  col-md-12 col-form-label fw-bold">Start
+                                                            Date</label>
+                                                        <div class="col-12 col-md-12">
+                                                            <input class="form-control" type="date" id="startDate"
+                                                                onchange="filterData1()" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-header col-md-4 col-12">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-md-12 col-form-label fw-bold">End
+                                                            Date</label>
+                                                        <div class="col-12 col-md-12">
+                                                            <input class="form-control" type="date" id="endDate"
+                                                                onchange="filterData1()" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="table-responsive " style="overflow-y: auto; max-height: 400px;">
+                                                <table id="userTable" class="table table-bordered">
+                                                    <thead style="position: sticky; top: 0; background-color: white;">
+                                                        <tr>
+                                                        <tr>
+                                                            <th scope="col" style="display: none;">Name</th>
+                                                            <th style="display: none;">E-mail</th>
+                                                            <th scope="col">Date</th>
+                                                            <th scope="col">In Time</th>
+                                                            <th scope="col">Out Time</th>
+                                                            <th scope="col">Working Hours</th>
+                                                            <th scope="col">Attendance</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="userTableBody">
+                                                        {{#each rows}}
+                                                        <tr>
+                                                            <td scope="row" style="display:none">{{this.user_name}}</td>
+                                                            <td style="display:none">{{this.email}}</td>
+                                                            <td>{{this.date_column}}</td>
+                                                            <td>{{this.time_in}}</td>
+                                                            <td>{{this.time_out}}</td>
+                                                            <td>{{this.hours_worked}}</td>
+                                                            <td>{{this.attendance_mark}}</td>
+                                                        </tr>
+                                                        {{/each}}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</body>
+
+</html>
+<style>
+        .button {
+            font-family: inherit;
+            font-size: 12px;
+            background: #B66DFF;
+            color: white;
+            padding: 0.7em 1em;
+            padding-left: 0.9em;
+            display: flex;
+            align-items: center;
+            border: none;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .button span {
+            display: block;
+            margin-left: 0.3em;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .button svg {
+            display: block;
+            transform-origin: center center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .button:hover .svg-wrapper {
+            animation: fly-1 0.6s ease-in-out infinite alternate;
+        }
+
+        .button:hover svg {
+            transform: translateX(1.2em) rotate(45deg) scale(1.1);
+        }
+
+        .button:hover span {
+            transform: translateX(8em);
+        }
+
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes fly-1 {
+            from {
+                transform: translateY(0.1em);
+            }
+
+            to {
+                transform: translateY(-0.1em);
+            }
+        }
+
+        .button2 {
+            display: block;
+            position: relative;
+            width: 50px;
+            height: 50px;
+            margin: 0;
+            overflow: hidden;
+            outline: none;
+            background-color: transparent;
+            cursor: pointer;
+            border: 0;
+        }
+
+        .button2:before,
+        .button2:after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            inset: 7px;
+        }
+
+        .button2:before {
+            border: 4px solid #f0eeef;
+            transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+                transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+        }
+
+        .button2:after {
+            border: 4px solid #96daf0;
+            transform: scale(1.3);
+            transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+                transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+        }
+
+        .button2:hover:before,
+        .button2:focus:before {
+            opacity: 0;
+            transform: scale(0.7);
+            transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+                transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .button2:hover:after,
+        .button2:focus:after {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+                transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+        }
+
+        .button-box {
+            display: flex;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .button-elem {
+            display: block;
+            width: 20px;
+            height: 20px;
+            margin: 17px 18px 0 18px;
+            transform: rotate(180deg);
+            fill: #f0eeef;
+        }
+
+        .button2:hover .button-box,
+        .button2:focus .button-box {
+            transition: 0.4s;
+            transform: translateX(-56px);
+        }
+
+        .Btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background-color: rgb(27, 27, 27);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition-duration: .3s;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.11);
+        }
+
+        .svgIcon {
+            fill: rgb(214, 178, 255);
+        }
+
+        .icon2 {
+            width: 18px;
+            height: 5px;
+            border-bottom: 2px solid rgb(182, 143, 255);
+            border-left: 2px solid rgb(182, 143, 255);
+            border-right: 2px solid rgb(182, 143, 255);
+        }
+
+        .tooltip {
+            position: absolute;
+            right: -105px;
+            opacity: 0;
+            background-color: rgb(12, 12, 12);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition-duration: .2s;
+            pointer-events: none;
+            letter-spacing: 0.5px;
+        }
+
+        .tooltip::before {
+            position: absolute;
+            content: "";
+            width: 10px;
+            height: 10px;
+            background-color: rgb(12, 12, 12);
+            background-size: 1000%;
+            background-position: center;
+            transform: rotate(45deg);
+            left: -5%;
+            transition-duration: .3s;
+        }
+
+        .Btn:hover .tooltip {
+            opacity: 1;
+            transition-duration: .3s;
+        }
+
+        .Btn:hover {
+            background-color: rgb(150, 94, 255);
+            transition-duration: .3s;
+        }
+
+        .Btn:hover .icon2 {
+            border-bottom: 2px solid rgb(235, 235, 235);
+            border-left: 2px solid rgb(235, 235, 235);
+            border-right: 2px solid rgb(235, 235, 235);
+        }
+
+        .Btn:hover .svgIcon {
+            fill: rgb(255, 255, 255);
+            animation: slide-in-top 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        @keyframes slide-in-top {
+            0% {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0px);
+                opacity: 1;
+            }
+        }
+x
+        .card {
+            position: relative;
+            /* background: linear-gradient(to right, rgb(255 255 255 / 42%) 0%, rgb(255 255 255 / 34%) 100%) !important;
+   https://img.freepik.com/free-vector/blank-blue-leafy-poster_53876-99945.jpg?w=996&t=st=1713779826~exp=1713780426~hmac=02ccc3bf0f2d2afa41ceaf4dabde928b5c6b2b2156de2de83dcdbe64d81d26d8
+     */
+            background: url(https://img.freepik.com/free-vector/blank-blue-leafy-poster_53876-99945.jpg?w=996&t=st=1713779826~exp=1713780426~hmac=02ccc3bf0f2d2afa41ceaf4dabde928b5c6b2b2156de2de83dcdbe64d81d26d8);
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: cover;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        }
+
+        @media screen and (max-width:767px) {
+            .content-wrapper {
+                padding: 5vw;
+            }
+
+            .button {
+                font-size: 3vw;
+                padding: 2vw;
+            }
+
+            .svg-wrapper svg {
+                width: 5vw;
+            }
+
+            .card-body {
+                padding: 5vw !important;
+            }
+
+            .form-group {
+                margin-bottom: 0
+            }
+            .table-responsive {
+                margin-top: 1.5rem;
+            }
+            .breadcrumbone{
+                padding: 0;
+            }
+        }
+    </style>
+
+<script>
+    document.getElementById('downloadExcel').addEventListener('click', function () {
+        const selectedMonthYear = document.getElementById('calendarInput').value;
+        const rows = document.querySelectorAll('#userTableBody tr');
+
+        const filteredData = [];
+
+        rows.forEach(row => {
+            const dateCell = row.cells[2].textContent;
+            if (dateCell.startsWith(selectedMonthYear)) {
+                const rowData = Array.from(row.cells).map(cell => cell.textContent);
+                rowData.splice(1, 1);
+                filteredData.push(rowData);
+            }
+        });
+
+        const ws = XLSX.utils.aoa_to_sheet([['Name', 'Date', 'In Time', 'Out Time', 'Working Hours', 'Attendance'], ...filteredData]);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Report');
+
+        XLSX.writeFile(wb, `attendance_report_${selectedMonthYear}.xlsx`);
+    });
+</script>
+<script>
+    const tableColors = ['table-primary', 'table-success', 'table-danger', 'table-warning', 'table-info'];
+
+    const tableBody = document.getElementById('userTableBody');
+    const rows = tableBody.getElementsByTagName('tr');
+
+    for (let i = 0; i < rows.length; i++) {
+        const randomColor = tableColors[Math.floor(Math.random() * tableColors.length)];
+        rows[i].classList.add(randomColor);
+    }
+</script>
+
+<script>
+    function setCurrentMonthAndDate() {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+        const day = currentDate.getDate().toString().padStart(2, '0');
+
+        const currentDayFormatted = `${year}-${month}-${day}`;
+
+        const firstDayOfCurrentMonth = new Date(year, currentDate.getMonth(), 1);
+        const firstDayMonth = (firstDayOfCurrentMonth.getMonth() + 1).toString().padStart(2, '0');
+
+        const currentMonthYear = `${year}-${firstDayMonth}`;
+
+        const startDateInput = document.getElementById('startDate');
+        const endDateInput = document.getElementById('endDate');
+        const calendarInput = document.getElementById('calendarInput');
+
+        startDateInput.value = `${year}-${month}-01`;
+        endDateInput.value = currentDayFormatted;
+        calendarInput.value = currentMonthYear;
+
+        filterData1();
+    }
+
+
+    window.onload = setCurrentMonthAndDate;
+
+    document.getElementById('calendarInput').addEventListener('change', function () {
+        const selectedDate = new Date(this.value);
+        const year = selectedDate.getFullYear();
+        const month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
+        const firstDay = new Date(year, selectedDate.getMonth(), 1);
+        const firstDayFormatted = `${year}-${month}-01`;
+        const lastDay = new Date(year, selectedDate.getMonth() + 1, 0);
+        const lastDayFormatted = `${year}-${month}-${lastDay.getDate().toString().padStart(2, '0')}`;
+
+        document.getElementById('startDate').value = firstDayFormatted;
+        document.getElementById('endDate').value = lastDayFormatted;
+        filterData1();
+    });
+
+    function filterData1() {
+        const startDateString = document.getElementById('startDate').value;
+        const endDateString = document.getElementById('endDate').value;
+
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        const rows = document.querySelectorAll('#userTableBody tr');
+
+        rows.forEach(row => {
+            const dateCell = row.cells[2].textContent;
+            const rowDate = new Date(dateCell);
+
+            if (rowDate >= startDate && rowDate <= endDate) {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    function filterData2() {
+        const selectedUserName = document.getElementById('user_name').value;
+        const selectedMonthYear = document.getElementById('calendarInput').value;
+
+        const rows = document.querySelectorAll('#userTableBody tr');
+
+        rows.forEach(row => {
+            const userName = row.cells[0].textContent;
+            const dateCell = row.cells[2].textContent;
+
+            if (
+                (selectedUserName === "" || userName === selectedUserName) &&
+                (selectedMonthYear === "" || dateCell.startsWith(selectedMonthYear))
+            ) {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+</script>

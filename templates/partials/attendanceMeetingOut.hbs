@@ -1,0 +1,134 @@
+<div id="attendanceMeetingOut" class=" handleForm">
+    <div class="handleForm-top">
+        <span class="title">Meeting Out</span>
+        <i class="ri-close-fill" id="attendanceMeetingOutClose"></i>
+    </div>
+    <form class="form add-card" action="/attendanceMeetingOut" method="post" enctype="multipart/form-data"
+        id="formData">
+        <div style="display: flex; gap: 10px">
+            <div class="group">
+                <input type="text" id="clientName" name="clientName" />
+                <label for="loan_amount">Client Name</label>
+            </div>
+            <div class="group">
+                <input type="email" id="email" name="client_email" />
+                <label for="loan_amount">E-mail</label>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px">
+            <div class="group">
+                <input id="mobile" type="number" name="client_mobile" />
+                <label for="loan_amount">Mobile</label>
+            </div>
+            <div class="group">
+                <input type="file" name="profileImage" id="Imagepath" />
+                <label for="loan_amount">Choose Image</label>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px">
+            <div class="group">
+                <select class="form add-card" name="client_status" id="user_group">
+                    <option value="">Select Status</option>
+                    <option value="hot">Hot</option>
+                    <option value="cold">Cold</option>
+                    <option value="client not available">Client Not available at location</option>
+                </select> <label for="loan_amount">Mobile</label>
+            </div>
+
+        </div>
+        <button type="submit" class="form-button">Submit</button>
+    </form>
+</div>
+
+<script>
+    // JavaScript to handle click events
+    document.querySelectorAll('.attendanceForMeetingOut').forEach(function (element) {
+        element.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default action of the anchor tag
+            document.querySelector('#attendanceMeetingOut').style.display = 'block'; // Show applyLoan element
+        });
+    });
+
+    document.querySelector('#attendanceMeetingOutClose').addEventListener('click', function () {
+        document.querySelector('#attendanceMeetingOut').style.display = 'none'; // Hide applyLoan element
+    });
+
+</script>
+<script>
+  function goBack() {
+    window.history.back();
+  }
+  const currentDate = new Date();
+  const currentTime = new Date();
+  const hours = currentTime.getHours().toString().padStart(2, '0');
+  const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+  const meetOutInput = document.querySelector('input[name="meet_out"]');
+  const year = currentDate.getFullYear();
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+  const day = currentDate.getDate().toString().padStart(2, '0');
+  meetOutInput.value = `${year}-${month}-${day} ${hours}:${minutes}:00`;
+</script>
+
+<script>
+  document.getElementById('formData').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const clientName = document.getElementById('clientName').value;
+    const email = document.getElementById('email').value;
+    const mobile = document.getElementById('mobile').value;
+    const profileImage = document.getElementById('Imagepath').files[0]; // Get the selected file
+    const clientStatus = document.getElementById('user_group').value;
+
+    if (!clientName || !email || !mobile || !profileImage || !clientStatus) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill out all fields and select a status!',
+      });
+    } else if (profileImage.size > 1024 * 1024) { // Check if file size is greater than 1 MB
+      Swal.fire({
+        icon: 'error',
+        title: 'File Size Exceeded',
+        text: 'Please select an image file that is less than 1 MB.',
+      });
+    } else {
+      Swal.fire({
+        title: 'Confirm Submission',
+        text: 'Are you sure you want to submit this form?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          showLoading(); // Show loading spinner
+          document.getElementById('formData').submit(); // Submit the form
+        }
+      });
+    }
+  });
+
+  function showLoading() {
+    Swal.fire({
+      // title: 'Approving Users',
+      html: 'Please wait while we process the approvals.<br/><i>This may take a moment...</i>',
+      allowOutsideClick: false,
+      showCancelButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+  }
+</script>
+<style>
+    @media(min-width:768px) {
+        #attendanceMeetingOut{
+            display: none;
+        }
+    }
+    @media(max-width:767px) {
+        #attendanceMeetingOut{
+            display: none;
+        }
+    }
+</style>

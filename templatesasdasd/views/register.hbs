@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HR System</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.css">
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <style>
+    .waviy {
+      position: relative;
+      -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+    }
+
+    .waviy span {
+      position: relative;
+      display: inline-block;
+      font-size: 40px;
+      color: #000;
+      text-transform: uppercase;
+      animation: waviy 1s infinite;
+      animation-delay: calc(.1s * var(--i));
+    }
+
+    @keyframes waviy {
+
+      0%,
+      40%,
+      100% {
+        transform: translateY(0);
+      }
+
+      20% {
+        transform: translateY(-20px);
+      }
+    }
+
+    #preloader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 99999;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 0;
+      background-color: #fff;
+    }
+
+    .pl {
+      width: 6em;
+      height: 6em;
+    }
+
+    .pl__ring {
+      animation: ringA 2s linear infinite;
+    }
+
+    .pl__ring--a {
+      stroke: #f42f25;
+    }
+
+    .pl__ring--b {
+      animation-name: ringB;
+      stroke: #f49725;
+    }
+
+    .pl__ring--c {
+      animation-name: ringC;
+      stroke: #255ff4;
+    }
+
+    .pl__ring--d {
+      animation-name: ringD;
+      stroke: #f42582;
+    }
+
+    /* Animations */
+    @keyframes ringA {
+
+      from,
+      4% {
+        stroke-dasharray: 0 660;
+        stroke-width: 20;
+        stroke-dashoffset: -330;
+      }
+
+      12% {
+        stroke-dasharray: 60 600;
+        stroke-width: 30;
+        stroke-dashoffset: -335;
+      }
+
+      32% {
+        stroke-dasharray: 60 600;
+        stroke-width: 30;
+        stroke-dashoffset: -595;
+      }
+
+      40%,
+      54% {
+        stroke-dasharray: 0 660;
+        stroke-width: 20;
+        stroke-dashoffset: -660;
+      }
+
+      62% {
+        stroke-dasharray: 60 600;
+        stroke-width: 30;
+        stroke-dashoffset: -665;
+      }
+
+      82% {
+        stroke-dasharray: 60 600;
+        stroke-width: 30;
+        stroke-dashoffset: -925;
+      }
+
+      90%,
+      to {
+        stroke-dasharray: 0 660;
+        stroke-width: 20;
+        stroke-dashoffset: -990;
+      }
+    }
+
+    @keyframes ringB {
+
+      from,
+      12% {
+        stroke-dasharray: 0 220;
+        stroke-width: 20;
+        stroke-dashoffset: -110;
+      }
+
+      20% {
+        stroke-dasharray: 20 200;
+        stroke-width: 30;
+        stroke-dashoffset: -115;
+      }
+
+      40% {
+        stroke-dasharray: 20 200;
+        stroke-width: 30;
+        stroke-dashoffset: -195;
+      }
+
+      48%,
+      62% {
+        stroke-dasharray: 0 220;
+        stroke-width: 20;
+        stroke-dashoffset: -220;
+      }
+
+      70% {
+        stroke-dasharray: 20 200;
+        stroke-width: 30;
+        stroke-dashoffset: -225;
+      }
+
+      90% {
+        stroke-dasharray: 20 200;
+        stroke-width: 30;
+        stroke-dashoffset: -305;
+      }
+
+      98%,
+      to {
+        stroke-dasharray: 0 220;
+        stroke-width: 20;
+        stroke-dashoffset: -330;
+      }
+    }
+
+    @keyframes ringC {
+      from {
+        stroke-dasharray: 0 440;
+        stroke-width: 20;
+        stroke-dashoffset: 0;
+      }
+
+      8% {
+        stroke-dasharray: 40 400;
+        stroke-width: 30;
+        stroke-dashoffset: -5;
+      }
+
+      28% {
+        stroke-dasharray: 40 400;
+        stroke-width: 30;
+        stroke-dashoffset: -175;
+      }
+
+      36%,
+      58% {
+        stroke-dasharray: 0 440;
+        stroke-width: 20;
+        stroke-dashoffset: -220;
+      }
+
+      66% {
+        stroke-dasharray: 40 400;
+        stroke-width: 30;
+        stroke-dashoffset: -225;
+      }
+
+      86% {
+        stroke-dasharray: 40 400;
+        stroke-width: 30;
+        stroke-dashoffset: -395;
+      }
+
+      94%,
+      to {
+        stroke-dasharray: 0 440;
+        stroke-width: 20;
+        stroke-dashoffset: -440;
+      }
+    }
+
+    @keyframes ringD {
+
+      from,
+      8% {
+        stroke-dasharray: 0 440;
+        stroke-width: 20;
+        stroke-dashoffset: 0;
+      }
+
+      16% {
+        stroke-dasharray: 40 400;
+        stroke-width: 30;
+        stroke-dashoffset: -5;
+      }
+
+      36% {
+        stroke-dasharray: 40 400;
+        stroke-width: 30;
+        stroke-dashoffset: -175;
+      }
+
+      44%,
+      50% {
+        stroke-dasharray: 0 440;
+        stroke-width: 20;
+        stroke-dashoffset: -220;
+      }
+
+      58% {
+        stroke-dasharray: 40 400;
+        stroke-width: 30;
+        stroke-dashoffset: -225;
+      }
+
+      78% {
+        stroke-dasharray: 40 400;
+        stroke-width: 30;
+        stroke-dashoffset: -395;
+      }
+
+      86%,
+      to {
+        stroke-dasharray: 0 440;
+        stroke-width: 20;
+        stroke-dashoffset: -440;
+      }
+    }
+  </style>
+  <style>
+    .success-toast {
+      background-color: lightgreen;
+      color: black;
+      animation:
+        toastAnimation 2s ease-in-out;
+    }
+
+    .error-toast {
+      background-color:
+        lightcoral;
+      animation: toastAnimation 2s ease-in-out;
+    }
+
+    @keyframes toastAnimation {
+      0% {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+
+      20% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      80% {
+        opacity: 1;
+        transform:
+          translateY(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+    }
+
+    .form-control {
+      min-height: auto;
+      padding: .32rem .75rem;
+      border: 1;
+      background: transparent;
+      transition: all .2s linear
+    }
+  </style>
+</head>
+
+<body>
+  <div id="preloader" style="display: none;">
+    <div class="waviy">
+      <span style="--i:1">L</span>
+      <span style="--i:2">o</span>
+      <span style="--i:3">a</span>
+      <span style="--i:4">d</span>
+      <span style="--i:5">i</span>
+      <span style="--i:6">n</span>
+      <span style="--i:7">g</span>
+      <span style="--i:8">.</span>
+      <span style="--i:9">.</span>
+      <span style="--i:10">.</span>
+    </div>
+  </div>
+  <section class="background-radial-gradient overflow-hidden">
+    <style>
+      #radius-shape-1 {
+        height: 220px;
+        width: 220px;
+        top: -60px;
+        left: -130px;
+        background:
+          radial-gradient(#44006b, #ad1fff);
+        overflow: hidden;
+      }
+
+      #radius-shape-2 {
+        border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+        bottom: -60px;
+        right:
+          -110px;
+        width: 300px;
+        height: 300px;
+        background:
+          radial-gradient(#44006b, #ad1fff);
+        overflow: hidden;
+      }
+
+      .bg-glass {
+        background-color: hsla(0, 0%, 100%, 0.9) !important;
+        backdrop-filter:
+          saturate(200%) blur(25px);
+      }
+
+      @media (max-width: 767px) {
+        .background-radial-gradient {
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+
+        .reverse-order {
+          flex-direction: column-reverse;
+        }
+      }
+    </style>
+
+    <div class="container px-4 px-md-5 text-center text-lg-start my-3">
+      <div class="row gx-lg-5 align-items-baseline  mb-5 reverse-order">
+        <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+          <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 55%)">
+            Scaleedge Solution
+            <br>
+            <span style="color: hsl(218, 81%, 75%)">IT Services Provider</span>
+          </h1>
+          <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 25%)">
+            We specialize in IT services and offer a state-of-the-art Face
+            Attendance System for businesses. Our solution ensures accurate
+            and efficient attendance tracking using facial recognition
+            technology. Contact us to learn more about how we can help your
+            business streamline attendance management.
+          </p>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+          <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+          <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+          <div class="card bg-glass">
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <img src="/images/logo.png" class="mx-5" alt="" style="height: 30vh; width: 35vh;">
+            </div>
+            <div class="card-body  px-4 py-0 px-md-5">
+              <form method="post" action="/register" class="sign-in-form" id="companyForm"
+                enctype="multipart/form-data">
+                <div class="row">
+                  <input type="text" id="company_name" name="company_name" hidden="" class="form-control" value="1">
+                  <div class="col-md-12 mb-4">
+                    <div class="form-outline">
+                      <input type="text" id="name" name="name" class="form-control" required="" fdprocessedid="3lwm4d">
+                      <label class="form-label" for="form3Example2" style="margin-left: 0px;">First &amp; Last name
+                        *</label>
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 116px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <input type="text" id="personal_email" name="personal_email" class="form-control active" required=""
+                    fdprocessedid="xasqwn" autocompleted="">
+                  <label class="form-label" for="form3Example9" style="margin-left: 0px;">Personal E-mail *</label>
+                  <div class="form-notch">
+                    <div class="form-notch-leading" style="width: 9px;"></div>
+                    <div class="form-notch-middle" style="width: 104.8px;"></div>
+                    <div class="form-notch-trailing"></div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-8 mb-3">
+                    <div class="form-outline ">
+                      <input type="email" id="email" name="email" class="form-control" required=""
+                        fdprocessedid="gpk1ah">
+                      <label class="form-label" for="form3Example4" style="margin-left: 0px;">Official E-mail *</label>
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 94.4px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form">
+                      <button type="button" id="send-otp-button" class="btn btn-primary btn-block mb-4"
+                        onclick="sendOTP()" fdprocessedid="c6xqw8">
+                        Send OTP
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-8 d-flex">
+                    <div class="form-outline mb-4" id="otp1" style="display: none;">
+                      <input type="text" id="otp" name="otp" class="form-control">
+                      <span id="otp-status" style="margin-top: 7px;margin-right: 10px;"></span>
+                      <label class="form-label" for="form3Example4" style="margin-left: 0px;">Enter OTP *</label>
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 8px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form" id="verify-otp-button" style="display: none;">
+                      <button type="button" class="btn btn-primary btn-block mb-4" onclick="verifyOTP()">
+                        Verify Otp
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div id="verification-status" style="display: none;">
+                  <i id="success-icon" class="fas fa-check-circle text-success"></i>
+                  <i id="failure-icon" class="fas fa-times-circle text-danger"></i>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-4 d-flex">
+                    <div class="form-outline ">
+                      <input type="text" id="mobile" name="mobile" class="form-control" required=""
+                        oninput="validateMobileNumber()" fdprocessedid="uo412">
+                      <span id="mobileValidation"
+                        style="margin-top: -24px;float: inline-end;margin-right: 10px;"></span>
+                      <label class="form-label" for="form3Example2" style="margin-left: 0px;">Mobile Number *</label>
+
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 104px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <input type="date" id="joining_date" name="joining_date" class="form-control" required=""
+                        style="opacity: 0;">
+                      <label class="form-label" for="form3Example2" style="margin-left: 0px;">Joining Date *</label>
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 88px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline ">
+                      <input type="text" id="house" name="house" class="form-control" required=""
+                        fdprocessedid="vinc0r">
+                      <label class="form-label" for="form3Example2" style="margin-left: 0px;">House Number *</label>
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 102.4px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline ">
+                      <input type="text" id="street_address" name="street_address" class="form-control" required=""
+                        fdprocessedid="w0odss">
+                      <label class="form-label" for="form3Example2" style="margin-left: 0px;">Street Address *</label>
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 100.8px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline ">
+                      <input type="text" id="city" name="city" class="form-control" required="" fdprocessedid="sgwqt">
+                      <label class="form-label" for="form3Example2" style="margin-left: 0px;">City *</label>
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 38.4px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline ">
+                      <input type="text" id="state" name="state" class="form-control" required=""
+                        fdprocessedid="rnofln">
+                      <label class="form-label" for="form3Example2" style="margin-left: 0px;">State *</label>
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 46.4px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row ">
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline ">
+                      <input type="text" id="pincode" name="pincode" class="form-control" required=""
+                        fdprocessedid="xim8mm">
+                      <label class="form-label" for="form3Example2" style="margin-left: 0px;">Pincode *</label>
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 63.2px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline ">
+                      <input type="text" id="landmark" name="landmark" class="form-control" fdprocessedid="gg2ugs">
+                      <label class="form-label" for="form3Example2" style="margin-left: 0px;">Landmark</label>
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 64.8px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline mb-4 d-flex">
+                      <input type="password" id="password" name="password" class="form-control active is-valid"
+                        aria-label="password" aria-describedby="password" required="" fdprocessedid="32j4b"
+                        autocompleted="">
+                      <label class="form-label" for="form3Example1" style="margin-left: 0px;">Password *
+                      </label>
+                      <span class="password-toggle" style="margin: 10px;" onclick="togglePassword('password')">
+                        <i class="fas fa-eye-slash"></i>
+                      </span>
+                      <div class="valid-feedback" style="margin-top: 57px;margin-inline: auto;">Strong Password</div>
+                      <div class="invalid-feedback" style="margin-top: 57px;margin-inline: auto;">Weak Password</div>
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 73.6px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-outline d-flex">
+                      <input type="password" id="cpassword" name="cpassword" class="form-control"
+                        fdprocessedid="itmu15">
+                      <label class="form-label" for="form3Example2" style="margin-left: 0px;">Confirm
+                        Password *</label>
+                      <span class="password-toggle1" style="margin: 10px;" onclick="togglePassword1('cpassword')">
+                        <i class="fas fa-eye-slash"></i>
+                      </span>
+                      <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 121.6px;"></div>
+                        <div class="form-notch-trailing"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 mt-3 mb-3 mt-xxl-0 w-auto h-auto">
+                  <div class="alert px-4 py-3 mb-0 alert-success d-none" role="alert" data-mdb-color="warning"
+                    id="password-alert">
+                    <ul class="list-unstyled mb-0">
+                      <li class="requirements leng good">
+                        <i class="fas fa-check text-success me-2"></i>
+                        <i class="fas fa-times text-danger me-3"></i>
+                        Your password must have at least 8 chars.
+                      </li>
+                      <li class="requirements big-letter good">
+                        <i class="fas fa-check text-success me-2"></i>
+                        <i class="fas fa-times text-danger me-3"></i>
+                        Your password must have at least 1 big letter.
+                      </li>
+                      <li class="requirements num good">
+                        <i class="fas fa-check text-success me-2"></i>
+                        <i class="fas fa-times text-danger me-3"></i>
+                        Your password must have at least 1 number.
+                      </li>
+                      <li class="requirements special-char good">
+                        <i class="fas fa-check text-success me-2"></i>
+                        <i class="fas fa-times text-danger me-3"></i>
+                        Your password must have at least 1 special char.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mb-4">
+                  Next
+                </button>
+                <div class="text-center justify-content-center mt-3 my-4 d-flex ">
+                  <p>Already have an account?</p>
+                  <a class="mx-1" href="/">
+                    Login Here
+                  </a>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+  <script>
+    $(document).ready(function () {
+      $('#companyForm').submit(function (event) {
+        event.preventDefault();
+        $('#preloader').css('display', 'flex');
+
+        // Perform frontend validation
+        const password = $('#password').val();
+        const confirmPassword = $('#cpassword').val();
+        const mobileNumber = $('#mobile').val();
+        const email = $('#email').val();
+        const enteredOTP = $('#otp').val();
+
+        const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.?/~_+\-=|\\]).{8,32}$/;
+        const mobileRegex = /^\d{10}$/;
+
+        if (!passwordRegex.test(password)) {
+          $('#preloader').css('display', 'none');
+          showErrorToast('Password should contain at least one letter, one number, and one special character. 😔');
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          $('#preloader').css('display', 'none');
+          showErrorToast('Passwords do not match. Please enter the same password in both fields. 😔');
+          return;
+        }
+
+        if (!mobileRegex.test(mobileNumber)) {
+          $('#preloader').css('display', 'none');
+          showErrorToast('Please enter a valid 10-digit mobile number');
+          return;
+        }
+
+        $.ajax({
+          url: '/register',
+          type: 'POST',
+          data: new FormData(this),
+          processData: false,
+          contentType: false,
+          success: function (data) {
+            $('#preloader').css('display', 'none');
+            if (data.message === 'Welcome 😊. Your application has been sent to the admin. If the admin approves, you will receive the mail!.') {
+              showToast('Hooray! 🎉 Registration successful! Your journey with us has just begun.', 'lightgreen');
+              const name = $('#name').val();
+              const email = $('#email').val();
+              const mobile = $('#mobile').val();
+              const password = $('#password').val();
+              const personalEmail = $('#personal_email').val();
+              const joiningDate = $('#joining_date').val();
+              const street = $('#street_address').val();
+              const city = $('#city').val();
+              const landmark = $('#landmark').val();
+              const pincode = $('#pincode').val();
+              const house = $('#house').val();
+              const state = $('#state').val();
+              const confirmPassword = $('#cpassword').val();
+              localStorage.setItem('registerEmail', email);
+
+
+              // Redirect with form data as parameters
+              setTimeout(function () {
+                window.location.href = `/uploadDetails?email=${email}`;
+              }, 2000);
+            } else {
+              showErrorToast(data.message || 'Registration failed. Please try again.');
+            }
+          },
+          error: function (xhr, textStatus, errorThrown) {
+            $('#preloader').css('display', 'none');
+            if (xhr.status === 400) {
+              var response = JSON.parse(xhr.responseText);
+              if (response.message === 'Email already exists. Please use a different email address.') {
+                showErrorToast('Email already exists. Please use a different email address.');
+              } else if (response.message === 'Invalid OTP. Please try again.') {
+                showErrorToast('Invalid OTP. Please try again.');
+              } else {
+                showErrorToast('An error occurred. Please try again later.');
+              }
+            } else {
+              showErrorToast('An error occurred. Please try again later.');
+            }
+          }
+        });
+      });
+
+      function showToast(message, backgroundColor) {
+        toastr.options = {
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+          showDuration: '300',
+          hideDuration: '1000',
+          timeOut: '5000',
+          extendedTimeOut: '1000',
+          addClass: 'success-toast'
+        };
+        toastr.clear();
+        toastr.success(message, '', { "background-color": backgroundColor });
+      }
+
+      function showErrorToast(message) {
+        toastr.options = {
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+          showDuration: '300',
+          hideDuration: '1000',
+          timeOut: '5000',
+          extendedTimeOut: '1000',
+          addClass: 'error-toast'
+        };
+        toastr.clear();
+        toastr.error(message);
+      }
+    });
+
+  </script>
+
+
+
+  <script>
+    function sendOTP() {
+      var email = document.getElementById('email').value;
+      var sendOTPButton = document.getElementById('send-otp-button');
+
+      if (email) {
+        // Disable the button while sending OTP
+        sendOTPButton.disabled = true;
+
+        fetch('/send-otp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: email }),
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              // Store OTP in localStorage
+              var email = document.getElementById('email').value;
+              localStorage.setItem('otp_' + email, data.otp);
+
+              Swal.fire({
+                icon: 'success',
+                title: 'OTP Sent Successfully!',
+                text: 'Please check your email for the OTP.',
+              });
+
+              // Change button text to "Resend OTP"
+              sendOTPButton.textContent = 'Resend OTP';
+
+              document.getElementById('verification-status').style.display = 'none';
+              document.getElementById('success-icon').style.display = 'none';
+              document.getElementById('failure-icon').style.display = 'none';
+              document.getElementById('otp1').style.display = 'flex';
+              document.getElementById('verify-otp-button').style.display = 'flex';
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Failed to Send OTP',
+                text: 'Please try again.',
+              });
+            }
+          })
+          .catch(error => {
+            console.error('Error sending OTP:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Failed to Send OTP',
+              text: 'Please try again.',
+            });
+          })
+          .finally(() => {
+            sendOTPButton.disabled = false;
+          });
+      } else {
+        alert('Please enter an email address.');
+      }
+    }
+  </script>
+  <script>
+    function previewImage(input) {
+      var imagePreview =
+        document.getElementById("imagePreview"); if (input.files && input.files[0]) {
+          var reader = new FileReader(); reader.onload = function (e) {
+            imagePreview.src
+              = e.target.result; imagePreview.style.display = "block";
+          };
+          reader.readAsDataURL(input.files[0]);
+        } else {
+        imagePreview.style.display =
+          "none"; imagePreview.src = "#";
+      }
+    }
+
+    function previewImage1(input) {
+      var imagePreview =
+        document.getElementById("imagePreview1"); if (input.files && input.files[0]) {
+          var reader = new FileReader(); reader.onload = function (e) {
+            imagePreview.src
+              = e.target.result; imagePreview.style.display = "block";
+          };
+          reader.readAsDataURL(input.files[0]);
+        } else {
+        imagePreview.style.display =
+          "none"; imagePreview.src = "#";
+      }
+    }
+
+    function previewImage2(input) {
+      var imagePreview =
+        document.getElementById("imagePreview2"); if (input.files && input.files[0]) {
+          var reader = new FileReader(); reader.onload = function (e) {
+            imagePreview.src
+              = e.target.result; imagePreview.style.display = "block";
+          };
+          reader.readAsDataURL(input.files[0]);
+        } else {
+        imagePreview.style.display =
+          "none"; imagePreview.src = "#";
+      }
+    }
+  </script>
+  <style>
+    .wrong .fa-check {
+      display: none;
+    }
+
+    .good .fa-times {
+      display: none;
+    }
+
+    .valid-feedback,
+    .invalid-feedback {
+      margin-left: calc(2em + 0.25rem + 1.5rem);
+    }
+  </style>
+  <script>
+    function downloadFile(input) {
+      var fileNameSpan;
+      if (input.id === "adhar") {
+        fileNameSpan = document.getElementById("fileName1");
+      } else if (input.id === "pan") {
+        fileNameSpan = document.getElementById("fileName2");
+      }
+
+      if (input.files && input.files[0]) {
+        var fileName = input.files[0].name;
+        fileNameSpan.innerText = fileName;
+        fileNameSpan.style.display = "block";
+
+        // Create a download link with an onclick event to trigger the download
+        fileNameSpan.innerHTML = `<a href="#" onclick="triggerDownload('${fileName}', '${input.id}')">${fileName}</a>`;
+      } else {
+        fileNameSpan.style.display = "none";
+        fileNameSpan.innerHTML = "";
+      }
+    }
+
+    function triggerDownload(fileName, inputId) {
+      // Get the file input element based on its ID
+      var fileInput = document.getElementById(inputId);
+
+      // Create a Blob object representing the data in the file
+      var fileBlob = new Blob([fileInput.files[0]], { type: fileInput.files[0].type });
+
+      // Create a temporary link element
+      var downloadLink = document.createElement("a");
+
+      // Set the download link's href to a URL representing the Blob
+      downloadLink.href = URL.createObjectURL(fileBlob);
+
+      // Set the download attribute to the file name
+      downloadLink.download = fileName;
+
+      // Append the download link to the document body
+      document.body.appendChild(downloadLink);
+
+      // Simulate a click on the download link
+      downloadLink.click();
+
+      // Remove the download link from the document
+      document.body.removeChild(downloadLink);
+    }
+  </script>
+
+  <script>
+    if (window.innerWidth <= 768) {
+      document.getElementById("Imagepath").setAttribute("capture", "camera");
+    }
+  </script>
+  <script>
+
+    function togglePassword(inputId) {
+      var passwordField = document.getElementById(inputId);
+      var passwordToggle = document.querySelector(".password-toggle i");
+
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        passwordToggle.classList.remove("fa-eye-slash");
+        passwordToggle.classList.add("fa-eye");
+      } else {
+        passwordField.type = "password";
+        passwordToggle.classList.remove("fa-eye");
+        passwordToggle.classList.add("fa-eye-slash");
+      }
+    }
+
+    function togglePassword1(inputId) {
+      var passwordField = document.getElementById(inputId);
+      var passwordToggle = document.querySelector(".password-toggle1 i");
+
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        passwordToggle.classList.remove("fa-eye-slash");
+        passwordToggle.classList.add("fa-eye");
+      } else {
+        passwordField.type = "password";
+        passwordToggle.classList.remove("fa-eye");
+        passwordToggle.classList.add("fa-eye-slash");
+      }
+    }
+
+
+
+    addEventListener("DOMContentLoaded", (event) => {
+      const password = document.getElementById("password");
+      const passwordAlert = document.getElementById("password-alert");
+      const requirements = document.querySelectorAll(".requirements");
+      let lengBoolean, bigLetterBoolean, numBoolean, specialCharBoolean;
+      let leng = document.querySelector(".leng");
+      let bigLetter = document.querySelector(".big-letter");
+      let num = document.querySelector(".num");
+      let specialChar = document.querySelector(".special-char");
+      const specialChars = "!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
+      const numbers = "0123456789";
+
+      requirements.forEach((element) => element.classList.add("wrong"));
+
+      password.addEventListener("focus", () => {
+        passwordAlert.classList.remove("d-none");
+        if (!password.classList.contains("is-valid")) {
+          password.classList.add("is-invalid");
+        }
+      });
+
+      password.addEventListener("input", () => {
+        let value = password.value;
+        if (value.length < 8) {
+          lengBoolean = false;
+        } else if (value.length > 7) {
+          lengBoolean = true;
+        }
+
+        if (value.toLowerCase() == value) {
+          bigLetterBoolean = false;
+        } else {
+          bigLetterBoolean = true;
+        }
+
+        numBoolean = false;
+        for (let i = 0; i < value.length; i++) {
+          for (let j = 0; j < numbers.length; j++) {
+            if (value[i] == numbers[j]) {
+              numBoolean = true;
+            }
+          }
+        }
+
+        specialCharBoolean = false;
+        for (let i = 0; i < value.length; i++) {
+          for (let j = 0; j < specialChars.length; j++) {
+            if (value[i] == specialChars[j]) {
+              specialCharBoolean = true;
+            }
+          }
+        }
+
+        if (lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
+          password.classList.remove("is-invalid");
+          password.classList.add("is-valid");
+
+          requirements.forEach((element) => {
+            element.classList.remove("wrong");
+            element.classList.add("good");
+          });
+          passwordAlert.classList.remove("alert-warning");
+          passwordAlert.classList.add("alert-success");
+        } else {
+          password.classList.remove("is-valid");
+          password.classList.add("is-invalid");
+
+          passwordAlert.classList.add("alert-warning");
+          passwordAlert.classList.remove("alert-success");
+
+          if (lengBoolean == false) {
+            leng.classList.add("wrong");
+            leng.classList.remove("good");
+          } else {
+            leng.classList.add("good");
+            leng.classList.remove("wrong");
+          }
+
+          if (bigLetterBoolean == false) {
+            bigLetter.classList.add("wrong");
+            bigLetter.classList.remove("good");
+          } else {
+            bigLetter.classList.add("good");
+            bigLetter.classList.remove("wrong");
+          }
+
+          if (numBoolean == false) {
+            num.classList.add("wrong");
+            num.classList.remove("good");
+          } else {
+            num.classList.add("good");
+            num.classList.remove("wrong");
+          }
+
+          if (specialCharBoolean == false) {
+            specialChar.classList.add("wrong");
+            specialChar.classList.remove("good");
+          } else {
+            specialChar.classList.add("good");
+            specialChar.classList.remove("wrong");
+          }
+        }
+      });
+
+      password.addEventListener("blur", () => {
+        passwordAlert.classList.add("d-none");
+      });
+    });
+  </script>
+
+  <script>
+    // Check the status of the checkboxes on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      checkCheckboxStatus();
+    });
+
+    // Add an event listener to the anchor element
+    document.getElementById("showPolicies").addEventListener("click", function (event) {
+      // Prevent the default behavior of the anchor (navigation)
+      event.preventDefault();
+
+      // Get the policy elements by their IDs
+      var policyLine1 = document.getElementById("policyLine1");
+      var policyLine2 = document.getElementById("policyLine2");
+
+      // Toggle the display property when the anchor is clicked
+      if (policyLine1.style.display === "none") {
+        policyLine1.style.display = "block";
+        policyLine2.style.display = "block";
+      } else {
+        policyLine1.style.display = "none";
+        policyLine2.style.display = "none";
+      }
+    });
+
+    // Function to check the status of checkboxes and adjust policy display
+    function checkCheckboxStatus() {
+      var agreeTermsCheckbox = document.getElementById("agreeTerms");
+      var policyLine1 = document.getElementById("policyLine1");
+      var policyLine2 = document.getElementById("policyLine2");
+
+      // If the "agreeTerms" checkbox is checked, show policies
+      if (agreeTermsCheckbox.checked) {
+        policyLine1.style.display = "block";
+        policyLine2.style.display = "block";
+      }
+    }
+  </script>
+
+  <script>
+    function verifyOTP() {
+      var enteredOTP = document.getElementById('otp').value;
+      var email = document.getElementById('email').value;
+
+      var storedOTP = localStorage.getItem('otp_' + email);
+
+      if (enteredOTP === storedOTP) {
+        document.getElementById('otp-status').innerHTML = '<i class="fa-solid fa-check"></i>';
+        document.getElementById('otp-status').style.color = 'green';
+      } else {
+        document.getElementById('otp-status').innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        document.getElementById('otp-status').style.color = 'red';
+      }
+    }
+
+    function validateMobileNumber() {
+      var mobileNumber = document.getElementById('mobile').value;
+
+      var validationSpan = document.getElementById('mobileValidation');
+
+      if (mobileNumber.length === 10) {
+        validationSpan.innerHTML = '<span style="margin-top: -9px;float: inline-end;margin-right: 10px; color:green"><i class="fa-solid fa-check"></i></span>';
+      } else {
+        validationSpan.innerHTML = '<span style="color: red;margin-top: -9px;float: inline-end;margin-right: 10px; "><i class="fa-solid fa-xmark"></i></span>';
+      }
+    }
+
+  </script><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span>
+</body>

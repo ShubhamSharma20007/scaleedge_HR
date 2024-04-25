@@ -1,0 +1,102 @@
+<div id="applyReimburshment" class=" handleForm">
+    <div class="handleForm-top">
+        <span class="title">Apply Reimburshment</span>
+        <i class="ri-close-fill" id="applyReimburshmentClose"></i>
+    </div>
+    <form class="form add-card" action="/applyReimburshment" method="post" enctype="multipart/form-data" id="formData">
+        <div style="display: flex; gap: 10px">
+            <div class="group" hidden>
+                <input type="text" id="user_name" name="user_name" value="{{user_name}}" readonly />
+                <label for="name">Name</label>
+            </div>
+            <div class="group" hidden>
+                <input type="text" id="employee_id" name="employee_id" value="{{employee_id}}" readonly />
+                <label for="loan_amount">Employee Id</label>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px">
+            <div class="group">
+                <input type="date" id="reimbursement_date" name="reimbursement_date" />
+                <label for="name">Date</label>
+            </div>
+            <div class="group">
+                <input id="amount" type="text" name="amount" />
+                <label for="loan_amount">Amount</label>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px">
+            <div class="group">
+                <input type="file" name="Imagepath" id="Imagepath" />
+                <label for="name">Upload Reimburshment Doc.</label>
+                <img id="imagePreview" src="#" alt="Image Preview"
+                    style="display: none; max-width: 200px; max-height: 200px;" />
+            </div>
+
+        </div>
+
+        <button type="submit" class="form-button">Submit</button>
+    </form>
+</div>
+
+<script>
+    // JavaScript to handle click events
+    document.querySelectorAll('.applyForReimburshment').forEach(function (element) {
+        element.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default action of the anchor tag
+            document.querySelector('#applyReimburshment').style.display = 'block'; // Show applyLoan element
+        });
+    });
+
+    document.querySelector('#applyReimburshmentClose').addEventListener('click', function () {
+        document.querySelector('#applyReimburshment').style.display = 'none'; // Hide applyLoan element
+    });
+
+</script>
+<script>
+    document.getElementById("Imagepath").addEventListener("change", function (event) {
+        var fileInput = event.target;
+        var imagePreview = document.getElementById("imagePreview");
+
+        if (fileInput.files && fileInput.files[0]) {
+            var imageFile = fileInput.files[0];
+            var fileSizeMB = imageFile.size / (1024 * 1024);
+
+            if (fileSizeMB > 1) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Please choose an image smaller than 1MB",
+                });
+
+                fileInput.value = "";
+                imagePreview.src = "#";
+                imagePreview.style.display = "none";
+                return;
+            }
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+            };
+
+            reader.readAsDataURL(imageFile);
+        } else {
+            imagePreview.src = "#";
+            imagePreview.style.display = "none";
+        }
+    });
+</script>
+<style>
+    @media(min-width:768px) {
+        #applyReimburshment {
+            display: none;
+        }
+    }
+    @media(max-width:767px) {
+        #applyReimburshment {
+            display: none;
+        }
+    }
+</style>

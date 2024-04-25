@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ScaleEdge</title>
+    <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/css/jquery.orgchart.min.css'>
+    <link rel="stylesheet" href="./style.css">
+
+
+</head>
+<style>
+    .swal2-content {
+        padding: 0px !important;
+    }
+    #chart-container {
+        font-family: Arial;
+        height: 420px;
+        border: 2px dashed #aaa;
+        border-radius: 5px;
+        overflow: auto;
+        text-align: center;
+    }
+
+    .orgchart .node .content {
+        height: 98px
+    }
+
+    .orgchart .node {
+        width: 242px;
+    }
+
+    .orgchart {
+        background: #fff;
+    }
+
+    .orgchart td.left,
+    .orgchart td.right,
+    .orgchart td.top {
+        border-color: #aaa;
+    }
+
+    .orgchart td>.down {
+        background-color: #aaa;
+    }
+
+    .orgchart .middle-level .title {
+        background-color: #006699;
+    }
+
+    .orgchart .middle-level .content {
+        border-color: #006699;
+    }
+
+    .orgchart .product-dept .title {
+        background-color: #009933;
+    }
+
+    .orgchart .product-dept .content {
+        border-color: #009933;
+    }
+
+    .orgchart .rd-dept .title {
+        background-color: #993366;
+    }
+
+    .orgchart .rd-dept .content {
+        border-color: #993366;
+    }
+
+    .orgchart .pipeline1 .title {
+        background-color: #996633;
+    }
+
+    .orgchart .pipeline1 .content {
+        border-color: #996633;
+    }
+
+    .orgchart .frontend1 .title {
+        background-color: #cc0066;
+    }
+
+    .orgchart .frontend1 .content {
+        border-color: #cc0066;
+    }
+
+    #github-link {
+        position: fixed;
+        top: 0px;
+        right: 10px;
+        font-size: 3em;
+    }
+</style>
+
+<body>
+    <div class="container-scroller">
+        {{>topbar}}
+        <div class="container-fluid page-body-wrapper">
+            {{#if sidebar}}
+            {{> sidebar}}
+            {{else}}
+            {{> attendanceSidebar}}
+            {{/if}}
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="page-header">
+                        {{!-- <h3 class="page-title">Leave Application Form</h3> --}}
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                <i class="mdi mdi-arrow-left" onclick="goBack()" title="Back"></i>
+                                <script>
+                                    function goBack() {
+                                        window.history.back();
+                                    }
+                                </script>
+                            </span> Company Directory
+                        </h3>
+                        <nav aria-label="breadcrumb">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <button class="btn btn-primary" onclick="openAddDeptDialog()">Add Dept.</button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div id="chart-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="/assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/assets/js/off-canvas.js"></script>
+    <script src="/assets/js/hoverable-collapse.js"></script>
+    <script src="/assets/js/misc.js"></script>
+    <script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/todolist.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.min.js'></script>
+    <script src="./script.js"></script>
+
+</body>
+
+</html>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function openAddDeptDialog() {
+        fetch('/user_name_department')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user names');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const userNames = data.map(user => user.user_name);
+
+                const options = userNames.map(userName => `<option value="${userName}">${userName}</option>`).join('');
+
+                Swal.fire({
+                    title: 'Add Department',
+                    html:
+                        '<input id="deptName" class="form-control mb-3" placeholder="Department Name">' +
+                        '<select id="deptManager" class="form-select mb-3"><option value="" disabled selected>Select Department Manager</option>' + options + '</select>',
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        const deptName = document.getElementById('deptName').value;
+                        const deptManager = document.getElementById('deptManager').value;
+                        return { deptName: deptName, deptManager: deptManager };
+                    },
+                    confirmButtonText: 'Submit',
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancel',
+                    cancelButtonColor: '#d33',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const deptName = result.value.deptName;
+                        const deptManager = result.value.deptManager;
+
+                        const data = {
+                            department_name: deptName,
+                            department_manager: deptManager
+                        };
+
+                        fetch('/departments', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(data)
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.text();
+                            })
+                            .then(data => {
+                                console.log('Department added successfully:', data);
+                                Swal.fire({
+                                    title: 'Success',
+                                    text: 'Department added successfully',
+                                    icon: 'success'
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            })
+                            .catch(error => {
+                                console.error('Error adding department:', error);
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: 'Failed to add department',
+                                    icon: 'error'
+                                }).then(() => {
+                                    Swal.close();
+                                });
+                            });
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching user names:', error);
+            });
+    }
+
+</script>
+{{!--
+<script>
+    $(function () {
+        // Function to create children nodes from department data
+        function createChildren(departments) {
+            return departments.map(department => {
+                return {
+                    'name': department.department_name,
+                    'title': `Manager: ${department.department_manager}<br>Employees: ${department.employee_count}`,
+                    'className': 'middle-level'
+                };
+            });
+        }
+
+        var datascource = {
+            'name': 'Admin',
+            'title': '1 Admin',
+            'children': []
+        };
+
+        var oc = $('#chart-container').orgchart({
+            'data': datascource,
+            'nodeContent': 'title'
+        });
+
+        window.addEventListener('load', () => {
+            fetch('/api/departments/employee-count')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch departments');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Departments:', data);
+                    // Update children nodes with department data
+                    datascource.children = createChildren(data);
+                    oc.init({ 'data': datascource });
+                })
+                .catch(error => {
+                    console.error('Error fetching departments:', error.message);
+                });
+        });
+    });
+</script> --}}
+<style>
+    a{
+        text-decoration: none;
+    }
+    .custom-swal-popup {
+        width: 900px !important;
+        /* Set the width of the dialog box */
+        max-width: 100% !important;
+        /* Optionally, set a maximum width */
+    }
+
+    .custom-swal-popup .swal2-content {
+        max-height: 80vh !important;
+        /* Set the maximum height of the content area */
+        overflow-y: auto !important;
+        /* Enable vertical scrolling if content exceeds the height */
+    }
+</style>
+<style>
+    .table-fixed thead {
+        background-color: #007bff; 
+        color: #fff;
+    }
+
+    .table-fixed tbody {
+        overflow-y: auto; 
+        max-height: 300px;
+    }
+
+    .table-fixed th,
+    .table-fixed td {
+        padding: 10px; 
+        text-align: center; 
+    }
+
+    .table-fixed tbody tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+
+    .table-fixed tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .table-fixed {
+        border-radius: 10px;
+        overflow: hidden; 
+    }
+
+    .table-fixed {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script>
+    $(function () {
+        function createChildren(departments) {
+            return departments.map(department => {
+                return {
+                    'name': department.department_name,
+                    'title': `Manager: ${department.department_manager}<br>Employees: <span class="employee-count text-danger" style="cursor: pointer;" data-department="${department.department_name}">${department.employee_count}</span>
+                    <br> <br> <img src="/images/man.png" alt="User Icon" class="user-icon img-fluid h-25">
+                    `,
+                    'className': 'middle-level'
+                };
+            });
+        }
+
+        var datascource = {
+            'name': 'Admin',
+            'title': '1 Admin',
+            'children': []
+        };
+
+        var oc = $('#chart-container').orgchart({
+            'data': datascource,
+            'nodeContent': 'title'
+        });
+
+        // Function to handle click event on employee count
+        function handleEmployeeCountClick() {
+            $(document).on('click', '.employee-count', function () {
+                var departmentName = $(this).data('department');
+                fetchEmployeesByDepartment(departmentName);
+            });
+        }
+
+        async function fetchEmployeesByDepartment(departmentName) {
+            try {
+                const response = await fetch(`/api/departments/users?department=${departmentName}`);
+                const data = await response.json();
+                // Create HTML for the table
+                var tableHtml = '<div class="table-responsive"><table class="table table-striped table-bordered table-fixed">';
+                tableHtml += '<thead><tr><th>Name</th><th>Email</th><th>Contact Number</th></tr></thead>';
+                tableHtml += '<tbody>';
+                if (data && data[departmentName]) {
+                    data[departmentName].forEach(function (item) {
+                        tableHtml += `<tr><td>${item.user_name}</td><td><a href="mailto:${item.email}">${item.email}</a></td><td><a href="tel:${item.mobile}">${item.mobile}</a></td></tr>`;
+                    });
+                }
+                tableHtml += '</tbody></table></div>';
+                // Open dialog box with the table using SweetAlert
+                Swal.fire({
+                    html: tableHtml,
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: 'custom-swal-popup'
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            fetch('/api/departments/employee-count')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch departments');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Departments:', data);
+                    // Update children nodes with department data
+                    datascource.children = createChildren(data);
+                    oc.init({ 'data': datascource });
+                    // Call function to handle click event on employee count
+                    handleEmployeeCountClick();
+                })
+                .catch(error => {
+                    console.error('Error fetching departments:', error.message);
+                });
+        });
+    });
+</script>
+
+<script>
+    window.onload = async function () {
+        try {
+            const response = await fetch('/api/departments/users');
+            const data = await response.json();
+
+            // Log data to the console
+            console.log(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+</script>

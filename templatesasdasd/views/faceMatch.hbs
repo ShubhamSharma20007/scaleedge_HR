@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <input type="file" id="fileInput1">
+    <img id="imagePreview1" src="#" alt="Image 1 Preview" style="width: 300px; height:300px">
+    <input type="file" id="fileInput2">
+    <img id="imagePreview2" src="#" alt="Image 2 Preview" style="width: 300px; height:300px">
+    <button id="recognizeFacesButton">Recognize Faces</button>
+    <div id="result"></div>
+
+    <script>
+        $(document).ready(function () {
+            // Function to convert image to base64
+            function getBase64(file, callback) {
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    callback(reader.result);
+                };
+                reader.onerror = function (error) {
+                    console.log('Error: ', error);
+                };
+            }
+
+            // Function to compare images and calculate similarity
+            function calculateSimilarity(image1, image2) {
+                // For demonstration purpose, let's assume a simple algorithm to calculate similarity
+                // Here, we count the number of pixels that are the same in both images
+                var samePixels = 0;
+                for (var i = 0; i < image1.length; i++) {
+                    if (image1[i] === image2[i]) {
+                        samePixels++;
+                    }
+                }
+                var totalPixels = image1.length;
+                return (samePixels / totalPixels) * 100;
+            }
+
+            $.get("takeImage", function (data) {
+                if (data.imagePath) {
+                    console.log(data.imagePath, 123456);
+                   
+                }
+            });
+           $('#fileInput1').change(function (e) {
+                var file = e.target.files[0];
+                getBase64(file, function (base64) {
+                    $('#imagePreview1').attr('src', base64);
+                });
+            }); 
+
+            // Image 2 preview
+            $('#fileInput2').change(function (e) {
+                var file = e.target.files[0];
+                getBase64(file, function (base64) {
+                    $('#imagePreview2').attr('src', base64);
+                });
+            });
+
+            // Recognize faces button click event
+            $('#recognizeFacesButton').click(function () {
+                var imageSrc1 = $('#imagePreview1').attr('src');
+                var imageSrc2 = $('#imagePreview2').attr('src');
+                if (imageSrc1 && imageSrc2) {
+                    // Convert images to base64
+                    var img1 = new Image();
+                    img1.src = imageSrc1;
+                    var img2 = new Image();
+                    img2.src = imageSrc2;
+
+                    // Create canvas for drawing images
+                    var canvas1 = document.createElement('canvas');
+                    var canvas2 = document.createElement('canvas');
+                    var context1 = canvas1.getContext('2d');
+                    var context2 = canvas2.getContext('2d');
+
+                    // Draw images onto canvas
+                    img1.onload = function () {
+                        canvas1.width = img1.width;
+                        canvas1.height = img1.height;
+                        context1.drawImage(img1, 0, 0);
+                        var imageData1 = context1.getImageData(0, 0, img1.width, img1.height);
+                        var pixels1 = imageData1.data;
+
+                        img2.onload = function () {
+                            canvas2.width = img2.width;
+                            canvas2.height = img2.height;
+                            context2.drawImage(img2, 0, 0);
+                            var imageData2 = context2.getImageData(0, 0, img2.width, img2.height);
+                            var pixels2 = imageData2.data;
+
+                            // Compare pixel data of images
+                            var similarityPercentage = calculateSimilarity(pixels1, pixels2);
+                            $('#result').text('Similarity: ' + similarityPercentage.toFixed(2) + '%');
+                        };
+                    };
+                } else {
+                    alert('Please select both images.');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

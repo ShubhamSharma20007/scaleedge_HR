@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ScaleEdge</title>
+  <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    {{>topbar}}
+    <div class="container-fluid page-body-wrapper">
+      {{#if isAdmin}}
+      {{> sidebar}}
+      {{else}}
+      {{> attendanceSidebar}}
+      {{/if}}
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+
+            <h3 class="page-title">
+              <span class="page-title-icon bg-gradient-primary text-white me-2">
+                <i class="mdi mdi-arrow-left" onclick="goBack()" title="Back"></i>
+                <script>
+                  function goBack() {
+                    window.history.back();
+                  }
+                </script>
+              </span> Meeting In
+            </h3>
+          </div>
+          <form action="/attendanceMeeting" method="post" id="formData">
+            <input hidden name="Lat">
+            <input hidden type="" name="Lon">
+            <input hidden name="c_type" value="four">
+            <input hidden name="date_field">
+            <input hidden name="time_field">
+            <input hidden name="meet_in">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-7">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Company Name</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Enter Company name" id="companyName"
+                              name="companyName" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-group row">
+                          <div class="col-sm-9">
+                            <button id="meetin-btn" class="btn btn-gradient-primary me-2">Submit</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <script src="/assets/js/jquery-2.1.1.min.js"></script>
+    <script src="/assets/js/face-api.js"></script>
+
+</body>
+
+</html>
+
+<style>
+  #container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #video {
+    margin-bottom: 10px;
+    border-radius: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  #btn {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .button-20 {
+    appearance: button;
+    background-color: white;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, .15), rgba(255, 255, 255, 0));
+    border: 1px solid #4D4AE8;
+    border-radius: 1rem;
+    box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0 inset, rgba(46, 54, 80, 0.075) 0 1px 1px;
+    box-sizing: border-box;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0;
+    padding: .5rem 1rem;
+    text-align: center;
+    text-transform: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    flex: 0 0 auto;
+  }
+
+  .button-20:focus:not(:focus-visible),
+  .button-20:focus {
+    outline: 0;
+  }
+
+  .button-20:hover {
+    background-color: skyblue;
+    border-color: skyblue;
+  }
+
+  .button-20:focus {
+    background-color: skyblue;
+    border-color: skyblue;
+    box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0 inset, rgba(46, 54, 80, 0.075) 0 1px 1px, rgba(104, 101, 235, 0.5) 0 0 0 .2rem;
+  }
+
+  .button-20:active {
+    background-color: skyblue;
+    background-image: none;
+    border-color: skyblue;
+    box-shadow: rgba(46, 54, 80, 0.125) 0 3px 5px inset;
+  }
+
+  .button-20:active:focus {
+    box-shadow: rgba(46, 54, 80, 0.125) 0 3px 5px inset, rgba(104, 101, 235, 0.5) 0 0 0 .2rem;
+  }
+
+  .button-20:disabled {
+    background-image: none;
+    box-shadow: none;
+    opacity: .65;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    #container {
+      max-width: 90%;
+    }
+
+    .button-20 {
+      font-size: 2.5rem;
+    }
+  }
+</style>
+<script>
+  const latInput = document.querySelector('input[name="Lat"]');
+  const lonInput = document.querySelector('input[name="Lon"]');
+
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      latInput.value = latitude;
+      lonInput.value = longitude;
+    });
+  } else {
+    alert("Geolocation is not available in this browser.");
+  }
+
+  document.querySelector('input[name="c_type"]').value = "four";
+
+  const currentDate = new Date();
+  const dateInput = document.querySelector('input[name="date_field"]');
+  dateInput.value = currentDate.toISOString().substr(0, 10);
+
+  const currentTime = new Date();
+  const timeInput = document.querySelector('input[name="time_field"]');
+  const hours = currentTime.getHours().toString().padStart(2, '0'); // Ensure 2-digit format
+  const minutes = currentTime.getMinutes().toString().padStart(2, '0'); // Ensure 2-digit format
+  timeInput.value = `${hours}:${minutes}`;
+
+</script>
+
+<script>
+  const meetInInput = document.querySelector('input[name="meet_in"]');
+  const year = currentDate.getFullYear();
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+  const day = currentDate.getDate().toString().padStart(2, '0');
+
+
+  meetInInput.value = `${year}-${month}-${day} ${hours}:${minutes}:00`;
+
+
+</script>
+
+<script>
+  document.getElementById('formData').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const clientName = document.getElementById('companyName').value;
+
+    if (!clientName) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill out all fields and select a status!',
+      });
+    } else {
+      Swal.fire({
+        title: 'Confirm Submission',
+        text: 'Are you sure you want to submit this form?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          showLoading(); // Show loading spinner
+          document.getElementById('formData').submit(); // Submit the form
+        }
+      });
+    }
+  });
+
+  function showLoading() {
+    Swal.fire({
+      // title: 'Approving Users',
+      html: 'Please wait while we process the approvals.<br/><i>This may take a moment...</i>',
+      allowOutsideClick: false,
+      showCancelButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+  }
+</script>

@@ -1,0 +1,135 @@
+<div id="attendanceMeeting" class=" handleForm">
+    <div class="handleForm-top">
+        <span class="title">Meeting In</span>
+        <i class="ri-close-fill" id="attendanceMeetingClose"></i>
+    </div>
+    <form class="form add-card" action="/attendanceMeeting" method="post" id="formData">
+        <div style="display: flex; gap: 10px">
+            <div class="group" hidden>
+                <input name="Lat">
+                <input type="" name="Lon">
+                <input name="c_type" value="four">
+                <input name="date_field">
+                <input name="time_field">
+                <input name="meet_in">
+            </div>
+            <div class="group">
+                <input type="text" id="companyName" name="companyName" />
+                <label for="loan_amount">Company Name</label>
+            </div>
+        </div>
+        <button type="submit" class="form-button">Submit</button>
+    </form>
+</div>
+
+<script>
+    // JavaScript to handle click events
+    document.querySelectorAll('.attendanceForMeeting').forEach(function (element) {
+        element.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default action of the anchor tag
+            document.querySelector('#attendanceMeeting').style.display = 'block'; // Show applyLoan element
+        });
+    });
+
+    document.querySelector('#attendanceMeetingClose').addEventListener('click', function () {
+        document.querySelector('#attendanceMeeting').style.display = 'none'; // Hide applyLoan element
+    });
+
+</script>
+<script>
+    const latInput = document.querySelector('input[name="Lat"]');
+    const lonInput = document.querySelector('input[name="Lon"]');
+
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            latInput.value = latitude;
+            lonInput.value = longitude;
+        });
+    } else {
+        alert("Geolocation is not available in this browser.");
+    }
+
+    document.querySelector('input[name="c_type"]').value = "four";
+
+    const currentDate = new Date();
+    const dateInput = document.querySelector('input[name="date_field"]');
+    dateInput.value = currentDate.toISOString().substr(0, 10);
+
+    const currentTime = new Date();
+    const timeInput = document.querySelector('input[name="time_field"]');
+    const hours = currentTime.getHours().toString().padStart(2, '0'); // Ensure 2-digit format
+    const minutes = currentTime.getMinutes().toString().padStart(2, '0'); // Ensure 2-digit format
+    timeInput.value = `${hours}:${minutes}`;
+
+</script>
+
+<script>
+    const meetInInput = document.querySelector('input[name="meet_in"]');
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+
+
+    meetInInput.value = `${year}-${month}-${day} ${hours}:${minutes}:00`;
+
+
+</script>
+
+<script>
+    document.getElementById('formData').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const clientName = document.getElementById('companyName').value;
+
+        if (!clientName) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'Please fill out all fields and select a status!',
+            });
+        } else {
+            Swal.fire({
+                title: 'Confirm Submission',
+                text: 'Are you sure you want to submit this form?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    showLoading(); // Show loading spinner
+                    document.getElementById('formData').submit(); // Submit the form
+                }
+            });
+        }
+    });
+
+    function showLoading() {
+        Swal.fire({
+            // title: 'Approving Users',
+            html: 'Please wait while we process the approvals.<br/><i>This may take a moment...</i>',
+            allowOutsideClick: false,
+            showCancelButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
+    }
+</script>
+<style>
+    @media(min-width:768px) {
+        #attendanceMeeting {
+            display: none;
+        }
+
+    }
+     @media(max-width:767px) {
+        #attendanceMeeting {
+            display: none;
+        }
+
+    }
+</style>

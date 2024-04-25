@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>ScaleEdge</title>
+  <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    {{>topbar}}
+    <div class="container-fluid page-body-wrapper">
+      {{>sidebar}}
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">
+              <span class="page-title-icon bg-gradient-primary text-white me-2">
+                <i class="mdi mdi-arrow-left" onclick="goBack()" title="Back"></i>
+                <script>
+                  function goBack() {
+                    window.history.back();
+                  }
+                </script>
+              </span> Edit Form
+            </h3>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="col-12">
+                  <div class="card">
+                    <form class="add-card" action="/edit" method="POST" enctype="multipart/form-data">
+                      <div class="card-body">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs mb-4">
+                          <li class="nav-item tabs">
+                            <a id="general-tab" class="nav-link active tabs_active" data-toggle="tab"
+                              href="#general-info">General Information</a>
+                          </li>
+                          <li class="nav-item tabs">
+                            <a id="employee-tab" class="nav-link tabs_active" data-toggle="tab"
+                              href="#employee-information">Employment Details</a>
+                          </li>
+                          <li class="nav-item tabs">
+                            <a id="bank-tab" class="nav-link tabs_active" data-toggle="tab" href="#bank-details">Bank
+                              Details</a>
+                          </li>
+                          <li class="nav-item tabs">
+                            <a id="address-tab" class="nav-link tabs_active" data-toggle="tab"
+                              href="#address-details">Address Details</a>
+                          </li>
+
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                          <div id="general-info" class="tab-pane fade show active">
+                            <input type="hidden" name="id" value="{{user.id}}">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">First & Last Name</label>
+                                  <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="user_name"
+                                      value="{{user.user_name}}" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Official E-mail</label>
+                                  <div class="col-sm-9">
+                                    <input type="email" name="email" value="{{user.email}}" class="form-control" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Personal E-mail</label>
+                                  <div class="col-sm-9">
+                                    <input type="email" id="personal_email" name="personal_email" class="form-control"
+                                      value="{{user.personal_email}}" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Mobile</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" id="mobile" type="number" name="mobile"
+                                      value="{{user.mobile}}" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Annual Salary</label>
+                                  <div class="col-sm-9">
+                                    <div class="form-check">
+                                      <input class="form-control" type="number" id="annual_salary" name="annual_salary"
+                                        value="{{ annualSalary }}" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">TA/DA</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" type="number" id="km_rupees" name="km_rupees"
+                                      value="{{user.km_rupees}}" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Choose Image</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" type="file" name="profileImage" id="Imagepath"
+                                      value="{{user.Imagepath}}">
+                                    <img id="imagePreview" src="/profile/{{user.Imagepath}}" alt="Image Preview"
+                                      style="display: block; max-width: 200px; max-height: 200px;">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <button type="button" id="next-btn" class="btn btn-gradient-primary me-2">Next</button>
+                            <button class="btn btn-light" onclick="goBack()">Cancel</button>
+                          </div>
+                          <div id="address-details" class="tab-pane fade">
+
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">House No.</label>
+                                  <div class="col-sm-9">
+                                    <input type="text" id="house" name="house" class="form-control"
+                                      value="{{user.house}}" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Street Address</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" id="street" type="text" name="street"
+                                      value="{{user.street_address}}" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">City</label>
+                                  <div class="col-sm-9">
+                                    <input type="text" id="city" name="city" class="form-control"
+                                      value="{{user.city}}" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">State</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" id="state" type="text" name="state"
+                                      value="{{user.state}}" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Pincode</label>
+                                  <div class="col-sm-9">
+                                    <input type="text" id="pincode" name="pincode" class="form-control"
+                                      value="{{user.pincode}}" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Landmark</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" id="landmark" type="text" name="landmark"
+                                      value="{{user.landmark}}" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Latitude</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" type="text" id="latitude" name="latitude"
+                                      value="{{user.latitude}}" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Longitude</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" type="text" id="longitude" name="longitude"
+                                      value="{{user.longitude}}" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="btn btn-gradient-primary me-2">Submit</button>
+                            <button class="btn btn-light" onclick="goBack()">Cancel</button>
+                          </div>
+                          <div id="employee-information" class="tab-pane fade">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Position</label>
+                                  <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="position" value="{{user.position}}" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Department</label>
+                                  <div class="col-sm-9">
+                                    <select class="form-select" id="department" name="department"
+                                      style="border: 1px solid #ebedf2;font-family: 'ubuntu-regular', sans-serif;font-size: 0.8125rem;">
+                                      <option value="" disabled {{#unless user.department}}selected{{/unless}}>Select
+                                        Department</option>
+                                      {{#each departments}}
+                                      <option value="{{this.department_name}}" {{#ifEquals ../user.department
+                                        this.department_name}}selected{{/ifEquals}}>{{this.department_name}}</option>
+                                      {{/each}}
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Branch</label>
+                                  <div class="col-sm-9">
+                                    <select class="form-select" id="branch" name="branch"
+                                      style="border: 1px solid #ebedf2;font-family: 'ubuntu-regular', sans-serif;font-size: 0.8125rem;">
+                                      <option value="" disabled {{#unless user.branch}}selected{{/unless}}>Select Branch
+                                      </option>
+                                      {{#each branches}}
+                                      <option value="{{this.branch_name}}" {{#ifEquals ../user.branch
+                                        this.branch_name}}selected{{/ifEquals}}>{{this.branch_name}}</option>
+                                      {{/each}}
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Reporting To</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" id="reportingTo" type="text" name="reportingTo"
+                                      value="{{user.reportingTo}}" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Role</label>
+                                  <div class="col-sm-9">
+                                    <select class="form-select" name="user_group">
+                                      <option value="">Select Role</option>
+                                      <option value="admin" {{#ifEquals user.user_group "admin" }}selected{{/ifEquals}}>
+                                        Admin
+                                      </option>
+                                      <option value="user" {{#ifEquals user.user_group "user" }}selected{{/ifEquals}}>
+                                        User
+                                      </option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">User Type</label>
+                                  <div class="col-sm-9">
+                                    <select class="form-select" id="user_type" name="user_type">
+                                      <option value="" disabled selected>Select User Type</option>
+                                      <option value="office" {{ userTypeOfficeSelected }}>Office</option>
+                                      <option value="sales" {{ userTypeSalesSelected }}>Sales</option>
+
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Joining Date</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" type="date" id="joining_date" name="joining_date"
+                                      value="{{ formattedJoiningDate }}" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">User Status</label>
+                                  <div class="col-sm-9">
+                                    <select class="form-select" id="status" name="status">
+                                      <option value="active" {{ statusActiveSelected }}>Active</option>
+                                      <option value="inactive" {{ statusInactiveSelected }}>Inactive</option>
+                                      <option value="onhold" {{ statusOnHoldSelected }}>On Hold</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Aadhar Card</label>
+                                  <div class="col-sm-9 mt-3">
+                                    <span style="cursor: pointer;" id="aadharFileName" class="text-primary"
+                                      onclick="downloadFile('{{user.Adhar}}')">{{user.Adhar}}</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Pan Card</label>
+                                  <div class="col-sm-9 mt-3">
+                                    <span style="cursor: pointer;" class="text-primary" id="panFileName"
+                                      onclick="downloadFile('{{user.Pancard}}')">{{user.Pancard}}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <button type="button" id="next-one-btn" class="btn btn-gradient-primary me-2">Next</button>
+                            <button class="btn btn-light" onclick="goBack()">Cancel</button>
+                          </div>
+                          <div id="bank-details" class="tab-pane fade">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Acc. Holder Name</label>
+                                  <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="account_holder_name"
+                                      value="{{employeeDetails.account_holder_name}}" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Acc. No.</label>
+                                  <div class="col-sm-9">
+                                    <input type="text" name="account_number" value="{{employeeDetails.account_number}}"
+                                      class="form-control" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Bank Name</label>
+                                  <div class="col-sm-9">
+                                    <input type="text" name="bank_name" value="{{employeeDetails.bank_name}}"
+                                      class="form-control" />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">IFSC Code</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" id="ifsc_code" type="text" name="ifsc_code"
+                                      value="{{employeeDetails.ifsc_code}}" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Branch Name</label>
+                                  <div class="col-sm-9">
+                                    <input type="text" name="branch_name" value="{{employeeDetails.branch_name}}"
+                                      class="form-control" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <button type="button" id="next-second-btn"
+                              class="btn btn-gradient-primary me-2">Next</button>
+                            <button class="btn btn-light" onclick="goBack()">Cancel</button>
+                          </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  </div>
+  </div>
+
+  <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+  <script src="/assets/vendors/chart.js/Chart.min.js"></script>
+  <script src="/assets/js/jquery.cookie.js" type="text/javascript"></script>
+  <script src="/assets/js/off-canvas.js"></script>
+  <script src="/assets/js/hoverable-collapse.js"></script>
+  <script src="/assets/js/misc.js"></script>
+  <script src="/assets/js/dashboard.js"></script>
+  <script src="/assets/js/todolist.js"></script>
+  <script src="/assets/js/jquery-2.1.1.min.js"></script>
+  <script src="/assets/js/face-api.js"></script>
+</body>
+
+</html>
+
+<script>
+  const generalTab = document.getElementById('general-tab');
+  const addressTab = document.getElementById('address-tab');
+  const employeeTab = document.getElementById('employee-tab');
+  const bankTab = document.getElementById('bank-tab');
+  const generalInfoDiv = document.getElementById('general-info');
+  const addressDetailsDiv = document.getElementById('address-details');
+  const employeeInfoDiv = document.getElementById('employee-information');
+  const bankInfoDiv = document.getElementById('bank-details');
+
+  function handleTabClick(event) {
+    generalTab.classList.remove('active');
+    addressTab.classList.remove('active');
+    employeeTab.classList.remove('active');
+    bankTab.classList.remove('active');
+
+    generalInfoDiv.classList.remove('show', 'active');
+    addressDetailsDiv.classList.remove('show', 'active');
+    employeeInfoDiv.classList.remove('show', 'active');
+    bankInfoDiv.classList.remove('show', 'active');
+
+    event.target.classList.add('active');
+
+    if (event.target === generalTab) {
+      generalInfoDiv.classList.add('show', 'active');
+    } else if (event.target === addressTab) {
+      addressDetailsDiv.classList.add('show', 'active');
+    } else if (event.target === employeeTab) {
+      employeeInfoDiv.classList.add('show', 'active');
+    }
+    else if (event.target === bankTab) {
+      bankInfoDiv.classList.add('show', 'active');
+    }
+  }
+
+  generalTab.addEventListener('click', handleTabClick);
+  addressTab.addEventListener('click', handleTabClick);
+  employeeTab.addEventListener('click', handleTabClick);
+  bankTab.addEventListener('click', handleTabClick);
+
+  generalInfoDiv.classList.add('show', 'active');
+
+  const nextButton = document.getElementById('next-btn');
+  function handleNextButtonClick() {
+    employeeTab.click();
+  }
+  nextButton.addEventListener('click', handleNextButtonClick);
+
+  const nextOneButton = document.getElementById('next-one-btn');
+  function handleNextOneButtonClick() {
+    bankTab.click();
+  }
+  nextOneButton.addEventListener('click', handleNextOneButtonClick);
+
+  const nextSecondButton = document.getElementById('next-second-btn');
+  function handleNextSecondButtonClick() {
+    addressTab.click();
+  }
+  nextSecondButton.addEventListener('click', handleNextSecondButtonClick);
+
+</script>
+
+
+
+<script>
+  function downloadFile(filename) {
+    // Assuming the files are stored in the /document folder
+    var filePath = '/document/' + filename;
+
+    // Create an anchor element
+    var anchor = document.createElement('a');
+    anchor.setAttribute('href', filePath);
+
+    // Set the download attribute to force download
+    anchor.setAttribute('download', '');
+
+    // Append the anchor to the body
+    document.body.appendChild(anchor);
+
+    // Trigger a click event to start downloading
+    anchor.click();
+
+    // Clean up by removing the anchor
+    document.body.removeChild(anchor);
+  }
+</script>
+
+
+<script>
+
+  function goBack() {
+    window.history.back();
+  }
+
+  const form = document.querySelector(".add-card");
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const nameInput = document.querySelector("input[name='user_name']");
+    const emailInput = document.querySelector("input[name='email']");
+    const mobileInput = document.querySelector("input[name='mobile']");
+    const fileInput = document.querySelector("#Imagepath");
+    const newImageSelected = fileInput.files && fileInput.files[0];
+
+    const joiningDateInput = document.querySelector("input[name='joining_date']");
+    const annualSalaryInput = document.querySelector("input[name='annual_salary']");
+    const latitudeInput = document.querySelector("input[name='latitude']");
+    const longitudeInput = document.querySelector("input[name='longitude']");
+    const km_rupeesInput = document.querySelector("input[name='km_rupees']");
+    const personal_emailInput = document.querySelector("input[name='persoonal_email']")
+    const houseInput = document.querySelector("input[name='house']")
+    const streetInput = document.querySelector("input[name='street']")
+    const cityInput = document.querySelector("input[name='city']")
+    const stateInput = document.querySelector("input[name='state']")
+    const pincodeInput = document.querySelector("input[name='pincode']")
+    const landmarkInput = document.querySelector("input[name='landmark']")
+    const joiningDate = joiningDateInput.value;
+    const annualSalary = annualSalaryInput.value;
+    const accountHolderName = document.querySelector("input[name='account_holder_name']").value;
+    const accountNumber = document.querySelector("input[name='account_number']").value;
+    const bankName = document.querySelector("input[name='bank_name']").value;
+    const ifscCode = document.querySelector("input[name='ifsc_code']").value;
+    const branchName = document.querySelector("input[name='branch_name']").value;
+
+
+    if (!joiningDate) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please select a joining date.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    if (!annualSalary) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter the annual salary.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    if (!nameInput.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter a name.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    if (!emailInput.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter an email.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    const mobileNumber = mobileInput.value.trim();
+    if (!mobileNumber || !/^\d{10}$/.test(mobileNumber)) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter a valid 10-digit mobile number.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+
+
+
+    if (!house.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter house number.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+
+    if (!streetInput.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter street address.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+
+    if (!cityInput.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter city.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+
+    if (!stateInput.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter state.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+
+
+    if (!pincodeInput.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter pincode.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+
+    // Validate latitude and longitude inputs
+    const latitude = parseFloat(latitudeInput.value);
+    const longitude = parseFloat(longitudeInput.value);
+
+    if (isNaN(latitude) || isNaN(longitude)) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter valid latitude and longitude.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    // Additional form validation can be added here
+
+    Swal.fire({
+      title: "Confirm Update",
+      text: "Are you sure you want to update the user?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Update",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (newImageSelected) {
+          form.submit();
+          // Call createusersjson after the form is submitted
+          createusersjson();
+        } else {
+          form.submit();
+          // Call createusersjson after the form is submitted
+          createusersjson();
+        }
+      }
+    });
+  });
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const fileInput = document.querySelector("#Imagepath");
+    const imagePreview = document.querySelector("#imagePreview");
+
+    fileInput.addEventListener("change", function () {
+      if (fileInput.files && fileInput.files[0]) {
+        const imageFile = fileInput.files[0];
+        const fileSizeMB = imageFile.size / (1024 * 1024);
+
+        if (fileSizeMB > 1) {
+          alert("Please choose an image smaller than 1MB.");
+          fileInput.value = "";
+          imagePreview.src = "";
+          imagePreview.style.display = "none";
+          return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          imagePreview.src = e.target.result;
+          imagePreview.style.display = "block";
+        };
+
+        reader.readAsDataURL(imageFile);
+      } else {
+        imagePreview.src = "";
+        imagePreview.style.display = "none";
+      }
+    });
+  });
+  function createusersjsonAndRedirect() {
+    // Call createusersjson function
+    createusersjson();
+
+    // Redirect to the dashboard page after a delay (adjust the delay as needed)
+    setTimeout(() => {
+      window.location.href = '/usermangment'; // Change '/dashboard' to your actual dashboard URL
+    }, 1000); // 1000 milliseconds delay
+  }
+</script>
+<script>
+  let recognizedLabel = null;
+  let jsonObj = [];
+  let jsonUserObj = [];
+  async function createjsonfile() {
+
+    const MODEL_URL = '/models';
+    var matchData = 0;
+    await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
+    await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+    await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+    await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+    const labels = jsonObj;
+    for (let i = 0; i < labels.length; i++) {
+      var label = labels[i];
+      const lbl = label.Imagepath;
+      const lbl1 = label.title;
+      const lblid = label.id;
+      const imgUrl = `/profile/${lbl}`;
+      const img = await faceapi.fetchImage(imgUrl);
+      //console.log(imgUrl);
+      const singleResult = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+
+      console.log(singleResult);
+      if (singleResult) {
+        const item = {};
+        item['title'] = lbl1;
+        //item['singleResult']=singleResult;
+        item['descriptor'] = singleResult.descriptor;
+        //   item['detection']=singleResult.detection;
+        //   item['landmarks']=singleResult.landmarks;
+        //   item['unshiftedLandmarks']=singleResult.unshiftedLandmarks;
+        //   item['alignedRect']=singleResult.alignedRect;
+
+        jsonUserObj.push(item);
+
+      }
+
+    }
+    $.ajax({
+      url: '/generateusersjson',
+      type: 'POST',
+      data: { usersjson: JSON.stringify(jsonUserObj), userfilename: 'usersdtl1.json' },
+      contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+      success: function (response) {
+        console.log('IIII');
+        console.log(response);
+        // alert(response);
+
+      },
+      error: function (err) {
+        alert(err.statusText);
+      }
+    });
+
+    //alert('done');
+
+  }
+  async function createjsonfile1() {
+
+    const MODEL_URL = '/models';
+    var matchData = 0;
+    await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
+    await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+    await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+    await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+    const labels = jsonObj;
+    for (let i = 0; i < labels.length; i++) {
+      var label = labels[i];
+      const lbl = label.Imagepath;
+      const lbl1 = label.title;
+      const lblid = label.id;
+      const imgUrl = `/profile/${lbl}`;
+      const img = await faceapi.fetchImage(imgUrl);
+      //console.log(imgUrl);
+      const singleResult = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+
+      //console.log(singleResult);
+      if (singleResult) {
+        const item = {};
+        item['title'] = lbl1;
+        //item['singleResult']=singleResult;
+        item['descriptor'] = singleResult.descriptor;
+        //   item['detection']=singleResult.detection;
+        //   item['landmarks']=singleResult.landmarks;
+        //   item['unshiftedLandmarks']=singleResult.unshiftedLandmarks;
+        //   item['alignedRect']=singleResult.alignedRect;
+        $.ajax({
+          url: '/generateusersjson',
+          type: 'POST',
+          data: { usersjson: JSON.stringify(item), userfilename: lblid + '.json' },
+          contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+          success: function (response) {
+            console.log('IIII');
+            console.log(response);
+            // alert(response);
+
+          },
+          error: function (err) {
+            alert(err.statusText);
+          }
+        });
+        //jsonUserObj.push(item);
+
+      }
+
+    }
+    const params = {
+      usersjson: JSON.stringify(jsonUserObj)
+
+    };
+
+    alert('done');
+  }
+
+
+  function createusersjson() {
+    // alert("ss");  
+    const emailInput = document.querySelector("input[name='email']");
+    const updatedEmail = emailInput.value; // Get the updated email value
+
+    fetch('/getimg', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        jsonObj = [];
+
+        for (let i = 0; i < data.length; i++) {
+          const item = {};
+          item['title'] = data[i].user_id;
+          item['Imagepath'] = data[i].Imagepath;
+          item['id'] = data[i].id;
+          jsonObj.push(item);
+        }
+
+        createjsonfile();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
+</script>
+{{!--
+<script>
+  function createusersjsonAndSubmitForm() {
+    createusersjson();
+    setTimeout(function () {
+      submitForm();
+    }, 3000);
+  }
+
+  function submitForm() {
+    const form = document.querySelector(".add-card");
+    const nameInput = document.querySelector("input[name='user_name']");
+    const emailInput = document.querySelector("input[name='email']");
+    const mobileInput = document.querySelector("input[name='mobile']");
+    const fileInput = document.querySelector("#Imagepath");
+    const newImageSelected = fileInput.files && fileInput.files[0];
+
+    const joiningDateInput = document.querySelector("input[name='joining_date']");
+    const annualSalaryInput = document.querySelector("input[name='annual_salary']");
+    const latitudeInput = document.querySelector("input[name='latitude']");
+    const longitudeInput = document.querySelector("input[name='longitude']");
+    const km_rupeesInput = document.querySelector("input[name='km_rupees']");
+    const personal_emailInput = document.querySelector("input[name='persoonal_email']")
+    const houseInput = document.querySelector("input[name='house']")
+    const streetInput = document.querySelector("input[name='street']")
+    const cityInput = document.querySelector("input[name='city']")
+    const stateInput = document.querySelector("input[name='state']")
+    const pincodeInput = document.querySelector("input[name='pincode']")
+    const landmarkInput = document.querySelector("input[name='landmark']")
+    const joiningDate = joiningDateInput.value;
+    const annualSalary = annualSalaryInput.value;
+
+    if (!joiningDate) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please select a joining date.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    if (!annualSalary) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter the annual salary.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    if (!nameInput.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter a name.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    if (!emailInput.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter an email.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    const mobileNumber = mobileInput.value.trim();
+    if (!mobileNumber || !/^\d{10}$/.test(mobileNumber)) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter a valid 10-digit mobile number.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+
+
+
+    if (!house.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter house number.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+
+    if (!streetInput.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter street address.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+
+    if (!cityInput.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter city.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+
+    if (!stateInput.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter state.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+
+
+    if (!pincodeInput.value.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter pincode.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+
+    // Validate latitude and longitude inputs
+    const latitude = parseFloat(latitudeInput.value);
+    const longitude = parseFloat(longitudeInput.value);
+
+    if (isNaN(latitude) || isNaN(longitude)) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter valid latitude and longitude.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+    Swal.fire({
+      title: "Confirm Update",
+      text: "Are you sure you want to update the user?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Update",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        form.submit();
+      }
+    });
+  }
+</script> --}}
+
+{{!--
+<script>
+  const form = document.querySelector(".add-card");
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    createusersjsonAndSubmitForm(); // Call the new function
+  });
+</script> --}}

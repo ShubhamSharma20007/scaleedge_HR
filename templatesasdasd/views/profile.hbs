@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ScaleEdge</title>
+    <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <meta name="viewport" content=" width=" 1024", initial-scale=1, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="assets/css/profile.css">
+
+
+</head>
+<style>
+    @media only screen and (max-width: 700px) {
+        .profile-head {
+            text-align: center;
+        }
+
+        .profile-img {
+            text-align: center;
+        }
+
+        .profile-work {
+            text-align: center;
+        }
+
+        .edit {
+            text-align: center;
+        }
+
+        .profile-tab {
+            text-align: center;
+        }
+    }
+</style>
+
+<body>
+    {{!-- <div id="preloader">
+        <div class="waviy">
+            <span style="--i:1">L</span>
+            <span style="--i:2">o</span>
+            <span style="--i:3">a</span>
+            <span style="--i:4">d</span>
+            <span style="--i:5">i</span>
+            <span style="--i:6">n</span>
+            <span style="--i:7">g</span>
+            <span style="--i:8">.</span>
+            <span style="--i:9">.</span>
+            <span style="--i:10">.</span>
+        </div>
+    </div> --}}
+    <div class="container-scroller">
+        {{>topbar}}
+        <div class="container-fluid page-body-wrapper p-0" style="margin-top: 70px;">
+            {{#if isAdmin}}
+            {{> sidebar}}
+            {{else}}
+            {{> attendanceSidebar}}
+            {{/if}}
+            <div class="main-panel ">
+                <div class="content-wrapper">
+                    <div class="page-header">
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                <i class="mdi mdi-arrow-left" onclick="goBack()" title="Back"></i>
+                                <script>
+                                    function goBack() {
+                                        window.history.back();
+                                    }
+                                </script>
+                            </span> User Profile
+                        </h3>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-lg-12">
+
+                                <div class="profile card card-body px-3 pt-3 pb-0">
+                                    <div class="profile-head">
+                                        <div class="photo-content">
+                                            <div class="cover-photo rounded"></div>
+                                        </div>
+                                        <div class="profile-info">
+                                            <div class="profile-photo">
+                                                <img style="width: 135px ; height:97px" id="imagePath"
+                                                    class="img-fluid rounded-circle" alt="">
+                                            </div>
+                                            <div class="profile-details">
+                                                <div class="profile-name px-3 pt-2">
+                                                    <h4 class="text-primary mb-1" id="">{{userData.user_name}}</h4>
+                                                    <p id="">{{userData.employee_id}}</p>
+                                                </div>
+                                                <div class="profile-email px-2 pt-2">
+                                                    <h5 class="text-muted mb-1" id=""> {{userData.email}}
+                                                        </h4>
+                                                        <p>Email</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="row text-align-center" style="text-align:center">
+                                    <div class="col-xl-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class=" text-align-center" style="
+    color: #c8c8c8;
+">Profile Completion Status</h5>
+                                                <div class="profile-statistics">
+                                                    <div class="text-center">
+                                                        <div class="row justify-content-center align-items-center">
+                                                            <canvas id="profileCompletionChart" width="200"
+                                                                height="200"></canvas>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{!-- <div class="col-xl-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="profile-statistics">
+                                                    <div class="text-center">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <h6 class="m-b-0" id="formattedDate"></h6><span>Joining
+                                                                    Date</span>
+
+                                                            </div>
+                                                            <div class="col">
+                                                                <h6 class="m-b-0" id="formattedDate1"></h6><span>Birth
+                                                                    Date</span>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                    <div class="col-xl-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="profile-statistics">
+                                                    <div class="text-center">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <a class="m-b-0" href="" style="FONT-SIZE: 14PX;
+    text-decoration: none;">Aadhar <span style="cursor:pointer; color:blue" id="userAdhar"></span></a>
+
+                                                            </div>
+                                                            <div class="col">
+                                                                <a href="" class="m-b-0" style="FONT-SIZE: 14PX;
+    text-decoration: none;">Pan Card <span style="cursor:pointer; color:blue" id="userPancard"></span></a>
+                                                            </div>
+                                                            {{!-- <div class="col">
+                                                                <h3 class="m-b-0">45</h3><span>Reviews</span>
+                                                            </div> --}}
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="profile-tab">
+                                            <div class="custom-tab-1">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="nav-item"><a href="#my-posts" data-bs-toggle="tab"
+                                                            class="nav-link active show">About</a>
+                                                    </li>
+                                                    {{!-- <li class="nav-item"><a href="#about-me" data-bs-toggle="tab"
+                                                            class="nav-link">About Me</a>
+                                                    </li> --}}
+                                                    <li class="nav-item"><a href="#profile-settings"
+                                                            data-bs-toggle="tab" class="nav-link">Account Details</a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div id="my-posts" class="tab-pane fade active show">
+                                                        <div class="my-post-content pt-3">
+                                                            <div class="post-input">
+                                                                <div class="profile-personal-info">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <h4 class="text-primary mb-4">Personal
+                                                                                Information</h4>
+                                                                        </div>
+                                                                        <div class="col-md-6" style="text-align: end;">
+                                                                            <i class="fa-regular fa-pen-to-square"
+                                                                                id="openModalIcon"></i>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row mb-2">
+                                                                        <div class="col-sm-3 col-5">
+                                                                            <h5 class="f-w-500">Employee Id <span
+                                                                                    class="pull-end">:</span>
+                                                                            </h5>
+                                                                        </div>
+                                                                        <div class="col-sm-9 col-7">
+                                                                            <span>{{userData.employee_id}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-2">
+                                                                        <div class="col-sm-3 col-5">
+                                                                            <h5 class="f-w-500">Name <span
+                                                                                    class="pull-end">:</span>
+                                                                            </h5>
+                                                                        </div>
+                                                                        <div class="col-sm-9 col-7">
+                                                                            <span id="">{{userData.user_name}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-2">
+                                                                        <div class="col-sm-3 col-5">
+                                                                            <h5 class="f-w-500">Email<span
+                                                                                    class="pull-end">:</span>
+                                                                            </h5>
+                                                                        </div>
+                                                                        <div class="col-sm-9 col-7"><span
+                                                                                id="">{{userData.email}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-2">
+                                                                        <div class="col-sm-3 col-5">
+                                                                            <h5 class="f-w-500">Mobile Number <span
+                                                                                    class="pull-end">:</span>
+                                                                            </h5>
+                                                                        </div>
+                                                                        <div class="col-sm-9 col-7"><span id="">+91
+                                                                                {{userData.mobile}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-2">
+                                                                        <div class="col-sm-3 col-5">
+                                                                            <h5 class="f-w-500">Address <span
+                                                                                    class="pull-end">:</span>
+                                                                            </h5>
+                                                                        </div>
+                                                                        <div class="col-sm-9 col-7" id="address">
+                                                                            <span>Alwar,
+                                                                                Rajasthan(301001)</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-2">
+                                                                        <div class="col-sm-3 col-5">
+                                                                            <h5 class="f-w-500">Joining Date <span
+                                                                                    class="pull-end">:</span>
+                                                                            </h5>
+                                                                        </div>
+                                                                        <div class="col-sm-9 col-7" id="formattedDate">
+                                                                            <span></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-2">
+                                                                        <div class="col-sm-3 col-5">
+                                                                            <h5 class="f-w-500">Birth Date <span
+                                                                                    class="pull-end">:</span>
+                                                                            </h5>
+                                                                        </div>
+                                                                        <div class="col-sm-9 col-7" id="formattedDate1">
+                                                                            <span></span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    {{!-- <div id="about-me" class="tab-pane fade">
+                                                        <div class="profile-about-me">
+                                                            <div class="pt-4 border-bottom-1 pb-3">
+                                                                <h4 class="text-primary">About Me</h4>
+                                                                <p class="mb-2">A wonderful serenity has taken
+                                                                    possession of my
+                                                                    entire soul, like these sweet mornings of spring
+                                                                    which I
+                                                                    enjoy with my whole heart. I am alone, and feel the
+                                                                    charm of
+                                                                    existence was created for the bliss of souls like
+                                                                    mine.I am
+                                                                    so happy, my dear friend, so absorbed in the
+                                                                    exquisite sense
+                                                                    of mere tranquil existence, that I neglect my
+                                                                    talents.</p>
+                                                                <p>A collection of textile samples lay spread out on the
+                                                                    table -
+                                                                    Samsa was a travelling salesman - and above it there
+                                                                    hung a
+                                                                    picture that he had recently cut out of an
+                                                                    illustrated
+                                                                    magazine and housed in a nice, gilded frame.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-skills mb-5">
+                                                            <h4 class="text-primary mb-2">Skills</h4>
+                                                            <a href="javascript:void(0);"
+                                                                class="btn btn-primary light btn-xs mb-1">Admin</a>
+                                                            <a href="javascript:void(0);"
+                                                                class="btn btn-primary light btn-xs mb-1">Dashboard</a>
+                                                            <a href="javascript:void(0);"
+                                                                class="btn btn-primary light btn-xs mb-1">Photoshop</a>
+                                                            <a href="javascript:void(0);"
+                                                                class="btn btn-primary light btn-xs mb-1">Bootstrap</a>
+                                                            <a href="javascript:void(0);"
+                                                                class="btn btn-primary light btn-xs mb-1">Responsive</a>
+                                                            <a href="javascript:void(0);"
+                                                                class="btn btn-primary light btn-xs mb-1">Crypto</a>
+                                                        </div>
+                                                        <div class="profile-lang  mb-5">
+                                                            <h4 class="text-primary mb-2">Language</h4>
+                                                            <a href="javascript:void(0);"
+                                                                class="text-muted pe-3 f-s-16"><i
+                                                                    class="flag-icon flag-icon-us"></i> English</a>
+                                                            <a href="javascript:void(0);"
+                                                                class="text-muted pe-3 f-s-16"><i
+                                                                    class="flag-icon flag-icon-fr"></i> French</a>
+                                                            <a href="javascript:void(0);"
+                                                                class="text-muted pe-3 f-s-16"><i
+                                                                    class="flag-icon flag-icon-bd"></i> Bangla</a>
+                                                        </div>
+                                                        <div class="profile-personal-info">
+                                                            <h4 class="text-primary mb-4">Personal Information</h4>
+                                                            <div class="row mb-2">
+                                                                <div class="col-sm-3 col-5">
+                                                                    <h5 class="f-w-500">Name <span
+                                                                            class="pull-end">:</span>
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="col-sm-9 col-7"><span>Mitchell C.Shay</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-2">
+                                                                <div class="col-sm-3 col-5">
+                                                                    <h5 class="f-w-500">Email <span
+                                                                            class="pull-end">:</span>
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="col-sm-9 col-7">
+                                                                    <span>example@examplel.com</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-2">
+                                                                <div class="col-sm-3 col-5">
+                                                                    <h5 class="f-w-500">Availability <span
+                                                                            class="pull-end">:</span>
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="col-sm-9 col-7"><span>Full Time (Free
+                                                                        Lancer)</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-2">
+                                                                <div class="col-sm-3 col-5">
+                                                                    <h5 class="f-w-500">Age <span
+                                                                            class="pull-end">:</span>
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="col-sm-9 col-7"><span>27</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-2">
+                                                                <div class="col-sm-3 col-5">
+                                                                    <h5 class="f-w-500">Location <span
+                                                                            class="pull-end">:</span>
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="col-sm-9 col-7"><span>Rosemont Avenue
+                                                                        Melbourne,
+                                                                        Florida</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-2">
+                                                                <div class="col-sm-3 col-5">
+                                                                    <h5 class="f-w-500">Year Experience <span
+                                                                            class="pull-end">:</span>
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="col-sm-9 col-7"><span>07 Year
+                                                                        Experiences</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> --}}
+                                                    <div id="profile-settings" class="tab-pane fade">
+                                                        <div class="pt-3">
+                                                            <div class="settings-form">
+                                                                {{!-- <h4 class="text-primary">Account Setting</h4> --}}
+                                                                <form id="accountForm" action="/userProfile"
+                                                                    method="post">
+                                                                    <input type="text" id="" name="employee_id"
+                                                                        value="{{userData.employee_id}}" hidden>
+                                                                    <input type="text" id="" name="user_name"
+                                                                        value="{{userData.user_name}}" hidden>
+                                                                    <div class="row">
+                                                                        <div class="mb-3 col-md-6">
+                                                                            <label class="form-label">Account Holder
+                                                                                Name</label>
+                                                                            <input type="text" id="accountHolderName"
+                                                                                name="accountHolderName"
+                                                                                placeholder="Account Holder Name"
+                                                                                class="form-control"
+                                                                                value="{{profileData.account_holder_name}}">
+                                                                        </div>
+                                                                        <div class="mb-3 col-md-6">
+                                                                            <label class="form-label">Account
+                                                                                No.</label>
+                                                                            <input type="text" id="accountNumber"
+                                                                                name="accountNumber"
+                                                                                placeholder="Account No."
+                                                                                class="form-control"
+                                                                                value="{{profileData.account_number}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Bank Name</label>
+                                                                        <input type="text" id="bankName" name="bankName"
+                                                                            placeholder="Bank Name" class="form-control"
+                                                                            value="{{profileData.bank_name}}">
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                        <div class="mb-3 col-md-6">
+                                                                            <label class="form-label">IFSC Code</label>
+                                                                            <input type="text" id="ifscCode"
+                                                                                value="{{profileData.ifsc_code}}"
+                                                                                name="ifscCode" class="form-control">
+                                                                        </div>
+                                                                        <div class="mb-3 col-md-6">
+                                                                            <label class="form-label">Branch
+                                                                                Name</label>
+                                                                            <input type="text" id="branchName"
+                                                                                name="branchName"
+                                                                                value="{{profileData.branch_name}}"
+                                                                                placeholder="Branch Name"
+                                                                                class="form-control">
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <button
+                                                                        style="padding: 10px; border-radius:none !important"
+                                                                        class="btn btn-gradient-success me-2"
+                                                                        type="submit">Submit</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="myModal">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content" style="border-radius: 0px !important;">
+                                                        <div class="modal-header"
+                                                            style="/* background: -webkit-linear-gradient(left, #3931af, #00c6ff); *//* color: white; */background: cornflowerblue;">
+                                                            <h5 class="modal-title"
+                                                                style="color: white;font-size: 20px;">Edit User
+                                                                Details</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form class="add-card" action="/updateUser" method="POST"
+                                                                enctype="multipart/form-data">
+
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text" class="form-control"
+                                                                                    id="user_name" name="user_name"
+                                                                                    placeholder="User Name" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+
+                                                                            <div class="col-sm-9">
+                                                                                <input type="email" name="email"
+                                                                                    id="updateEmail"
+                                                                                    class="form-control"
+                                                                                    placeholder="Email" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+
+                                                                            <div class="col-sm-9">
+                                                                                <input type="email" id="personal_email"
+                                                                                    name="personal_email"
+                                                                                    class="form-control"
+                                                                                    placeholder="Personal E-mail" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-9">
+                                                                                <input class="form-control" id="mobile"
+                                                                                    type="number" name="mobile"
+                                                                                    placeholder="Mobile No." />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text" id="house"
+                                                                                    name="house" class="form-control"
+                                                                                    placeholder="House No." />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+
+                                                                            <div class="col-sm-9">
+                                                                                <input class="form-control" id="street"
+                                                                                    type="text" name="street"
+                                                                                    placeholder="Street Address" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text" id="city" name="city"
+                                                                                    class="form-control"
+                                                                                    placeholder="City" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-9">
+                                                                                <input class="form-control" id="state"
+                                                                                    type="text" name="state"
+                                                                                    placeholder="State" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text" id="pincode"
+                                                                                    name="pincode" class="form-control"
+                                                                                    placeholder="Pincode" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-9">
+                                                                                <input class="form-control"
+                                                                                    id="landmark" type="text"
+                                                                                    name="landmark"
+                                                                                    placeholder="Landmark" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row" hidden>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label
+                                                                                class="col-sm-3 col-form-label">TA/DA</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input class="form-control"
+                                                                                    type="number" id="km_rupees"
+                                                                                    name="km_rupees" value="0" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-9">
+                                                                                <input class="form-control" type="date"
+                                                                                    id="joining_date"
+                                                                                    name="joining_date"
+                                                                                    placeholder="Joining Date" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-9">
+                                                                                <input class="form-control" type="date"
+                                                                                    id="birth_date" name="birth_date"
+                                                                                    placeholder="Birth Date" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-9">
+                                                                                <input class="form-control" type="file"
+                                                                                    id="adhar" name="adhar" required
+                                                                                    placeholder="Aadhar Card" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-9">
+                                                                                <input class="form-control" type="file"
+                                                                                    id="pan" name="pan" required
+                                                                                    placeholder="Pan Card" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                        class="btn btn-gradient-danger me-2 "
+                                                                        data-bs-dismiss="modal"
+                                                                        style="padding: 7px 16px !important;border-radius: 0px !important;">Close</button>
+                                                                    <button type="submit" id="submit-btn"
+                                                                        class="btn btn-gradient-success me-2"
+                                                                        style="padding: 7px 16px !important;border-radius: 0px !important;">Submit</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <script src="/assets/js/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // JavaScript code
+        // Assuming userData.joining_date contains the date string "Mon Jan 17 2000 00:00:00 GMT+0530 (India Standard Time)"
+        var dateString = "{{userData.joining_date}}"; // Replace this with your actual date string
+
+        // Parse the date string
+        var date = new Date(dateString);
+
+        // Format the date to yyyy-mm-dd
+        var formattedDate = date.getFullYear() + '-' +
+            ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + date.getDate()).slice(-2);
+
+        // Set the inner HTML of the span element to the formatted date
+        document.getElementById("formattedDate").innerHTML = formattedDate;
+    </script>
+    <script>
+        // JavaScript code
+        // Assuming userData.joining_date contains the date string "Mon Jan 17 2000 00:00:00 GMT+0530 (India Standard Time)"
+        var dateString = "{{userData.birth_date}}"; // Replace this with your actual date string
+
+        // Parse the date string
+        var date = new Date(dateString);
+
+        // Format the date to yyyy-mm-dd
+        var formattedDate1 = date.getFullYear() + '-' +
+            ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + date.getDate()).slice(-2);
+
+        // Set the inner HTML of the span element to the formatted date
+        document.getElementById("formattedDate1").innerHTML = formattedDate1;
+    </script>
+    <script>
+        // Function to fetch user data based on email
+        function fetchUserData(email) {
+            fetch(`/getUserData?email=${email}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Populate form fields with fetched data
+                    document.querySelector('#user_name').value = data.user_name;
+                    document.querySelector('input[name="email"]').value = data.email;
+                    document.querySelector('input[name="personal_email"]').value = data.personal_email;
+                    document.querySelector('input[name="mobile"]').value = data.mobile;
+                    document.querySelector('input[name="house"]').value = data.house;
+                    document.querySelector('#street').value = data.street;
+                    document.querySelector('input[name="city"]').value = data.city;
+                    document.querySelector('input[name="state"]').value = data.state;
+                    document.querySelector('input[name="pincode"]').value = data.pincode;
+                    document.querySelector('input[name="landmark"]').value = data.landmark;
+                    // Function to convert date to YYYY-MM-DD format
+                    function formatDate(dateString) {
+                        const date = new Date(dateString);
+                        const year = date.getFullYear();
+                        let month = date.getMonth() + 1;
+                        if (month < 10) {
+                            month = '0' + month; // Add leading zero if month is single digit
+                        }
+                        let day = date.getDate();
+                        if (day < 10) {
+                            day = '0' + day; // Add leading zero if day is single digit
+                        }
+                        return `${year}-${month}-${day}`;
+                    }
+
+                    // Assuming data.joining_date is the date string fetched from the server
+                    const formattedJoiningDate = formatDate(data.joining_date);
+                    const formattedBirthDate = formatDate(data.birth_date);
+                    document.querySelector('input[name="joining_date"]').value = formattedJoiningDate;
+                    document.querySelector('input[name="birth_date"]').value = formattedBirthDate;
+                    console.log(data)
+                    // Handle other fields similarly
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                    // Handle error
+                });
+        }
+
+        // Fetch email from localStorage
+        const userEmail = localStorage.getItem('loginemail');
+
+        // Check if email exists in localStorage
+        if (userEmail) {
+            // Call the fetchUserData function with the retrieved email
+            fetchUserData(userEmail);
+        } else {
+            console.error('Email not found in localStorage');
+            // Handle case when email is not found in localStorage
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#openModalIcon').click(function () {
+                $('#myModal').modal('show'); // Show the modal
+            });
+        });
+    </script>
+
+    <script>
+        var username = localStorage.getItem("username");
+        document.getElementById("username").innerText = username;
+
+        var username1 = localStorage.getItem("username");
+        document.getElementById("username1").innerText = username1;
+
+        var user_name3 = localStorage.getItem("username");
+        document.getElementById("user_name3").value = user_name3;
+        console.log(user_name3);
+
+        var userEmployeeId = localStorage.getItem("userEmployeeId");
+        if (userEmployeeId !== null) {
+            document.getElementById("userEmployeeId").innerText = userEmployeeId;
+            document.getElementById("employeeCodeId").innerText = userEmployeeId;
+        } else {
+            console.error("userEmployeeId not found in localStorage");
+        }
+
+        var employee_id = localStorage.getItem("userEmployeeId");
+        if (employee_id !== null) {
+            document.getElementById("employee_id").value = employee_id;
+        } else {
+            console.error("userEmployeeId not found in localStorage");
+        }
+
+        var userPincode = localStorage.getItem("userPincode");
+        var userCity = localStorage.getItem("userCity");
+        document.getElementById("address").innerText = userCity + ", " + userPincode;
+
+        var email = localStorage.getItem("loginemail")
+        document.getElementById("email1").innerText = email;
+        console.log(email)
+
+        var email2 = localStorage.getItem("loginemail")
+        document.getElementById("email2").innerText = email2;
+        console.log(email2)
+
+        var updateEmail = localStorage.getItem("loginemail")
+        document.getElementById("updateEmail").value = updateEmail;
+        console.log(updateEmail)
+
+        var mobile = localStorage.getItem("userMobile")
+        document.getElementById("mobile").innerText = mobile;
+
+        var joiningDate = localStorage.getItem("joiningDate")
+        var birthDate = localStorage.getItem("birthDate")
+
+        var joiningDate = new Date();
+        var formattedDate = joiningDate.toISOString().split('T')[0];
+        var birthDate = new Date();
+        var formattedDate1 = birthDate.toISOString().split('T')[0];
+
+        document.getElementById("joiningDate").innerText = formattedDate;
+        document.getElementById("birthDate").innerText = formattedDate1;
+
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const storedImagePath = localStorage.imagePath;
+
+            const profileImage = document.querySelector('#imagePath');
+
+            if (storedImagePath) {
+                profileImage.src = '/profile/' + storedImagePath;
+            }
+        });
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var userAdhar = localStorage.getItem("userAdhar");
+        var userAdharSpan = document.getElementById("userAdhar");
+
+        if (userAdhar !== null && userAdhar !== "null") {
+            userAdharSpan.innerText = userAdhar;
+            userAdharSpan.addEventListener('click', function () {
+                var filePath = "/document/" + userAdhar;
+                var downloadLink = document.createElement('a');
+                downloadLink.download = userAdhar;
+                downloadLink.href = filePath;
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            });
+        } else {
+            userAdharSpan.innerText = "No doc.";
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var userPancard = localStorage.getItem("userPancard");
+        var userPancardSpan = document.getElementById("userPancard");
+
+        if (userPancard !== null && userPancard !== "null") {
+            userPancardSpan.innerText = userPancard;
+            userPancardSpan.addEventListener('click', function () {
+                var filePath = "/document/" + userPancard;
+                var downloadLink = document.createElement('a');
+                downloadLink.download = userPancard;
+                downloadLink.href = filePath;
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            });
+        } else {
+            userPancardSpan.innerText = "No doc.";
+        }
+    });
+</script>
+    <style>
+        body {
+            background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+        }
+
+        .emp-profile {
+            padding: 3%;
+            margin-top: 3%;
+            margin-bottom: 3%;
+            border-radius: 0.5rem;
+            background: #fff;
+        }
+
+
+
+        .profile-img img {
+            width: 41%;
+            height: 19vh;
+        }
+
+        .profile-img .file {
+            position: relative;
+            overflow: hidden;
+            margin-top: -20%;
+            width: 70%;
+            border: none;
+            border-radius: 0;
+            font-size: 15px;
+            background: #212529b8;
+        }
+
+        .profile-img .file input {
+            position: absolute;
+            opacity: 0;
+            right: 0;
+            top: 0;
+        }
+
+        .profile-head h5 {
+            color: #333;
+        }
+
+        .profile-head h6 {
+            color: #0062cc;
+        }
+
+        .profile-edit-btn {
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid #77889952;
+            box-shadow: 2px 2px 2px -1.7px;
+            padding: 5 10px;
+            font-weight: 600;
+            color: #6c757d;
+            cursor: pointer;
+        }
+
+        .proile-rating {
+            font-size: 12px;
+            color: #818182;
+            margin-top: 5%;
+        }
+
+        .proile-rating span {
+            color: #495057;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .profile-head .nav-tabs {
+            margin-bottom: 5%;
+        }
+
+        .profile-head .nav-tabs .nav-link {
+            font-weight: 600;
+            border: none;
+        }
+
+        .profile-head .nav-tabs .nav-link.active {
+            border: none;
+            border-bottom: 2px solid #0062cc;
+        }
+
+        .profile-work {
+            padding: 14%;
+        }
+
+        .profile-work p {
+            font-size: 12px;
+            color: #818182;
+            font-weight: 600;
+            margin-top: 10%;
+        }
+
+        .profile-work a {
+            text-decoration: none;
+            color: #495057;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .profile-work ul {
+            list-style: none;
+        }
+
+        .profile-tab label {
+            font-weight: 600;
+        }
+
+        .profile-tab p {
+            font-weight: 600;
+            color: #0062cc;
+        }
+    </style>
+</body>
+
+</html>
+<style>
+    .waviy {
+        position: relative;
+        -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+    }
+
+    .waviy span {
+        position: relative;
+        display: inline-block;
+        font-size: 40px;
+        color: #000;
+        text-transform: uppercase;
+        animation: waviy 1s infinite;
+        animation-delay: calc(.1s * var(--i));
+    }
+
+    @keyframes waviy {
+
+        0%,
+        40%,
+        100% {
+            transform: translateY(0);
+        }
+
+        20% {
+            transform: translateY(-20px);
+        }
+    }
+
+    #preloader {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 99999;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        background-color: #fff;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const preloader = document.getElementById('preloader');
+        preloader.style.display = 'none';
+    });
+</script>
+<script>
+    // Get the profile completion percentage from your backend or use a placeholder value
+    const profileCompletionPercentage = {{ profileCompletionPercentage }}; // Replace with the actual value
+
+    // Chart.js
+    var ctx = document.getElementById('profileCompletionChart').getContext('2d');
+    var profileCompletionChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Profile Completed', 'Profile Incomplete'],
+            datasets: [{
+                data: [profileCompletionPercentage, 100 - profileCompletionPercentage],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+                display: false,
+                text: 'Profile Completion Status'
+            },
+            legend: {
+                display: true,
+                position: 'right',
+                align: 'center',
+                labels: {
+                    boxWidth: 20,
+                    fontSize: 12,
+                    padding: 15
+                }
+            }
+        }
+    });
+</script>

@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ScaleEdge</title>
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/javascripts/usermanagment.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+
+    <meta name="viewport" content=" width=" 1024", initial-scale=1, user-scalable=yes">
+</head>
+
+
+<body>
+    <div class="container-scroller ">
+        {{>topbar}}
+        <div class="container-fluid page-body-wrapper">
+            {{>sidebar}}
+            <div class="main-panel">
+                <div class="content-wrapper main-panel-content">
+                    <div class="page-header">
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                <i class="mdi mdi-arrow-left" onclick="goBack()" title="Back"></i>
+                                <script>
+                                    function goBack() {
+                                        window.history.back();
+                                    }
+                                </script>
+                            </span> Users
+                        </h3>
+                        <nav aria-label="breadcrumb" class="d-flex">
+                            <ol class="breadcrumb">
+                                <li class="">
+                                    <a class="badge badge-danger" href="/add"
+                                        style="font-size: medium; color: white; text-decoration: none; border-radius:0px">Add
+                                        User</a>
+                                </li>
+                            </ol>
+                            <ol class="breadcrumb">
+                                <li class="">
+                                    <a class="badge badge-info" onclick="createusersjson();" href="#"
+                                        style="text-decoration: none; font-size: medium; color: white; border-radius:0px">Refresh</a>
+                                </li>
+                            </ol>
+                            <ol class="breadcrumb">
+                                <li class="">
+                                    <a class="badge badge-success" href="/excel"
+                                        style="text-decoration: none; font-size: medium; color: white; border-radius:0px">Import
+                                        Excel</a>
+                                </li>
+                            </ol>
+                            <ol class="breadcrumb">
+                                <li class="">
+                                    <i class="fas fa-th-large" title="Card View" style="cursor: pointer;"></i>
+                                    <!-- Font Awesome icon for card view -->
+                                    <i class="fas fa-table" title="Table View" style="cursor: pointer;"></i>
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="row" id="tableView">
+                        <div class="col-12 grid-margin">
+                            <div class="card" id="abc">
+                                <div class="card-body">
+                                    <h4 class="card-title">Users</h4>
+                                    <div class="table-responsive">
+                                        <p id="customFieldsBtn" style="float: inline-end; cursor:pointer">Select Custom
+                                            Fields</p>
+                                        <table class="table" id="employeeTable">
+                                            <thead>
+                                                <tr>
+                                                    <th> Employee </th>
+                                                    <th> Employee Id </th>
+                                                    <th> Email </th>
+                                                    <th hidden>User Type</th>
+                                                    <th hidden>Annual Salary</th>
+                                                    <th hidden>Joining Date</th>
+                                                    <th hidden>Latitude</th>
+                                                    <th hidden>Longitude</th>
+                                                    <th hidden>Km Rupees</th>
+                                                    <th hidden>Birth Date</th>
+                                                    <!-- New columns -->
+                                                    <th hidden>Mobile</th>
+                                                    <th hidden>Password</th>
+                                                    <th hidden>User Group</th>
+                                                    <th hidden>Department</th>
+                                                    <th hidden>Status</th>
+                                                    <th> Action </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#each rows}}
+                                                <tr>
+                                                    <td>
+                                                        <img src="/profile/{{this.Imagepath}}" class="me-2" alt="image">
+                                                        {{this.user_name}}
+                                                    </td>
+                                                    <td> {{this.id}} </td>
+                                                    <td> {{this.email}}</td>
+                                                    <td hidden>{{this.user_type}}</td>
+                                                    <td hidden>{{this.annual_salary}}</td>
+                                                    <td hidden>{{this.joining_date}}</td>
+                                                    <td hidden>{{this.latitude}}</td>
+                                                    <td hidden>{{this.longitude}}</td>
+                                                    <td hidden>{{this.km_rupees}}</td>
+                                                    <td hidden>{{this.birth_date}}</td>
+                                                    <!-- New fields -->
+                                                    <td hidden>{{this.mobile}}</td>
+                                                    <td hidden>{{this.password}}</td>
+                                                    <td hidden>{{this.user_group}}</td>
+                                                    <td hidden>{{this.department}}</td>
+                                                    <td hidden id="statusHide">{{this.status}}</td>
+                                                    <td>
+                                                        <a href="/edit/{{this.id}}"
+                                                            class="badge badge-gradient-success">Edit</a>
+                                                        <a onclick="deleteUser('{{this.id}}')"
+                                                            class="badge badge-gradient-danger">Delete</a>
+                                                    </td>
+                                                </tr>
+                                                {{/each}}
+                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="contactModal" tabindex="-1" role="dialog"
+                        aria-labelledby="contactModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="contactModalLabel">Field Selection</h5>
+                                    <button type="button" id="closeModal" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body m-auto">
+                                    <!-- Checkbox Form -->
+                                    <form>
+                                        <!-- First row of checkboxes -->
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="emailCheckbox">
+                                                    <label class="form-check-label" for="emailCheckbox">Email</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="idCheckbox">
+                                                    <label class="form-check-label" for="idCheckbox">Id</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="usernameCheckbox">
+                                                    <label class="form-check-label" for="usernameCheckbox">User
+                                                        name</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Second row of checkboxes -->
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="userTypeCheckbox">
+                                                    <label class="form-check-label" for="userTypeCheckbox">User
+                                                        Type</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="joiningDateCheckbox">
+                                                    <label class="form-check-label" for="joiningDateCheckbox">Joining
+                                                        Date</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="annualSalaryCheckbox">
+                                                    <label class="form-check-label" for="annualSalaryCheckbox">Annual
+                                                        Salary</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Third row of checkboxes -->
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="latitudeCheckbox">
+                                                    <label class="form-check-label"
+                                                        for="latitudeCheckbox">Latitude</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="longitudeCheckbox">
+                                                    <label class="form-check-label"
+                                                        for="longitudeCheckbox">Longitude</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="kmRupeesCheckbox">
+                                                    <label class="form-check-label" for="kmRupeesCheckbox">Km
+                                                        Rupees</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Fourth row of checkboxes -->
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="birthDateCheckbox">
+                                                    <label class="form-check-label" for="birthDateCheckbox">Birth
+                                                        Date</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="departmentCheckbox">
+                                                    <label class="form-check-label"
+                                                        for="departmentCheckbox">Department</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="statusCheckbox">
+                                                    <label class="form-check-label" for="statusCheckbox">Status</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="mobileCheckbox">
+                                                    <label class="form-check-label" for="mobileCheckbox">Mobile</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="passwordCheckbox">
+                                                    <label class="form-check-label"
+                                                        for="passwordCheckbox">Password</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="userGroupCheckbox">
+                                                    <label class="form-check-label" for="userGroupCheckbox">User
+                                                        Group</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="scrollable-container" id="CardView">
+                        <div class="profile-area">
+                            <div class="container">
+                                <div class="row" id="user-cards">
+                                    {{#each rows}}
+                                    <div class="col-xl-3 col-sm-6 mb-5 card {{#if (isStatusInactiveOrOnHold this.status)}}inactive-onhold-card{{/if}}"
+                                        style="background: none;" id="card">
+                                        <div class="rounded shadow-sm py-4 px-4"
+                                            style="text-align: center; background-color: {{#if (isStatusInactiveOrOnHold this.status)}}#5F9EA0;{{else}}#ffffff;{{/if}}">
+                                            <img src="/profile/{{this.Imagepath}}" alt=""
+                                                style="height: 20vh; width: 20vh;"
+                                                class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+
+                                            <h5 class="mb-2"><a
+                                                    style="text-decoration: none; color:{{#if (isStatusInactiveOrOnHold this.status)}}#ffff;{{else}}black;{{/if}}"
+                                                    href="/details/{{this.user_name}}">{{this.user_name}}</a></h5>
+
+                                            <span class="small text-uppercase"
+                                                style="color:{{#if (isStatusInactiveOrOnHold this.status)}}white;{{else}}#9c9fa6;{{/if}};">{{this.mobile}}</span>
+                                            <ul class="social mb-0 list-inline mt-4">
+                                                <li class="list-inline-item"> <a href="/edit/{{this.id}}"
+                                                        class="badge badge-gradient-info"
+                                                        style="text-decoration: none; font-size:16px;"><i
+                                                            class="fa-solid fa-pencil"></i> Edit</a></li>
+                                                <li class="list-inline-item"> <a onclick="deleteUser('{{this.id}}')"
+                                                        class="badge badge-gradient-danger"
+                                                        style="text-decoration: none; font-size:16px;"> <i
+                                                            class="fa-solid fa-trash-alt red"></i>
+                                                        Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+            <script src="assets/vendors/chart.js/Chart.min.js"></script>
+            <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
+            <script src="assets/js/off-canvas.js"></script>
+            <script src="assets/js/hoverable-collapse.js"></script>
+            <script src="assets/js/misc.js"></script>
+            <script src="assets/js/dashboard.js"></script>
+            <script src="assets/js/todolist.js"></script>
+            {{!--<script src="/assets/js/jquery-2.1.1.min.js"></script> --}}
+            <script src="/assets/js/face-api.js"></script>
+            <script src="/assets/js/def.js"></script>
+
+</body>
+
+</html>
+<style>
+    .table tbody tr td:nth-child(3) {
+        text-transform: lowercase;
+    }
+
+    .table tbody tr td:not(:nth-child(3)) {
+        text-transform: capitalize;
+    }
+
+    tr.active {
+        background-color: #fff;
+    }
+
+    tr.inactive {
+        background-color: #f8d7da;
+    }
+
+    tr.onhold {
+        background-color: #fff3cd;
+    }
+
+    .modal-content {
+        border-radius: 20px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header {
+        background-color: #8a2be2;
+        color: #fff;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .form-check-input:checked+.form-check-label::before {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .form-check-label {
+        font-weight: normal;
+    }
+
+    #closeModal {
+        color: #fff;
+        background: none;
+        border: none;
+        font-size: 28px;
+    }
+
+    .modal-body {
+        padding: 30px;
+    }
+
+    .modal-title {
+        font-size: 24px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var tableRows = document.querySelectorAll("#employeeTable tbody tr");
+        tableRows.forEach(function (row) {
+            var status = row.querySelector("#statusHide").textContent.trim();
+            switch (status) {
+                case "inactive":
+                    row.classList.add("inactive");
+                    break;
+                case "onhold":
+                    row.classList.add("onhold");
+                    break;
+                default:
+                    row.classList.add("active");
+            }
+        });
+    });
+
+</script>
+<script>
+    const emailCheckbox = document.getElementById('emailCheckbox');
+    const idCheckbox = document.getElementById('idCheckbox');
+    const usernameCheckbox = document.getElementById('usernameCheckbox');
+    const userTypeCheckbox = document.getElementById('userTypeCheckbox');
+    const joiningDateCheckbox = document.getElementById('joiningDateCheckbox');
+    const annualSalaryCheckbox = document.getElementById('annualSalaryCheckbox');
+
+
+    const emailColumn = document.querySelector('th:nth-of-type(3)');
+    const idColumn = document.querySelector('th:nth-of-type(2)');
+    const usernameColumn = document.querySelector('th:nth-of-type(1)');
+
+    const userTypeColumn = document.querySelector('th:nth-of-type(4)');
+    const joiningDateColumn = document.querySelector('th:nth-of-type(6)');
+    const annualSalaryColumn = document.querySelector('th:nth-of-type(5)');
+
+    const latitudeCheckbox = document.getElementById('latitudeCheckbox');
+    const longitudeCheckbox = document.getElementById('longitudeCheckbox');
+    const kmRupeesCheckbox = document.getElementById('kmRupeesCheckbox');
+    const birthDateCheckbox = document.getElementById('birthDateCheckbox');
+    const mobileCheckbox = document.getElementById('mobileCheckbox');
+    const passwordCheckbox = document.getElementById('passwordCheckbox');
+    const userGroupCheckbox = document.getElementById('userGroupCheckbox');
+    const departmentCheckbox = document.getElementById('departmentCheckbox');
+    const statusCheckbox = document.getElementById('statusCheckbox');
+
+    const latitudeColumn = document.querySelector('th:nth-of-type(7)');
+    const longitudeColumn = document.querySelector('th:nth-of-type(8)');
+    const kmRupeesColumn = document.querySelector('th:nth-of-type(9)');
+    const birthDateColumn = document.querySelector('th:nth-of-type(10)');
+    const mobileColumn = document.querySelector('th:nth-of-type(11)');
+    const passwordColumn = document.querySelector('th:nth-of-type(12)');
+    const userGroupColumn = document.querySelector('th:nth-of-type(13)');
+    const departmentColumn = document.querySelector('th:nth-of-type(14)');
+    const statusColumn = document.querySelector('th:nth-of-type(15)');
+
+    function toggleColumnVisibility(checkbox, column) {
+        const index = column.cellIndex + 1;
+        const headerSelector = `th:nth-child(${index})`;
+        const dataSelector = `td:nth-child(${index})`;
+
+        if (checkbox.checked) {
+            document.querySelector(headerSelector).removeAttribute('hidden');
+            document.querySelectorAll(dataSelector).forEach(td => td.removeAttribute('hidden'));
+        } else {
+            document.querySelector(headerSelector).setAttribute('hidden', '');
+            document.querySelectorAll(dataSelector).forEach(td => td.setAttribute('hidden', ''));
+        }
+    }
+
+    latitudeCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(latitudeCheckbox, latitudeColumn);
+    });
+
+    emailCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(emailCheckbox, emailColumn);
+    });
+
+    usernameCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(usernameCheckbox, usernameColumn);
+    });
+
+    idCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(idCheckbox, idColumn);
+    });
+
+    longitudeCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(longitudeCheckbox, longitudeColumn);
+    });
+
+    kmRupeesCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(kmRupeesCheckbox, kmRupeesColumn);
+    });
+
+    birthDateCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(birthDateCheckbox, birthDateColumn);
+    });
+
+    mobileCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(mobileCheckbox, mobileColumn);
+    });
+
+    passwordCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(passwordCheckbox, passwordColumn);
+    });
+
+    userGroupCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(userGroupCheckbox, userGroupColumn);
+    });
+
+    departmentCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(departmentCheckbox, departmentColumn);
+    });
+
+    statusCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(statusCheckbox, statusColumn);
+    });
+
+    userTypeCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(userTypeCheckbox, userTypeColumn);
+    });
+
+    joiningDateCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(joiningDateCheckbox, joiningDateColumn);
+    });
+
+    annualSalaryCheckbox.addEventListener('change', () => {
+        toggleColumnVisibility(annualSalaryCheckbox, annualSalaryColumn);
+    });
+
+    if (!emailColumn.hasAttribute('hidden')) emailCheckbox.checked = true;
+    if (!idColumn.hasAttribute('hidden')) idCheckbox.checked = true;
+    if (!usernameColumn.hasAttribute('hidden')) usernameCheckbox.checked = true;
+    if (!userTypeColumn.hasAttribute('hidden')) userTypeCheckbox.checked = true;
+    if (!joiningDateColumn.hasAttribute('hidden')) joiningDateCheckbox.checked = true;
+    if (!annualSalaryColumn.hasAttribute('hidden')) annualSalaryCheckbox.checked = true;
+
+    if (!latitudeColumn.hasAttribute('hidden')) latitudeCheckbox.checked = true;
+    if (!longitudeColumn.hasAttribute('hidden')) longitudeCheckbox.checked = true;
+    if (!kmRupeesColumn.hasAttribute('hidden')) kmRupeesCheckbox.checked = true;
+    if (!birthDateColumn.hasAttribute('hidden')) birthDateCheckbox.checked = true;
+    if (!mobileColumn.hasAttribute('hidden')) mobileCheckbox.checked = true;
+    if (!passwordColumn.hasAttribute('hidden')) passwordCheckbox.checked = true;
+    if (!userGroupColumn.hasAttribute('hidden')) userGroupCheckbox.checked = true;
+    if (!departmentColumn.hasAttribute('hidden')) departmentCheckbox.checked = true;
+    if (!statusColumn.hasAttribute('hidden')) statusCheckbox.checked = true;
+
+</script>
+
+
+
+<script>
+    // JavaScript to trigger modal
+    document.getElementById("customFieldsBtn").addEventListener("click", function () {
+        $('#contactModal').modal('show');
+    });
+    document.getElementById("closeModal").addEventListener("click", function () {
+        $('#contactModal').modal('hide');
+    });
+</script>
+
+
+<style>
+    .badge {
+        cursor: pointer;
+        border-radius: 8px;
+
+    }
+
+    .badge:hover {
+        color: white;
+    }
+
+    body {
+        background: #e8cbc0;
+        background: -webkit-linear-gradient(to right, #e8cbc0, #636fa4);
+        background: linear-gradient(to right, #e8cbc0, #636fa4);
+        min-height: 100vh;
+    }
+
+    .social-link {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        border-radius: 50%;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+    }
+
+    .social-link:hover,
+    .social-link:focus {
+        background: #ddd;
+        text-decoration: none;
+        color: #555;
+    }
+
+    .scrollable-container {
+        height: 600px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+    }
+
+        {
+            {
+            !-- .scrollable-container::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            --
+        }
+    }
+
+        {
+            {
+            !-- .scrollable-container::-webkit-scrollbar-thumb {
+                background: transparent;
+            }
+
+            --
+        }
+    }
+
+    #card:hover {
+        transform: scale(1.1);
+        transition: transform 0.3s ease;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const userCards = document.querySelectorAll(".user-card");
+
+        searchInput.addEventListener("input", function () {
+            const searchValue = searchInput.value.trim().toLowerCase();
+
+            userCards.forEach((card) => {
+                const username = card.querySelector(".main-text h2 a").textContent.toLowerCase();
+
+                if (username.includes(searchValue)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    });
+</script>
+
+
+<script>
+    // Function to filter users based on the search input
+    function filterUsers() {
+        var searchInput = document.getElementById('searchInput');
+        var filter = searchInput.value.toLowerCase();
+        var users = document.querySelectorAll('.profile-area .card');
+
+        users.forEach(function (user) {
+            var username = user.querySelector('h5 a').textContent.toLowerCase();
+            if (username.includes(filter)) {
+                user.style.display = 'block';
+            } else {
+                user.style.display = 'none';
+            }
+        });
+    }
+
+    // Attach an event listener to the search input
+    document.getElementById('searchInput').addEventListener('input', filterUsers);
+</script>
+
+<script>
+    function uploadExcel() {
+        const fileInput = document.getElementById('excelFile');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('excelFile', file);
+
+            fetch('/importExcel', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.text())
+                .then(message => {
+                    console.log(message);
+                    alert('Data imported successfully');
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error importing data:', error);
+                    alert('Error importing data');
+                });
+        } else {
+            alert('Please select an Excel file');
+        }
+    }
+</script>
+
+<script>
+    // Function to sort user cards alphabetically by user_name and move inactive/on-hold to the end
+    function sortUserCards() {
+        var userCards = document.getElementById('user-cards');
+        var cards = userCards.getElementsByClassName('card');
+        var sortedCards = Array.from(cards).sort(function (a, b) {
+            var nameA = a.querySelector('h5').innerText.toUpperCase();
+            var nameB = b.querySelector('h5').innerText.toUpperCase();
+            var statusA = a.classList.contains('inactive-onhold-card');
+            var statusB = b.classList.contains('inactive-onhold-card');
+
+            if (!statusA && statusB) {
+                return -1; // Move a before b if a is active and b is inactive/on-hold
+            } else if (statusA && !statusB) {
+                return 1; // Move b before a if a is inactive/on-hold and b is active
+            } else {
+                // If both have the same status or both have different status, sort alphabetically
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+        // Re-append sorted cards to the container
+        sortedCards.forEach(function (card) {
+            userCards.appendChild(card);
+        });
+    }
+
+    // Call the sorting function when the page is loaded
+    window.onload = function () {
+        sortUserCards();
+    };
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get references to the card view and table view elements
+        const cardView = document.getElementById('CardView');
+        const tableView = document.getElementById('tableView');
+
+        // Get references to the card view and table view icons
+        const cardViewIcon = document.querySelector('.fa-th-large');
+        const tableViewIcon = document.querySelector('.fa-table');
+
+        // Function to switch to card view
+        function switchToCardView() {
+            cardView.style.display = 'block';
+            tableView.style.display = 'none';
+            // Store the preference in localStorage
+            localStorage.setItem('viewPreference', 'card');
+        }
+
+        // Function to switch to table view
+        function switchToTableView() {
+            cardView.style.display = 'none';
+            tableView.style.display = 'block';
+            // Store the preference in localStorage
+            localStorage.setItem('viewPreference', 'table');
+        }
+
+        // Function to check screen width and set initial view
+        function setInitialView() {
+            const screenWidth = window.innerWidth;
+            if (screenWidth <= 1024) {
+                // For phones or smaller screens, show table view by default
+                switchToTableView();
+            } else {
+                // For laptops or wider screens, retrieve preference from localStorage
+                const viewPreference = localStorage.getItem('viewPreference');
+                if (viewPreference === 'card') {
+                    switchToCardView();
+                } else {
+                    switchToTableView();
+                }
+            }
+        }
+
+        // Call setInitialView function to set the initial view
+        setInitialView();
+
+        // Event listener for card view icon click
+        cardViewIcon.addEventListener('click', function () {
+            switchToCardView();
+        });
+
+        // Event listener for table view icon click
+        tableViewIcon.addEventListener('click', function () {
+            switchToTableView();
+        });
+    });
+</script>
+
+
+
+<style>
+    /* Hide the icons on screens with a max-width of 1024px */
+    @media (max-width: 1024px) {
+
+        .fa-th-large,
+        .fa-table {
+            display: none;
+        }
+    }
+</style>

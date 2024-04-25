@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ScaleEdge</title>
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/javascripts/usermanagment.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/n.css">
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@5.0.0/dist/apexcharts.min.css">
+
+    <style>
+        .imagePreview {
+            width: 260px;
+            height: 277px;
+            margin-bottom: 20px;
+            background-size: cover;
+            background-position: center;
+            justify-content: center;
+        }
+
+        .swal-title {
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .swal-content {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .swal-button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            margin: 5px;
+        }
+
+        .swal-popup {
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .swal-popup {
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+
+
+        .swal-title {
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .swal-button {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+
+        .swal-footer {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .match-email {
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        .swal-button.confirm {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .swal-button.cancel {
+            background-color: #dc3545;
+            color: #fff;
+        }
+    </style>
+    <style>
+        /* CSS */
+        .button-70 {
+            background-image: linear-gradient(#0dccea, #0d70ea);
+            border: 0;
+            border-radius: 4px;
+            box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            font-family: Montserrat, sans-serif;
+            font-size: .9em;
+            margin: 5px;
+            padding: 10px 15px;
+            text-align: center;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .button-71 {
+            background-image: linear-gradient(#ea0d69, #0dccea);
+            border: 0;
+            border-radius: 4px;
+            box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            font-family: Montserrat, sans-serif;
+            font-size: .9em;
+            margin: 5px;
+            padding: 10px 15px;
+            text-align: center;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-scroller">
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" >
+          <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+            <a class="navbar-brand brand-logo" href="/" style="font-weight: 800;color: blueviolet;"><i
+                class="fa-solid fa-s fa-spin fa-lg" style="margin-right: 20px;"></i> ScaleEdge</a>
+            <a class="navbar-brand brand-logo-mini" href="/" style="font-weight: 800;color: blueviolet;"><i
+                class="fa-solid fa-s fa-spin fa-lg"></i></a>
+          </div>
+          <div class="navbar-menu-wrapper d-flex align-items-stretch">
+            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+              <span class="mdi mdi-menu"></span>
+            </button>
+            <div class="search-field d-none d-md-block">
+              <form class="d-flex align-items-center h-100" action="#">
+                <div class="input-group">
+                  <div class="input-group-prepend bg-transparent">
+                    <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                  </div>
+                  <input type="text" id="searchInput" class="form-control bg-transparent border-0" placeholder="Search...">
+                </div>
+              </form>
+            </div>
+            <ul class="navbar-nav navbar-nav-right">
+              <li class="nav-item nav-profile dropdown">
+                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <div class="nav-profile-img">
+                    <img src="" alt="image">
+                    <span class="availability-status online"></span>
+                  </div>
+                  <div class="nav-profile-text">
+                    <p class="mb-1 text-black font-weight-bold"></p>
+                  </div>
+                </a>
+                <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                  <a class="dropdown-item loader" href="/userProfile">
+                    <i class="mdi mdi-cached me-2 text-success"></i> View Profile </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/logout">
+                    <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
+                </div>
+              </li>
+        
+        
+              <li class="nav-item d-none d-lg-block full-screen-link">
+                <a class="nav-link">
+                  <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+                </a>
+              </li>
+        
+        
+        
+            </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+              data-toggle="offcanvas">
+              <span class="mdi mdi-menu"></span>
+            </button>
+          </div>
+        </nav>
+        
+        
+        <div class="container-fluid page-body-wrapper p-0 " style="margin-top: 70px;">
+            <div id="preloader">
+              <div class="waviy">
+                <span style="--i:1">L</span>
+                <span style="--i:2">o</span>
+                <span style="--i:3">a</span>
+                <span style="--i:4">d</span>
+                <span style="--i:5">i</span>
+                <span style="--i:6">n</span>
+                <span style="--i:7">g</span>
+                <span style="--i:8">.</span>
+                <span style="--i:9">.</span>
+                <span style="--i:10">.</span>
+              </div>
+            </div>
+            <div id="partial"></div>
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+              <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-link loader" id="nav-link-id" href="/userdashboard">
+                    <span class="menu-title">Dashboard</span>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link loader" id="report-user" href="/report_user">
+                    <span class="menu-title"> User Summary</span>
+                    <i class="mdi mdi-table-large menu-icon"></i>
+                  </a>
+                </li>
+            
+                <li class="nav-item">
+                  <a class="nav-link loader" id="nav-link-id" href="/facematchnew">
+                    <span class="menu-title">Attendance</span>
+                    <i class="mdi mdi-camera menu-icon"></i>
+                  </a>
+                </li>
+            
+            
+                <li class="nav-item">
+                  <a class="nav-link "  data-bs-toggle="collapse" href="#ui9-basic" aria-expanded="false" aria-controls="ui9-basic">
+                    <span class="menu-title">Salary</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-briefcase-check menu-icon"></i>
+                  </a>
+                  <div class="collapse" id="ui9-basic">
+                    <ul class="nav flex-column sub-menu">
+                      <li class="nav-item"> <a class="nav-link loader" id="nav-link-id" href="/payRollForUser">Generate Salary</a></li>
+                      <li class="nav-item"> <a class="nav-link loader" id="nav-link-id" href="/ApplyLoan">Apply For Loan</a></li>
+                      <li class="nav-item"> <a class="nav-link loader" id="nav-link-id" href="/applyArrears">Apply Arrears</a></li>
+                      <li class="nav-item"> <a class="nav-link loader" id="nav-link-id" href="/applyReimburshment">Apply Reimburshment</a></li>
+                    </ul>
+                  </div>
+                </li>
+            
+            
+            
+                <li class="nav-item">
+                  <a class="nav-link "  data-bs-toggle="collapse" href="#ui1-basic" aria-expanded="false" aria-controls="ui1-basic">
+                    <span class="menu-title">Track Meeting</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-web menu-icon"></i>
+                  </a>
+                  <div class="collapse" id="ui1-basic">
+                    <ul class="nav flex-column sub-menu">
+                      <li class="nav-item">
+                        <a class="nav-link loader" id="nav-link-id" href="/attendanceMeetingIn">Meeting-in</a>
+                      </li>
+                      <li class="nav-item"> <a class="nav-link loader" id="nav-link-id" href="/attendanceMeetingOut">Meeting-out</a></li>
+                    </ul>
+                  </div>
+                </li>
+            
+                <li class="nav-item">
+                  <a class="nav-link "  data-bs-toggle="collapse" href="#ui2-basic" aria-expanded="false" aria-controls="ui2-basic">
+                    <span class="menu-title">Leave</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-calendar-edit menu-icon"></i>
+                  </a>
+                  <div class="collapse" id="ui2-basic">
+                    <ul class="nav flex-column sub-menu">
+                      <li class="nav-item">
+                        <a class="nav-link loader" id="nav-link-id" href="/leaveAppl">Leave Application</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link loader" id="nav-link-id" href="/leaveTableuser">Leave List</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+            
+                <!-- <li class="nav-item sidebar-actions">
+                    <span class="nav-link loader" id="nav-link-id">
+                      <div class="border-bottom">
+                        <h6 class="font-weight-normal mb-3">Projects</h6>
+                      </div>
+                      <button class="btn btn-block btn-lg btn-gradient-primary mt-4">+ Add a project</button>
+                      <div class="mt-4">
+                        <div class="border-bottom">
+                          <p class="text-secondary">Categories</p>
+                        </div>
+                        <ul class="gradient-bullet-list mt-4">
+                          <li>Free</li>
+                          <li>Pro</li>
+                        </ul>
+                      </div>
+                    </span>
+                  </li> -->
+            
+                <li class="nav-item">
+                  <a class="nav-link " data-bs-toggle="collapse" href="#ui3-basic" aria-expanded="false" aria-controls="ui3-basic">
+                    <span class="menu-title">Travel Allowances</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-calendar-edit menu-icon"></i>
+                  </a>
+                  <div class="collapse" id="ui3-basic">
+                    <ul class="nav flex-column sub-menu">
+                      <li class="nav-item">
+                        <a class="nav-link loader" id="nav-link-id" href="/travelDistance">TA Report</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+            
+                <li class="nav-item">
+                  <a class="nav-link "  data-bs-toggle="collapse" href="#ui10-basic" aria-expanded="false" aria-controls="ui10-basic">
+                    <span class="menu-title">Office Letters</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-dropbox menu-icon"></i>
+                  </a>
+                  <div class="collapse" id="ui10-basic">
+                    <ul class="nav flex-column sub-menu">
+                      <li class="nav-item"> <a class="nav-link loader" href="/offerletter">Generate Offer Letter</a></li>
+                      <li class="nav-item"> <a class="nav-link loader" href="/terminationletter">Termination Letter</a></li>
+                      <li class="nav-item"> <a class="nav-link loader" href="/appointmentLetter">Appointment Letter</a></li>
+                      <li class="nav-item"> <a class="nav-link loader" href="/confirmationLetter">Confirmation Letter</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link "  href="/logout">
+                    <span class="menu-title">Sign Out</span>
+                    <i class="mdi mdi-logout menu-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                const storedUsername = localStorage.username;
+                const storedImagePath = localStorage.imagePath;
+                const storedUserGroup = localStorage.userGroup;
+            
+                const profileImage = document.querySelector('.nav-profile-img img');
+                const usernameElement = document.querySelector('.nav-profile-text .font-weight-bold');
+                const userGroupElement = document.querySelector('.nav-profile-text .text-secondary');
+            
+                if (storedImagePath) {
+                  profileImage.src = '/profile/' + storedImagePath;
+                }
+            
+                if (storedUsername) {
+                  usernameElement.textContent = storedUsername;
+                }
+            
+                if (storedUserGroup) {
+                  userGroupElement.textContent = capitalizeFirst(storedUserGroup);
+                }
+              });
+            
+              function capitalizeFirst(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1);
+              }
+            </script>
+            <script>
+              var fullyLoaded = false; // Flag to track whether the page is fully loaded
+            
+              // Show preloader when page is being refreshed
+              window.addEventListener('beforeunload', function () {
+                if (!fullyLoaded) {
+                  document.getElementById('preloader').style.display = 'flex';
+                }
+              });
+            
+              document.addEventListener('DOMContentLoaded', function () {
+                // Check if the 'partial' ID is present in the page
+                if (!document.getElementById('partial')) {
+                  // If 'partial' is not found, show the loader
+                  document.getElementById('preloader').style.display = 'flex';
+                }
+              });
+            
+              // Hide loader when the page is fully loaded
+              window.addEventListener('load', function () {
+                fullyLoaded = true; // Set the flag to true when the page is fully loaded
+                // Regardless of the 'partial' ID, hide the loader when the page fully loads
+                document.getElementById('preloader').style.display = 'none';
+              });
+            
+            </script>
+            
+            <style>
+              .waviy {
+              position: relative;
+              -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, 0.2)); }
+            
+            .waviy span {
+              position: relative;
+              display: inline-block;
+              font-size: 40px;
+              color: #000;
+              text-transform: uppercase;
+              animation: waviy 1s infinite;
+              animation-delay: calc(.1s * var(--i)); }
+            
+            @keyframes waviy {
+              0%, 40%, 100% {
+                transform: translateY(0); }
+              20% {
+                transform: translateY(-20px); } }
+            
+            #preloader {
+              position: fixed;
+              width: 100%;
+              height: 100%;
+              z-index: 99999;
+              left: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              top: 0;
+              background-color: #fff; }
+            </style>
+            <div class="main-panel ">
+                <div class="content-wrapper">
+                    <div class="page-header">
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                <i class="mdi mdi-home"></i>
+                            </span> Attendance
+                        </h3>
+
+                    </div>
+                    <div class="row" id="permission" style="display: none;">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <input type="file" accept="image/*;capture=camera" capture="camera" id="imageInput1"
+                                        accept="image/*" hidden>
+                                    <img class="imagePreview" id="imagePreview1" src="/profile/IMG20231128175757-min.jpg" hidden>
+                                    <!-- Add an img tag for imagePreview1 -->
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5">
+                                            <input type="file" class="form-control" accept="image/*;capture=camera"
+                                                capture="camera" id="imageInput2" accept="image/*" placeholder="Press">
+                                            <div>
+                                                <img class="imagePreview img-fluid" src="/images/1.jpg"
+                                                    id="imagePreview2">
+                                            </div>
+                                            <div class="btn d-flex justify-content-center">
+                                                <button id="punch-in" class="btn btn-primary"
+                                                    style="display: none;">Punch
+                                                    In</button>
+                                                <button id="punch-out" style="display: none; margin-left:10px"
+                                                    class=" btn btn-danger ">Punch
+                                                    Out</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row " id="notPermission" style="display: none;">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p class="text-black">"Permission denied for attendance submission due to mismatched
+                                        unique id."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- HTML structure for Bootstrap modal -->
+                <div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="text-primary" style="font-size: 16px; ">Please Wait...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+</body>
+
+</html>
+<style>
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    .modal-content {
+        background: transparent;
+        border: none;
+    }
+</style>
+
+<script src="/assets/js/face-api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script async>
+    window.onload = async function () {
+        try {
+            const response = await fetch('/uniqueId', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin'
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log(data);
+
+            const userEmployeeId = localStorage.getItem('userUniqueId');
+
+            if (data.employeeIds.length > 0 && userEmployeeId) {
+                const isMatched = data.employeeIds.some(employee => employee.employee_id === userEmployeeId);
+
+                if (isMatched) {
+                    document.getElementById('permission').style.display = 'block';
+                } else {
+                    document.getElementById('notPermission').style.display = 'block';
+                }
+            } else {
+                alert('No data found or userEmployeeId is missing.');
+            }
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+</script>
+
+
+
+<!-- Add Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+    /* CSS */
+    .button-20 {
+        appearance: button;
+        background-color: #4D4AE8;
+        background-image: linear-gradient(180deg, rgba(255, 255, 255, .15), rgba(255, 255, 255, 0));
+        border: 1px solid #4D4AE8;
+        border-radius: 1rem;
+        box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0 inset, rgba(46, 54, 80, 0.075) 0 1px 1px;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Inter, sans-serif;
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.5;
+        margin: 0;
+        padding: .5rem 1rem;
+        text-align: center;
+        text-transform: none;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+    }
+
+    .button-20:focus:not(:focus-visible),
+    .button-20:focus {
+        outline: 0;
+    }
+
+    .button-20:hover {
+        background-color: #3733E5;
+        border-color: #3733E5;
+    }
+
+    .button-20:focus {
+        background-color: #413FC5;
+        border-color: #3E3BBA;
+        box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0 inset, rgba(46, 54, 80, 0.075) 0 1px 1px, rgba(104, 101, 235, 0.5) 0 0 0 .2rem;
+    }
+
+    .button-20:active {
+        background-color: #3E3BBA;
+        background-image: none;
+        border-color: #3A38AE;
+        box-shadow: rgba(46, 54, 80, 0.125) 0 3px 5px inset;
+    }
+
+    .button-20:active:focus {
+        box-shadow: rgba(46, 54, 80, 0.125) 0 3px 5px inset, rgba(104, 101, 235, 0.5) 0 0 0 .2rem;
+    }
+
+    .button-20:disabled {
+        background-image: none;
+        box-shadow: none;
+        opacity: .65;
+        pointer-events: none;
+    }
+
+    div:where(.swal2-container).swal2-backdrop-show,
+    div:where(.swal2-container).swal2-noanimation {
+        background: rgba(0, 0, 0, 0) !important;
+    }
+</style>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+
+        function showModels() {
+            Swal.fire({
+                title: 'Just a moment, please wait...',
+                allowOutsideClick: false,
+                showCancelButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+                customClass: {
+                    title: 'swal-title',
+                    content: 'swal-content',
+                    popup: 'swal-popup',
+                    confirmButton: 'swal-button'
+                }
+            });
+        }
+
+
+
+        function hideModels() {
+            Swal.close();
+        }
+
+        showModels()
+        const MODEL_URL = '/models';
+        await Promise.all([
+            faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL),
+            faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+            faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+            faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL)
+        ]);
+
+        hideModels()
+
+        // Function to detect faces in an image
+        const detectFace = async (image) => {
+            const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors();
+            return detections;
+        };
+
+        // Function to compare face descriptors
+        const matchFaces = async (descriptors1, descriptors2) => {
+            const loginEmail = localStorage.getItem("loginemail");
+            const labeledDescriptors1 = new faceapi.LabeledFaceDescriptors(loginEmail, descriptors1);
+            //const labeledDescriptors1 = new faceapi.LabeledFaceDescriptors("Person 1", descriptors1);
+            const labeledDescriptors2 = new faceapi.LabeledFaceDescriptors("Person 2", descriptors2);
+            const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors1);
+            const bestMatch = faceMatcher.findBestMatch(labeledDescriptors2.descriptors[0]);
+            return bestMatch;
+        };
+
+        const imageInput1 = document.getElementById('imageInput1');
+        const imagePreview1 = document.getElementById('imagePreview1');
+        const imageInput2 = document.getElementById('imageInput2');
+        const imagePreview2 = document.getElementById('imagePreview2');
+
+        (async function () {
+            const imagePreviewSrc = document.querySelector('#imagePreview1').src;
+            console.log('Image Preview Src:', imagePreviewSrc); // Check if image preview src is retrieved correctly
+            if (imagePreviewSrc) {
+                const image = new Image();
+                image.onload = async function () {
+                    const detections = await detectFace(image);
+                    const descriptors = detections.map(detection => detection.descriptor);
+                    imageInput1.descriptors = descriptors;
+                };
+                image.src = imagePreviewSrc;
+            }
+        })();
+
+        imageInput2.addEventListener('change', async function () {
+            showPleaseWait(); // Show loading message
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = async function (event) {
+                    const imageURL = event.target.result;
+                    imagePreview2.src = imageURL;
+                    const image = await faceapi.bufferToImage(file);
+
+                    setTimeout(async () => {
+                        const startTime = performance.now();
+                        try {
+                            const detections = await detectFace(image);
+                            const descriptors = detections.map(detection => detection.descriptor);
+                            if (imageInput1.descriptors && descriptors) {
+                                const matchStartTime = performance.now();
+                                const match = await matchFaces(imageInput1.descriptors, descriptors);
+                                const endTime = performance.now();
+                                const matchingTime = (endTime - startTime) / 1000;
+                                if (matchingTime > 10) {
+                                    stopPleaseWaitLoading();
+                                    displayTooLongMessage();
+                                    return;
+                                }
+                                const loginEmail = localStorage.getItem("loginemail");
+                                if (match._label === loginEmail && match._distance < 0.51) {
+                                    stopPleaseWaitLoading();
+                                    displayMatchResult(loginEmail, matchingTime);
+                                    sendDataToBackend(loginEmail, matchingTime)
+                                } else {
+                                    displayNoMatchResult();
+                                }
+                            }
+                        } catch (error) {
+                            console.error('Error processing image:', error);
+                            stopPleaseWaitLoading(); // Ensure loading message is closed in case of error
+                        }
+                    }, 0);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+    });
+
+    function showPleaseWait() {
+        Swal.fire({
+            title: 'Please wait',
+            text: 'Fetching face from the database...',
+            allowOutsideClick: false,
+            showCancelButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+            customClass: {
+                title: 'swal-title',
+                content: 'swal-content',
+                popup: 'swal-popup',
+                confirmButton: 'swal-button'
+            }
+        });
+    }
+
+
+    function stopPleaseWaitLoading() {
+        Swal.close();
+    }
+
+    function showPleaseWaitToFetchImage() {
+        Swal.fire({
+            title: 'Please wait',
+            text: 'Fetching Image from the database...',
+            allowOutsideClick: false,
+            showCancelButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+            customClass: {
+                title: 'swal-title',
+                content: 'swal-content',
+                popup: 'swal-popup',
+                confirmButton: 'swal-button'
+            }
+        });
+    }
+
+
+    function stopPleaseWaitToFetchImage() {
+        Swal.close();
+    }
+
+
+    // Display match result
+    function displayMatchResult(loginEmail, matchingTime) {
+        Swal.fire({
+            icon: 'success',
+            title: '🎉 Face Match Success!',
+            footer: `Match duration: ${matchingTime.toFixed(2)} seconds`,
+            confirmButtonText: 'Great!',
+            customClass: {
+                popup: 'swal-popup',
+                icon: 'swal-icon',
+                title: 'swal-title',
+                confirmButton: 'swal-button'
+            }
+        });
+        document.getElementById("punch-in").style.display = "block";
+        document.getElementById("punch-out").style.display = "block";
+    }
+
+
+    // Display no match result
+    function displayNoMatchResult() {
+        Swal.fire({
+            icon: 'error',
+            title: '🚫 Face Match Failed',
+            text: 'Sorry, no match found for this face.',
+            footer: 'Try again or match the face with your selfie.',
+            confirmButtonText: 'Got it',
+            customClass: {
+                popup: 'swal-popup',
+                icon: 'swal-icon',
+                title: 'swal-title',
+                confirmButton: 'swal-button'
+            }
+        });
+        document.getElementById("punch-in").style.display = "none";
+        document.getElementById("punch-out").style.display = "none";
+    }
+
+    function displayTooLongMessage() {
+        Swal.fire({
+            icon: 'error',
+            title: '⏳ Time Limit Exceeded',
+            text: 'Sorry, the process took too long. Please try again.',
+            confirmButtonText: 'Got it',
+            customClass: {
+                title: 'swal-title',
+                content: 'swal-content',
+                popup: 'swal-popup',
+                confirmButton: 'swal-button'
+            }
+        });
+        document.getElementById("punch-in").style.display = "none";
+        document.getElementById("punch-out").style.display = "none";
+    }
+
+
+    function sendDataToBackend(recognizedLabel, duration) {
+        fetch('/storeData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                recognizedLabel: recognizedLabel,
+                timeSpent: duration
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Data sent to backend:', data);
+            })
+            .catch(error => {
+                console.error('Error sending data to backend:', error);
+            });
+    }
+
+    async function punchInOrOut(actionType) {
+        try {
+            const faceDetailsResponse = await fetch('/getFaceDetails');
+            if (!faceDetailsResponse.ok) {
+                throw new Error('Error fetching face details');
+            }
+            const faceDetails = await faceDetailsResponse.json();
+            const user_id = faceDetails.id;
+            const user_email = faceDetails.user_email;
+            const user_name = faceDetails.user_name;
+            const latitude = faceDetails.latitude;
+            const longitude = faceDetails.longitude;
+
+            navigator.geolocation.getCurrentPosition(async function (position) {
+                const currentLat = position.coords.latitude;
+                const currentLon = position.coords.longitude;
+
+                const distance = getDistance(currentLat, currentLon, latitude, longitude);
+
+                const range_status = distance <= 0.3 ? "ok" : "onfield";
+
+                const currentDate = new Date().toISOString().slice(0, 10);
+                const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false });
+                const currentHour = new Date().getHours();
+                const currentMinute = new Date().getMinutes();
+
+                let late_time = "00:00:00";
+                let late_arrive = "No";
+
+                if (currentHour === 10 && currentMinute > 15) {
+                    late_arrive = "Yes";
+                    late_time = `${currentHour - 10}:${currentMinute - 15}:00`;
+                } else if (currentHour > 10) {
+                    late_arrive = "Yes";
+                    late_time = `${currentHour - 10}:${currentMinute}:00`;
+                }
+
+                let attendance_mark;
+                if (actionType === "in") {
+                    if (currentHour < 10) {
+                        attendance_mark = "Present";
+                    } else if (currentHour >= 10 && currentHour < 13) {
+                        attendance_mark = "Halfday";
+                    } else {
+                        attendance_mark = "Absent";
+                    }
+                } else if (actionType === "out") {
+                    if (currentHour < 10) {
+                        attendance_mark = "Present";
+                    } else if (currentHour >= 10 && currentHour < 13) {
+                        attendance_mark = "Halfday";
+                    } else {
+                        attendance_mark = "Absent";
+                    }
+                }
+
+                if (range_status === "onfield") {
+                    const confirmationMessage = actionType === "in" ?
+                        '⚠️ Are you sure you want to check-in outside?' :
+                        '⚠️ Are you sure you want to check-out outside?';
+                    const confirmAction = await Swal.fire({
+                        title: confirmationMessage,
+                        text: 'You are outside the specified location range. Do you still want to proceed?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: `Yes, ${actionType === "in" ? 'check-in' : 'check-out'}`,
+                        cancelButtonText: 'No, cancel',
+                        confirmButtonColor: '#007bff',
+                        cancelButtonColor: '#dc3545',
+                        customClass: {
+                            popup: 'swal-popup',
+                            icon: 'swal-icon',
+                            title: 'swal-title',
+                            content: 'swal-content',
+                            confirmButton: 'swal-button',
+                            cancelButton: 'swal-button'
+                        }
+                    });
+
+                    if (confirmAction.isConfirmed) {
+                        const data = {
+                            user_id: user_id,
+                            A_type: actionType,
+                            user_lat: currentLat,
+                            user_lon: currentLon,
+                            date_column: currentDate,
+                            time_column: currentTime,
+                            range_status: range_status,
+                            user_email: localStorage.loginemail,
+                            user_name: user_name,
+                            attendance_mark: attendance_mark,
+                            late_time: late_time,
+                            late_arrive: late_arrive
+                        };
+
+                        const response = await fetch(`/storePunch${actionType === "in" ? "In" : "Out"}Details`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        });
+
+                        if (response.ok) {
+                            const successMessage = actionType === "in" ?
+                                'Check-in Successful!' :
+                                'Check-out Successful!';
+                            const greetingMessage = actionType === "in" ?
+                                'Welcome!' :
+                                'Goodbye!';
+                            Swal.fire({
+                                icon: 'success',
+                                title: successMessage,
+                                text: `${greetingMessage} Your ${actionType === "in" ? 'check-in' : 'check-out'} has been successfully recorded`,
+                                footer: `${actionType === "in" ? 'Check-in' : 'Check-out'} Time: ${currentTime}`,
+                                showConfirmButton: false,
+                                timer: 2500,
+                                customClass: {
+                                    popup: 'swal-popup',
+                                    icon: 'swal-icon',
+                                    title: 'swal-title',
+                                    content: 'swal-content',
+                                    footer: 'swal-footer'
+                                }
+                            }).then(() => {
+                                window.location.href = '/userdashboard';
+                            });
+                        } else {
+                            console.error(`Error inserting ${actionType === "in" ? 'check-in' : 'check-out'} attendance:`, response.statusText);
+                        }
+                    }
+                } else {
+                    const data = {
+                        user_id: user_id,
+                        A_type: actionType,
+                        user_lat: currentLat,
+                        user_lon: currentLon,
+                        date_column: currentDate,
+                        time_column: currentTime,
+                        range_status: range_status,
+                        user_email: localStorage.loginemail,
+                        user_name: user_name,
+                        attendance_mark: attendance_mark,
+                        late_time: late_time,
+                        late_arrive: late_arrive
+                    };
+
+                    const response = await fetch(`/storePunch${actionType === "in" ? "In" : "Out"}Details`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        const successMessage = actionType === "in" ?
+                            'Check-in Successful!' :
+                            'Check-out Successful!';
+                        const greetingMessage = actionType === "in" ?
+                            'Welcome!' :
+                            'Goodbye!';
+                        Swal.fire({
+                            icon: 'success',
+                            title: successMessage,
+                            text: `${greetingMessage} Your ${actionType === "in" ? 'check-in' : 'check-out'} has been successfully recorded`,
+                            footer: `${actionType === "in" ? 'Check-in' : 'Check-out'} Time: ${currentTime}`,
+                            showConfirmButton: false,
+                            timer: 2500,
+                            customClass: {
+                                popup: 'swal-popup',
+                                icon: 'swal-icon',
+                                title: 'swal-title',
+                                content: 'swal-content',
+                                footer: 'swal-footer'
+                            }
+                        }).then(() => {
+                            window.location.href = '/userdashboard';
+                        });
+                    } else {
+                        console.error(`Error inserting ${actionType === "in" ? 'check-in' : 'check-out'} attendance:`, response.statusText);
+                    }
+                }
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+
+
+    document.getElementById("punch-in").addEventListener("click", function () {
+        punchInOrOut("in");
+    });
+
+    document.getElementById("punch-out").addEventListener("click", function () {
+        punchInOrOut("out");
+    });
+
+    function getDistance(lat1, lon1, lat2, lon2) {
+        const radlat1 = (Math.PI * lat1) / 180;
+        const radlat2 = (Math.PI * lat2) / 180;
+        const theta = lon1 - lon2;
+        const radtheta = (Math.PI * theta) / 180;
+        let dist =
+            Math.sin(radlat1) * Math.sin(radlat2) +
+            Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        dist = Math.acos(dist);
+        dist = (dist * 180) / Math.PI;
+        dist = dist * 60 * 1.1515 * 1.609344;
+        return dist;
+    }
+
+
+
+
+</script>
